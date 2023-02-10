@@ -31,12 +31,12 @@ create table recipes
 ) engine = innodb
   default charset = utf8mb4;
 
-drop table if exists ingredent;
-create table ingredent
+drop table if exists ingredient;
+create table ingredient
 (
-    ingredent_id BIGINT primary key comment 'meal Id',
+    ingredient_id BIGINT primary key comment 'meal Id',
     food_name    varchar(50)  not null,
-    decription   varchar(100) not null comment 'english name of food',
+    description   varchar(100) not null comment 'english name of food',
     calories     int          not null comment 'mg/1000g',
     fat          int          null comment 'mg/1000g',
     carbohydrate int          null comment 'mg/1000g',
@@ -52,7 +52,7 @@ create table recipes_detail
 (
     detail_id    BIGINT primary key comment 'recipes detail id',
     recipes_id   BIGINT    not null,
-    ingredent_id BIGINT    not null,
+    ingredient_id BIGINT    not null,
     user_id      BIGINT    not null,
     weight       int       not null comment 'weight of this ingredent in this recipe',
     calories     int       not null comment 'calories of this ingredent in this recipe',
