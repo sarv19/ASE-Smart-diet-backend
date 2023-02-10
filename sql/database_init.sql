@@ -5,7 +5,7 @@ USE smartDiet;
 SET default_storage_engine = InnoDB;
 
 
-CREATE USER smartDietdev IDENTIFIED BY 'smartDietdev';
-create user smartDietdev@localhost identified by 'smartDietdev';
+CREATE USER smartDietDev IDENTIFIED BY 'smartDietDev';
+create user smartDietDev@localhost identified by 'smartDietDev';
 
-GRANT ALL PRIVILEGES ON smartDietdev.* TO dpmsdev@localhost ;
+GRANT ALL PRIVILEGES ON smartDietDev.* TO dpmsdev@localhost ;
