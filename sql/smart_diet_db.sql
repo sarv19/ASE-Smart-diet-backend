@@ -24,8 +24,8 @@ create table recipe
     user_id        BIGINT    not null,
     recipe_type   char(10)  not null comment 'breakfast, lunch, dinner, snack',
     recipe_time   datetime  null,
-    total_weight   int       not null comment 'total weight of one meal',
-    total_calories int       not null comment 'total calories of one meal',
+    total_weight   int       not null comment 'total weight(g) of one meal',
+    total_calories int       not null comment 'total calories(mg) of one meal',
     created_at     timestamp not null default current_timestamp,
     updated_at     timestamp not null default current_timestamp on update current_timestamp
 ) engine = innodb
@@ -54,8 +54,8 @@ create table recipe_detail
     recipe_id   BIGINT    not null,
     ingredient_id BIGINT    not null,
     user_id      BIGINT    not null,
-    weight       int       not null comment 'weight of this ingredient in this recipe',
-    calories     int       not null comment 'calories of this ingredient in this recipe',
+    weight       int       not null comment 'weight(g) of this ingredient in this recipe',
+    calories     int       not null comment 'calories(mg) of this ingredient in this recipe',
     created_at   timestamp not null default current_timestamp,
     updated_at   timestamp not null default current_timestamp on update current_timestamp
 ) engine = innodb
