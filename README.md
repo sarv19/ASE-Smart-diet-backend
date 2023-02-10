@@ -14,6 +14,7 @@ This project is the final project for ASE course.
 
 # directory
 
+```html
 .
 ├── README.md // the Readme file
 ├── doc // the docutment
@@ -37,6 +38,7 @@ This project is the final project for ASE course.
 │           └── com
 │               └── group42
 │                   └── SmartDietApplicationTests.java
+```
 
 
 
