@@ -17,13 +17,13 @@ create table user
 ) engine = innodb
   default charset = utf8mb4;
 
-drop table if exists recipes;
-create table recipes
+drop table if exists recipe;
+create table recipe
 (
-    recipes_id     BIGINT primary key comment 'meal Id',
+    recipe_id     BIGINT primary key comment 'recipe Id',
     user_id        BIGINT    not null,
-    recipes_type   char(10)  not null comment 'breakfast, lunch, dinner, snack',
-    recipes_time   datetime  null,
+    recipe_type   char(10)  not null comment 'breakfast, lunch, dinner, snack',
+    recipe_time   datetime  null,
     total_weight   int       not null comment 'total weight of one meal',
     total_calories int       not null comment 'total calories of one meal',
     created_at     timestamp not null default current_timestamp,
@@ -34,7 +34,7 @@ create table recipes
 drop table if exists ingredient;
 create table ingredient
 (
-    ingredient_id BIGINT primary key comment 'meal Id',
+    ingredient_id BIGINT primary key comment 'ingredient Id',
     food_name    varchar(50)  not null,
     description   varchar(100) not null comment 'english name of food',
     calories     int          not null comment 'mg/1000g',
@@ -47,15 +47,15 @@ create table ingredient
 ) engine = innodb
   default charset = utf8mb4;
 
-drop table if exists recipes_detail;
-create table recipes_detail
+drop table if exists recipe_detail;
+create table recipe_detail
 (
-    detail_id    BIGINT primary key comment 'recipes detail id',
-    recipes_id   BIGINT    not null,
+    detail_id    BIGINT primary key comment 'detail id',
+    recipe_id   BIGINT    not null,
     ingredient_id BIGINT    not null,
     user_id      BIGINT    not null,
-    weight       int       not null comment 'weight of this ingredent in this recipe',
-    calories     int       not null comment 'calories of this ingredent in this recipe',
+    weight       int       not null comment 'weight of this ingredient in this recipe',
+    calories     int       not null comment 'calories of this ingredient in this recipe',
     created_at   timestamp not null default current_timestamp,
     updated_at   timestamp not null default current_timestamp on update current_timestamp
 ) engine = innodb
