@@ -44,3 +44,10 @@ crashlytics-build.properties
 
 # MacOS
 .DS_Store
+
+# logs
+log/
+logs/
+
+# mvn
+.mvn/
