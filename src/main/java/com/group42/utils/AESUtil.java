@@ -118,10 +118,10 @@ public class AESUtil {
 
 
     public static void main(String[] args) {
-        String password = "123123";
+        String password = "123";
         String cbcResult = encrypt(password);
         System.out.println("password:" + password + ", encrypt:" + cbcResult);
-        String cbcDecrypt = decrypt("SLJ3hfwt86MBRDjgc16svg==");
+        String cbcDecrypt = decrypt("ffvjeFBLCeh1xrCBEv0FjQ==");
         System.out.println("aes decrypt:" + cbcDecrypt);
     }
 }

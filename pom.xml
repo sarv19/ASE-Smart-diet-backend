@@ -21,6 +21,7 @@
         <mybatis.plus.version>3.5.3.1</mybatis.plus.version>
         <jjwt.version>0.9.1</jjwt.version>
         <druid.version>1.2.6</druid.version>
+        <page.helper.version>1.4.6</page.helper.version>
     </properties>
     <dependencies>
         <dependency>
@@ -64,6 +65,16 @@
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>${mybatis.plus.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <version>${page.helper.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.fastjson2</groupId>
+            <artifactId>fastjson2</artifactId>
+            <version>2.0.8</version>
         </dependency>
 
         <dependency>
