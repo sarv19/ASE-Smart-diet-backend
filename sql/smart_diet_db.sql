@@ -54,7 +54,7 @@ create table recipe_detail
     recipe_id   BIGINT    not null,
     ingredient_id BIGINT    not null,
     user_id      BIGINT    not null,
-    weight       int       not null comment 'weight(g) of this ingredient in this recipe',
+    weight       int       not null comment 'weight(g) of this ingredient in this recipe * 1000',
     calories     int       not null comment 'calories(mg) of this ingredient in this recipe',
     created_at   timestamp not null default current_timestamp,
     updated_at   timestamp not null default current_timestamp on update current_timestamp
