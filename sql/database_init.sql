@@ -8,4 +8,6 @@ SET default_storage_engine = InnoDB;
 CREATE USER smartDietDev IDENTIFIED BY 'smartDietDev@123';
 create user smartDietDev@localhost identified by 'smartDietDev@123';
 
-GRANT ALL PRIVILEGES ON smartDietDev.* TO smartDietDev@localhost ;
+GRANT ALL PRIVILEGES ON smartDiet.* TO smartDietDev@'%';
+GRANT ALL PRIVILEGES ON smartDiet.* TO smartDietDev@localhost;
+flush privileges;
