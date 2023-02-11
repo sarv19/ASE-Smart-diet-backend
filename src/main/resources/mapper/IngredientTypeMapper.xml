@@ -2,4 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.group42.dao.IngredientTypeMapper">
 
+    <select id="selectAcceptableBaseType" resultType="com.group42.model.entity.IngredientType">
+        SELECT ANY_VALUE(type_id) as type_id, type_name
+        FROM ingredient_type it
+        group by type_name
+    </select>
 </mapper>

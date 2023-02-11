@@ -1,26 +1,37 @@
 package com.group42.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.group42.constant.SuggestStrategy;
 import com.group42.dao.MealMapper;
+import com.group42.model.entity.IngredientType;
 import com.group42.model.entity.Meal;
+import com.group42.model.entity.MealDetail;
 import com.group42.model.entity.User;
+import com.group42.service.IIngredientTypeService;
+import com.group42.service.IMealDetailService;
 import com.group42.service.IMealService;
 import com.group42.service.IUserService;
 import com.group42.utils.ExceptionUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- *
  * @author Guofeng Lin
  * @since 2023-02-10
  */
 @Service
 public class MealServiceImpl extends ServiceImpl<MealMapper, Meal> implements IMealService {
-    private IUserService userService;
+    private final IUserService userService;
+    private final IIngredientTypeService ingredientTypeService;
+    private final IMealDetailService mealDetailService;
 
-    public MealServiceImpl(IUserService userService) {
+    public MealServiceImpl(IUserService userService, IIngredientTypeService ingredientTypeService, IMealDetailService mealDetailService) {
         this.userService = userService;
+        this.ingredientTypeService = ingredientTypeService;
+        this.mealDetailService = mealDetailService;
     }
 
     @Override
@@ -31,19 +42,45 @@ public class MealServiceImpl extends ServiceImpl<MealMapper, Meal> implements IM
         meal.setMealType(mealType);
         meal.setTotalWeight(0);
         meal.setTotalCalories(0);
-        if (save(meal) && recommendForAMeal(meal)){
+        if (save(meal) && prepareRecommend(meal)) {
             return meal;
         }
         throw ExceptionUtils.newSER("Failed to recommend a meal for user: " + userId);
     }
 
-    private boolean recommendForAMeal(Meal meal){
+    private boolean prepareRecommend(Meal meal) {
         // gather information
+        // 1. user's target calories
         User user = userService.getById(meal.getUserId());
         Integer max = user.getTargetCaloriesMax();
         Integer min = user.getTargetCaloriesMin();
-
-        // recommend
-        return true;
+        if (max == null || min == null) {
+            throw ExceptionUtils.newSER("User: " + user.getUserId() + " has not set target calories");
+        }
+        if (max < 1 || min < 1) {
+            throw ExceptionUtils.newSER("User: " + user.getUserId() + " has set target calories incorrectly");
+        }
+        if (max < min) { // swap values
+            max ^= min;
+            min ^= max;
+            max ^= min;
+        }
+        Integer proportion = SuggestStrategy.getProportionByMealType(meal.getMealType());
+        max = max * proportion / 100;
+        min = min * proportion / 100;
+        // 2. ingredients by preference (include type group information)
+        List<IngredientType> acceptableType = ingredientTypeService.getAcceptableBaseType(meal.getUserId());
+        // recommend by type
+        List<MealDetail> mealDetails = new ArrayList<>(acceptableType.size() * 2);
+        for (IngredientType type : acceptableType) {
+            MealDetail mealDetail = new MealDetail();
+            mealDetail.setMealId(meal.getMealId());
+            mealDetail.setIngredientId(type.getTypeId());
+            mealDetail.setUserId(meal.getUserId());
+            mealDetail.setWeight(100);
+            mealDetail.setCalories(100);
+            mealDetails.add(mealDetail);
+        }
+        return mealDetailService.saveBatch(mealDetails);
     }
 }

@@ -6,10 +6,9 @@ import com.group42.model.entity.IngredientType;
 import com.group42.service.IIngredientTypeService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
- * <p>
- *  服务实现类
- * </p>
  *
  * @author Guofeng Lin
  * @since 2023-02-11
@@ -17,4 +16,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class IngredientTypeServiceImpl extends ServiceImpl<IngredientTypeMapper, IngredientType> implements IIngredientTypeService {
 
+    @Override
+    public List<IngredientType> getAcceptableBaseType(Long userId) {
+        return getBaseMapper().selectAcceptableBaseType(userId);
+    }
 }

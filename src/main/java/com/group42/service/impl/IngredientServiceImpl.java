@@ -2,6 +2,7 @@ package com.group42.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.group42.dao.IngredientMapper;
+import com.group42.model.bean.SuggestIngredient;
 import com.group42.model.entity.Ingredient;
 import com.group42.model.vo.IngredientVO;
 import com.group42.service.IIngredientService;
@@ -19,5 +20,10 @@ public class IngredientServiceImpl extends ServiceImpl<IngredientMapper, Ingredi
     @Override
     public List<IngredientVO> getIngredientsBySuggest(Long userId, Long mealId) {
         return getBaseMapper().selectIngredientsByPreference(userId, mealId);
+    }
+
+    @Override
+    public List<SuggestIngredient> getAcceptableIngredients(Long userId) {
+        return null;
     }
 }

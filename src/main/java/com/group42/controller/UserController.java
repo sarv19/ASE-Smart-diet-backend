@@ -1,7 +1,7 @@
 package com.group42.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.group42.model.base.R;
+import com.group42.model.bean.R;
 import com.group42.model.to.BaseTO;
 import com.group42.service.IUserService;
 import org.springframework.web.bind.annotation.PostMapping;

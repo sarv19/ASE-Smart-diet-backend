@@ -1,6 +1,7 @@
 package com.group42.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.group42.model.bean.SuggestIngredient;
 import com.group42.model.entity.Ingredient;
 import com.group42.model.vo.IngredientVO;
 
@@ -16,4 +17,5 @@ import java.util.List;
  */
 public interface IIngredientService extends IService<Ingredient> {
     List<IngredientVO> getIngredientsBySuggest(Long userId, Long mealId);
+    List<SuggestIngredient> getAcceptableIngredients(Long userId);
 }

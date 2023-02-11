@@ -26,5 +26,12 @@ public class MyTest {
     public void test() {
         System.out.println("MyTest");
         System.out.println(nextUUID(null));
+        Integer max = 3;
+        Integer min = 1;
+        max^=min;
+        min^=max;
+        max^=min;
+        System.out.println(max);
+        System.out.println(min);
     }
 }

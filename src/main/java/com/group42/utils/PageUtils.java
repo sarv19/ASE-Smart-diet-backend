@@ -2,7 +2,7 @@ package com.group42.utils;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.group42.model.base.R;
+import com.group42.model.bean.R;
 import com.group42.model.to.BaseTO;
 
 import java.util.HashMap;

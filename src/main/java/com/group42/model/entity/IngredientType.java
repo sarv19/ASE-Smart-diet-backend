@@ -26,6 +26,7 @@ public class IngredientType extends BaseEntity {
     private Long typeId;
 
     private String typeName;
+    private String baseTypeName;
 
     private String typeComment;
 }

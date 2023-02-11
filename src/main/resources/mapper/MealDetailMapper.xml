@@ -2,4 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.group42.dao.MealDetailMapper">
 
+    <select id="selectMealBaseTypeByMealId" resultType="com.group42.model.bean.SuggestBaseType">
+        SELECT md.meal_id,
+               it.type_name as 'ingredientName',
+               md.ingredient_id,
+               md.calories,
+               md.weight
+        FROM meal_detail md left join ingredient_type it on md.ingredient_id = it.type_id
+        WHERE meal_id = #{mealId}
+    </select>
 </mapper>

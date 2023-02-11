@@ -1,4 +1,4 @@
-package com.group42.model.base;
+package com.group42.model.bean;
 
 
 import org.springframework.http.HttpStatus;

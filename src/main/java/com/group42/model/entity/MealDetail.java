@@ -26,7 +26,7 @@ public class MealDetail extends BaseEntity {
     @TableId(type = IdType.ASSIGN_ID)
     private Long detailId;
 
-    private Long recipeId;
+    private Long mealId;
 
     private Long ingredientId;
 
