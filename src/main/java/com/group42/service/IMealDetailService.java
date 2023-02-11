@@ -1,7 +1,7 @@
 package com.group42.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.group42.model.entity.RecipeDetail;
+import com.group42.model.entity.MealDetail;
 
 /**
  * <p>
@@ -11,6 +11,6 @@ import com.group42.model.entity.RecipeDetail;
  * @author Guofeng Lin
  * @since 2023-02-10
  */
-public interface IRecipeDetailService extends IService<RecipeDetail> {
+public interface IMealDetailService extends IService<MealDetail> {
 
 }

@@ -3,10 +3,8 @@ package com.group42.model.entity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
-
-import java.io.Serializable;
-import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -18,11 +16,10 @@ import java.time.LocalDateTime;
  */
 @TableName("ingredient")
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Ingredient implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class Ingredient extends BaseEntity {
 
     /**
      * ingredient Id
@@ -60,9 +57,5 @@ public class Ingredient implements Serializable {
      * mg/1000g
      */
     private Integer sodium;
-
-    private LocalDateTime createdAt;
-
-    private LocalDateTime updatedAt;
 
 }

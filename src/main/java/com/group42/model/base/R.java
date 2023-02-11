@@ -11,6 +11,9 @@ public class R extends HashMap<String, Object> {
     public static final String CODE_TAG = "code";
     public static final String MSG_TAG = "msg";
     public static final String DATA_TAG = "data";
+
+    public static final String SUCCESS = "success";
+    public static final String ERROR = "error";
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -26,11 +29,11 @@ public class R extends HashMap<String, Object> {
     }
 
     public static R ok() {
-        return R.ok("操作成功");
+        return R.ok(SUCCESS);
     }
 
     public static R ok(Object data) {
-        return R.ok("操作成功", data);
+        return R.ok(SUCCESS, data);
     }
 
     public static R ok(String msg) {
@@ -42,7 +45,7 @@ public class R extends HashMap<String, Object> {
     }
 
     public static R error() {
-        return R.error("操作失败");
+        return R.error(ERROR);
     }
 
     public static R error(String msg) {

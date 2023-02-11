@@ -1,5 +1,8 @@
 package com.group42.controller;
 
+import com.group42.model.base.R;
+import com.group42.service.IIngredientService;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,5 +17,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/ingredient")
 public class IngredientController {
+    private final IIngredientService ingredientService;
 
+    public IngredientController(IIngredientService ingredientService) {
+        this.ingredientService = ingredientService;
+    }
+    @PostMapping("/login")
+    public R login() {
+        return R.ok();
+    }
 }

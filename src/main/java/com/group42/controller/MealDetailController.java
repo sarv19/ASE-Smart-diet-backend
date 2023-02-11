@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2023-02-10
  */
 @RestController
-@RequestMapping("/recipeDetail")
-public class RecipeDetailController {
+@RequestMapping("/mealDetail")
+public class MealDetailController {
 
 }

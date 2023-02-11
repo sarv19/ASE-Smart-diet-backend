@@ -1,7 +1,7 @@
 package com.group42.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.group42.model.entity.RecipeDetail;
+import com.group42.model.entity.MealDetail;
 
 /**
  * <p>
@@ -11,6 +11,6 @@ import com.group42.model.entity.RecipeDetail;
  * @author Guofeng Lin
  * @since 2023-02-10
  */
-public interface RecipeDetailMapper extends BaseMapper<RecipeDetail> {
+public interface MealDetailMapper extends BaseMapper<MealDetail> {
 
 }

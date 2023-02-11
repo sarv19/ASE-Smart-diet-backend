@@ -29,16 +29,16 @@ INSERT INTO ingredient(ingredient_id, ingredient_name, description, calories)
 INSERT INTO ingredient(ingredient_id, ingredient_name, description, calories)
     value (2302092140477423, 'test_food_D', 'Dog', 99);
 
-INSERT INTO recipe_detail(detail_id, recipe_id, ingredient_id, user_id, weight, calories)
+INSERT INTO meal_detail(detail_id, meal_id, ingredient_id, user_id, weight, calories)
     value (2302092240444445, 2302092140444445, 2302092140477448, 2302092140111111, 100000, 10000);
-INSERT INTO recipe_detail(detail_id, recipe_id, ingredient_id, user_id, weight, calories)
+INSERT INTO meal_detail(detail_id, meal_id, ingredient_id, user_id, weight, calories)
     value (2302092240443345, 2302092140444445, 2302092140477421, 2302092140111111, 200000, 14000);
-INSERT INTO recipe_detail(detail_id, recipe_id, ingredient_id, user_id, weight, calories)
+INSERT INTO meal_detail(detail_id, meal_id, ingredient_id, user_id, weight, calories)
     value (2302092240442245, 2302092140444445, 2302092140477445, 2302092140111111, 300000, 19800);
 
-INSERT INTO recipe_detail(detail_id, recipe_id, ingredient_id, user_id, weight, calories)
+INSERT INTO meal_detail(detail_id, meal_id, ingredient_id, user_id, weight, calories)
     value (2302082240442245, 2302092140444446, 2302092140477421, 2302092140111111, 200000, 14000);
-INSERT INTO recipe_detail(detail_id, recipe_id, ingredient_id, user_id, weight, calories)
+INSERT INTO meal_detail(detail_id, meal_id, ingredient_id, user_id, weight, calories)
     value (2302082240442245, 2302092140444446, 2302092140477445, 2302092140111111, 300000, 19800);
-INSERT INTO recipe_detail(detail_id, recipe_id, ingredient_id, user_id, weight, calories)
+INSERT INTO meal_detail(detail_id, meal_id, ingredient_id, user_id, weight, calories)
     value (2302082240442245, 2302092140444446, 2302092140477423, 2302092140111111, 100000, 9900);
