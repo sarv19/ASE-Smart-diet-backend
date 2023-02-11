@@ -9,6 +9,7 @@ create table user
     password      char(50)     not null,
     full_name     varchar(100) not null,
     gender        char(10)     not null comment 'male, female, universal, unknown' default 'unknown',
+    target_calories int not null,
     email_address varchar(50)  null,
     phone_number  char(15)     null,
     address       varchar(255) null,

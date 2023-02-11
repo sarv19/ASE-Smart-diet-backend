@@ -1,15 +1,15 @@
-INSERT INTO user(user_id, user_name, password, full_name, gender, email_address, phone_number, address)
+INSERT INTO user(user_id, user_name, password, full_name, gender, email_address, phone_number, address, target_calories)
     value (2023021021401001, 'tester00', 'cPw1898Mrqie8Eem6GqwNw==', 'Aa Testa', 'male', 'testa@example.com',
-           '+10000000000', '401 Sunset Ave, Windsor, ON N9B 3P4');
-INSERT INTO user(user_id, user_name, password, full_name, gender, email_address, phone_number, address)
+           '+10000000000', '401 Sunset Ave, Windsor, ON N9B 3P4', 2000);
+INSERT INTO user(user_id, user_name, password, full_name, gender, email_address, phone_number, address, target_calories)
     value (2023021021401002, 'tester01', 'cPw1898Mrqie8Eem6GqwNw==', 'Bb Testb', 'female', 'testb@example.com',
-           '+21111111111', '401 Sunset Ave, Windsor, ON N9B 3P4');
-INSERT INTO user(user_id, user_name, password, full_name, gender, email_address, phone_number)
+           '+21111111111', '401 Sunset Ave, Windsor, ON N9B 3P4', 2000);
+INSERT INTO user(user_id, user_name, password, full_name, gender, email_address, phone_number, target_calories)
     value (2023021021401003, 'tester02', 'cPw1898Mrqie8Eem6GqwNw==', 'Cc Testc', 'universal', 'testc@example.com',
-           '+32222222222');
-INSERT INTO user(user_id, user_name, password, full_name, gender, email_address, phone_number)
+           '+32222222222', 1500);
+INSERT INTO user(user_id, user_name, password, full_name, gender, email_address, phone_number, target_calories)
     value (2023021021401004, 'tester03', 'cPw1898Mrqie8Eem6GqwNw==', 'Dd Testd', 'unknown', 'testd@example.com',
-           '+8612345678901');
+           '+8612345678901', 1500);
 
 INSERT INTO meal(meal_id, user_id, meal_type, total_weight, total_calories)
     value (2023020921401001, 2023021021401001, 'breakfast', 600000, 43800);
