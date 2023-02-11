@@ -47,11 +47,11 @@ create table ingredient
 ) engine = innodb
   default charset = utf8mb4;
 
-drop table if exists recipe_detail;
-create table recipe_detail
+drop table if exists meal_detail;
+create table meal_detail
 (
-    detail_id     BIGINT primary key comment 'recipe detail id',
-    recipe_id     BIGINT    not null,
+    detail_id     BIGINT primary key comment 'meal detail id',
+    meal_id       BIGINT    not null,
     ingredient_id BIGINT    not null,
     user_id       BIGINT    not null,
     weight        int       not null comment 'weight(g) of this ingredient in this recipe * 1000',
