@@ -1,0 +1,13 @@
+
+go to the project folder and run the following command:
+git pull && mvn clean install -Dmaven.test.skip=true && nohup java -jar /root/.m2/repository/com/group42/smartDiet/0.0.1-SNAPSHOT/smartDiet-0.0.1-SNAPSHOT.jar --spring.profiles.active=prd > sd.log 2>&1 &
+
+see the log:
+tail -f sd.log
+
+When it is running, you will know the pid, or you can use the following command to find it:
+ps -ef | grep smartDiet
+
+kill the process:
+kill -9 [PID]
+such as(when the pid is 11156): kill -9 11156
