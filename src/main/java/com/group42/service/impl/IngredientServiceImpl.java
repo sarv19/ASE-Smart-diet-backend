@@ -18,7 +18,7 @@ import java.util.List;
 public class IngredientServiceImpl extends ServiceImpl<IngredientMapper, Ingredient> implements IIngredientService {
 
     @Override
-    public List<IngredientVO> getIngredientsBySuggest(Long userId) {
+    public List<IngredientVO> getIngredientsBySuggest(Long userId, Long mealId) {
         List<IngredientVO> result = getBaseMapper().selectIngredientsByPreference(userId);
         return suggestForAMeal(result);
     }

@@ -12,5 +12,5 @@ import com.group42.model.entity.Meal;
  * @since 2023-02-10
  */
 public interface IMealService extends IService<Meal> {
-
+    Meal recommandMeal(Long userId, String mealType);
 }

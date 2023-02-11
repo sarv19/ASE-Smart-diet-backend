@@ -28,7 +28,7 @@ public class Meal extends BaseEntity {
     /**
      * mealId
      */
-    @TableId(type = IdType.ASSIGN_UUID)
+    @TableId(type = IdType.ASSIGN_ID)
     private Long mealId;
 
     private Long userId;

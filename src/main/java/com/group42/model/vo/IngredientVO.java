@@ -13,6 +13,7 @@ import lombok.Data;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class IngredientVO {
     private Long ingredientId;
+    private Long detailId;
     private String ingredientName;
     private String description;
     private Integer calories;

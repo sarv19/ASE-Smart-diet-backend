@@ -15,7 +15,7 @@ public class DefaultIdGenerator implements IdentifierGenerator {
 
     @Override
     public Number nextId(Object entity) {
-        return null;
+        return Long.parseLong(nextUUID(entity));
     }
 
     @Override

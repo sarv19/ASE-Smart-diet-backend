@@ -15,5 +15,5 @@ import java.util.List;
  * @since 2023-02-10
  */
 public interface IIngredientService extends IService<Ingredient> {
-    List<IngredientVO> getIngredientsBySuggest(Long userId);
+    List<IngredientVO> getIngredientsBySuggest(Long userId, Long mealId);
 }

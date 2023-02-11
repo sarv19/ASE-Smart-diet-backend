@@ -2,11 +2,12 @@ package com.group42.controller;
 
 import com.group42.model.base.R;
 import com.group42.model.to.MealTO;
+import com.group42.model.valid.Insert;
 import com.group42.model.valid.Query;
 import com.group42.service.IIngredientService;
 import com.group42.service.IMealService;
 import com.group42.utils.PageUtils;
-import com.group42.utils.SeqUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,9 +39,22 @@ public class MealController {
 
     @PostMapping("/queryAMeal")
     public R queryAMeal(@RequestBody @Validated({Query.class}) MealTO to) {
+        Long mealId = to.getMealId();
+        if (ObjectUtils.isEmpty(mealId)) { // first time to query a meal
+            if (ObjectUtils.isEmpty(to.getMealType())) {
+                return R.error("meal type cannot be null while meal id is null");
+            }
+            mealId = mealService.recommandMeal(to.getUserId(),to.getMealType()).getMealId();
+        }
         startPage(to);
-        Map<String, Object> map = PageUtils.pageInfoMap(ingredientService.getIngredientsBySuggest(to.getUserId()));
-        map.put("mealId", SeqUtils.getId());
+        Map<String, Object> map = PageUtils.pageInfoMap(ingredientService.getIngredientsBySuggest(to.getUserId(), mealId));
+        map.put("mealId", mealId);
         return R.ok(map);
+    }
+
+    @PostMapping("/confirmAMeal")
+    public R confirmAMeal(@RequestBody @Validated({Insert.class}) MealTO to) {
+        
+        return R.ok();
     }
 }
