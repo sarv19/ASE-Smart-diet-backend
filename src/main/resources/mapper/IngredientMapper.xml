@@ -2,4 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.group42.dao.IngredientMapper">
 
+    <select id="selectIngredientsByPreference" resultType="com.group42.model.vo.IngredientVO">
+        SELECT i.ingredient_id,
+               ingredient_name,
+               description,
+               calories,
+               fat,
+               carbohydrate,
+               protein,
+               sodium
+        FROM ingredient i
+    </select>
 </mapper>

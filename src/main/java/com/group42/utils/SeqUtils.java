@@ -15,7 +15,7 @@ public class SeqUtils {
 
     private final static Integer machineCode = 1;
 
-    private static final int default_length = 3;
+    private static final int default_length = 2;
 
     public static String getId() {
         return getId(commSeq, default_length);

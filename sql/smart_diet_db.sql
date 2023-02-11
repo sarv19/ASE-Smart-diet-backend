@@ -1,20 +1,21 @@
+drop database if exists smart_diet;
 create database smart_diet;
 use smart_diet;
 
 drop table if exists user;
 create table user
 (
-    user_id       BIGINT primary key comment 'user Id',
-    user_name     varchar(100) not null,
-    password      char(50)     not null,
-    full_name     varchar(100) not null,
-    gender        char(10)     not null comment 'male, female, universal, unknown' default 'unknown',
-    target_calories int not null,
-    email_address varchar(50)  null,
-    phone_number  char(15)     null,
-    address       varchar(255) null,
-    created_at    timestamp    not null                                            default current_timestamp,
-    updated_at    timestamp    not null                                            default current_timestamp on update current_timestamp
+    user_id         BIGINT primary key comment 'user Id',
+    user_name       varchar(100) not null,
+    password        char(50)     not null,
+    full_name       varchar(100) not null,
+    gender          char(10)     not null comment 'male, female, universal, unknown' default 'unknown',
+    target_calories int          not null,
+    email_address   varchar(50)  null,
+    phone_number    char(15)     null,
+    address         varchar(255) null,
+    created_at      timestamp    not null                                            default current_timestamp,
+    updated_at      timestamp    not null                                            default current_timestamp on update current_timestamp
 ) engine = innodb
   default charset = utf8mb4;
 

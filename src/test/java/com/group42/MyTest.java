@@ -16,11 +16,11 @@ public class MyTest {
 
     private static final AtomicInteger SEQ = new AtomicInteger(0);
     public String nextUUID(Object entity) {
-        String yyMMddHHmm = DateUtils.parseDateToStr(DateUtils.YYYYMMDDHHMM, new Date());
-        if(SEQ.incrementAndGet() > 9999) {
+        String yyMMddHHmm = DateUtils.parseDateToStr(DateUtils.YYYYMMDDHHMMSS, new Date());
+        if(SEQ.incrementAndGet() > 99) {
             SEQ.set(0);
         }
-        return yyMMddHHmm + "" + String.format("%04d", SEQ.get());
+        return yyMMddHHmm + "" + String.format("%02d", SEQ.get());
     }
     @Test
     public void test() {
