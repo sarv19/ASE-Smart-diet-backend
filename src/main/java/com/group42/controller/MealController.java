@@ -2,6 +2,7 @@ package com.group42.controller;
 
 import com.group42.model.bean.R;
 import com.group42.model.to.MealTO;
+import com.group42.model.valid.Info;
 import com.group42.model.valid.Insert;
 import com.group42.model.valid.Query;
 import com.group42.service.IIngredientService;
@@ -47,16 +48,23 @@ public class MealController {
             if (ObjectUtils.isEmpty(to.getMealType())) {
                 return R.error("meal type cannot be null while meal id is null");
             }
-            mealId = mealService.recommandMeal(to.getUserId(),to.getMealType()).getMealId();
+            mealId = mealService.recommandMeal(to.getUserId(), to.getMealType()).getMealId();
         }
         startPage(to);
         Map<String, Object> map = PageUtils.pageInfoMap(mealDetailService.getMealBaseTypeByMealId(mealId));
         map.put("mealId", mealId);
         return R.ok(map);
     }
-    @PostMapping("/querySubstitutions")
-    public R querySubstitutions(@RequestBody @Validated({Query.class}) MealTO to) {
+
+    @PostMapping("/mealForToday")
+    public R mealForToday(@RequestBody @Validated({Query.class}) MealTO to) {
         return R.ok();
+    }
+
+    @PostMapping("/querySubstitutions")
+    public R querySubstitutions(@RequestBody @Validated({Info.class}) MealTO to) {
+        startPage(to);
+        return R.ok(PageUtils.pageInfoMap(mealDetailService.getMealDetail(to.getMealId(), to.getIngredientId())));
     }
 
     @PostMapping("/confirmAMeal")

@@ -21,4 +21,9 @@ public class RecipeDetailServiceImpl extends ServiceImpl<MealDetailMapper, MealD
     public List<SuggestBaseType> getMealBaseTypeByMealId(Long mealId) {
         return getBaseMapper().selectMealBaseTypeByMealId(mealId);
     }
+
+    @Override
+    public List<SuggestBaseType> getMealDetail(Long mealId, Long ingredientId) {
+        return getBaseMapper().selectMealDetail(mealId, ingredientId);
+    }
 }

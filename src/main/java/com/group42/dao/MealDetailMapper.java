@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * <p>
- *  Mapper 接口
+ * Mapper 接口
  * </p>
  *
  * @author Guofeng Lin
@@ -17,4 +17,6 @@ import java.util.List;
  */
 public interface MealDetailMapper extends BaseMapper<MealDetail> {
     List<SuggestBaseType> selectMealBaseTypeByMealId(@Param("mealId") Long mealId);
+
+    List<SuggestBaseType> selectMealDetail(@Param("mealId") Long mealId, @Param("ingredientId") Long ingredientId);
 }

@@ -16,4 +16,5 @@ import java.util.List;
  */
 public interface IMealDetailService extends IService<MealDetail> {
     List<SuggestBaseType> getMealBaseTypeByMealId(Long mealId);
+    List<SuggestBaseType> getMealDetail(Long mealId, Long ingredientId);
 }
