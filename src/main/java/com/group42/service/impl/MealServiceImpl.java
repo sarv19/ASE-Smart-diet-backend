@@ -16,7 +16,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Guofeng Lin
@@ -46,6 +48,18 @@ public class MealServiceImpl extends ServiceImpl<MealMapper, Meal> implements IM
             return meal;
         }
         throw ExceptionUtils.newSER("Failed to recommend a meal for user: " + userId);
+    }
+
+    @Override
+    public Meal confirmMeal(Long mealId, int totalCalories, int totalWeight) {
+        Meal one = Optional.ofNullable(lambdaQuery().eq(Meal::getMealId, mealId).isNull(Meal::getMealDate).one())
+                .orElseThrow(() -> ExceptionUtils.newSER("Meal: " + mealId + " has been confirmed before"));
+        lambdaUpdate().eq(Meal::getMealId, mealId)
+                .set(Meal::getTotalCalories, totalCalories)
+                .set(Meal::getTotalWeight, totalWeight)
+                .set(Meal::getMealDate, new Date())
+                .update();
+        return one;
     }
 
     private boolean prepareRecommend(Meal meal) {
