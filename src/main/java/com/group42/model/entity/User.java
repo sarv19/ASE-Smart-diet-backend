@@ -43,6 +43,7 @@ public class User extends BaseEntity {
 
     private String address;
 
-    private Integer targetCalories;
+    private Integer targetCaloriesMin;
+    private Integer targetCaloriesMax;
 
 }

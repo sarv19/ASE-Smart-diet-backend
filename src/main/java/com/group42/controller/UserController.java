@@ -38,5 +38,4 @@ public class UserController extends BaseController {
         return R.ok(new PageInfo<>(userService.list()));
     }
 
-
 }

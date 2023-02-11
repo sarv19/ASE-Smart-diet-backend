@@ -9,36 +9,23 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 /**
+ * <p>
+ * 
+ * </p>
  *
  * @author Guofeng Lin
- * @since 2023-02-10
+ * @since 2023-02-11
  */
-@TableName("meal_detail")
+@TableName("ingredient_type")
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class MealDetail extends BaseEntity {
-
-    /**
-     * recipe detail id
-     */
+public class IngredientType extends BaseEntity {
     @TableId(type = IdType.ASSIGN_ID)
-    private Long detailId;
+    private Long typeId;
 
-    private Long recipeId;
+    private String typeName;
 
-    private Long ingredientId;
-
-    private Long userId;
-
-    /**
-     * weight(g) of this ingredient in this recipe * 1000
-     */
-    private Integer weight;
-
-    /**
-     * calories(mg) of this ingredient in this recipe
-     */
-    private Integer calories;
+    private String typeComment;
 }

@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- *
  * @author Guofeng Lin
  * @since 2023-02-10
  */
@@ -19,15 +18,6 @@ public class IngredientServiceImpl extends ServiceImpl<IngredientMapper, Ingredi
 
     @Override
     public List<IngredientVO> getIngredientsBySuggest(Long userId, Long mealId) {
-        List<IngredientVO> result = getBaseMapper().selectIngredientsByPreference(userId);
-        return suggestForAMeal(result);
-    }
-
-    private List<IngredientVO> suggestForAMeal(List<IngredientVO> ingredients){
-        for (IngredientVO ingredient : ingredients) {
-            ingredient.setWeight(100);
-            ingredient.setCalories(100);
-        }
-        return ingredients;
+        return getBaseMapper().selectIngredientsByPreference(userId, mealId);
     }
 }

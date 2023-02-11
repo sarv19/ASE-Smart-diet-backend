@@ -26,8 +26,10 @@ public class Ingredient extends BaseEntity {
     /**
      * ingredient Id
      */
-    @TableId(type = IdType.ASSIGN_UUID)
+    @TableId(type = IdType.ASSIGN_ID)
     private Long ingredientId;
+
+    private Long typeId;
 
     private String ingredientName;
 
