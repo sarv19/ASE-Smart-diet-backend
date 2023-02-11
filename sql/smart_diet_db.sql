@@ -10,7 +10,8 @@ create table user
     password        char(50)     not null,
     full_name       varchar(100) not null,
     gender          char(10)     not null comment 'male, female, universal, unknown' default 'unknown',
-    target_calories int          not null,
+    target_calories_min int          not null,
+    target_calories_max int          not null,
     email_address   varchar(50)  null,
     phone_number    char(15)     null,
     address         varchar(255) null,
@@ -37,6 +38,7 @@ drop table if exists ingredient;
 create table ingredient
 (
     ingredient_id   BIGINT primary key comment 'ingredient Id',
+    type_id BIGINT comment 'type_id',
     ingredient_name varchar(50)  not null,
     description     varchar(100) not null comment 'english name/precise information about the ingredient',
     calories        int          not null comment 'mg/1000g',
@@ -60,5 +62,16 @@ create table meal_detail
     calories      int       not null comment 'calories(mg) of this ingredient in this recipe',
     created_at    timestamp not null default current_timestamp,
     updated_at    timestamp not null default current_timestamp on update current_timestamp
+) engine = innodb
+  default charset = utf8mb4;
+  
+drop table if exists ingredient_type;
+create table ingredient_type
+(
+	type_id BIGINT primary key comment 'type Id',
+	type_name varchar(50) not null,
+	type_comment varchar(255) null,
+    created_at      timestamp    not null default current_timestamp,
+    updated_at      timestamp    not null default current_timestamp on update current_timestamp
 ) engine = innodb
   default charset = utf8mb4;
