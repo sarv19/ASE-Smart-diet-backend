@@ -47,15 +47,17 @@ INSERT INTO ingredient(ingredient_id, type_id, ingredient_name, description, cal
 INSERT INTO ingredient(ingredient_id, type_id, ingredient_name, description, calories)
     value (2023020821401011, 2023021023502005, 'test_food_K', 'soybean', 50);
 INSERT INTO ingredient(ingredient_id, type_id, ingredient_name, description, calories)
-    value (2023020821401012, 2023021023502006, 'test_food_L', 'corn', 50);
+    value (2023020821401012, 2023021023502000, 'test_food_L', 'corn', 50);
 INSERT INTO ingredient(ingredient_id, type_id, ingredient_name, description, calories)
-    value (2023020821401013, 2023021023502006, 'test_food_M', 'rice', 50);
+    value (2023020821401013, 2023021023502000, 'test_food_M', 'rice', 50);
 INSERT INTO ingredient(ingredient_id, type_id, ingredient_name, description, calories)
-    value (2023020821401014, 2023021023502006, 'test_food_N', 'pasta', 50);
+    value (2023020821401014, 2023021023502000, 'test_food_N', 'pasta', 50);
 INSERT INTO ingredient(ingredient_id, type_id, ingredient_name, description, calories)
-    value (2023020821401015, 2023021023502006, 'test_food_O', 'wheat', 50);
+    value (2023020821401015, 2023021023502000, 'test_food_O', 'wheat', 50);
 INSERT INTO ingredient(ingredient_id, type_id, ingredient_name, description, calories)
-    value (2023020821401016, 2023021023502006, 'test_food_P', 'bread', 50);
+    value (2023020821401016, 2023021023502000, 'test_food_P', 'bread', 50);
+INSERT INTO ingredient(ingredient_id, type_id, ingredient_name, description, calories)
+    value (2023020821401017, 2023021023502001, 'test_food_Q', 'beef', 50);
 
 INSERT INTO meal_detail(detail_id, meal_id, ingredient_id, user_id, weight, calories)
     value (2023021021411001, 2023020921401001, 2023020821401001, 2023021021401001, 100000, 10000);
