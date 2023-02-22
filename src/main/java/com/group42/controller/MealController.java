@@ -25,9 +25,6 @@ import java.util.Map;
 import static com.group42.utils.PageUtils.startPage;
 
 /**
- * <p>
- * 前端控制器
- * </p>
  *
  * @author Guofeng Lin
  * @since 2023-02-10
