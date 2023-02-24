@@ -19,7 +19,37 @@ Even this two param is missing, default values are set, which is 1 for pageNum a
 
 # Login(to gain authorization)
 
-No ready to be used.
+## login
+
+| Name           | value                               |
+| -------------- |-------------------------------------|
+| Route          | /user/login                         |
+| Pre-condition  | 1.                                  |
+| Post-condition | 1.                                  |
+| Description    | Backup interface, not used for now. |
+
+### request
+`username`,`password` can not be blank 
+
+```json
+{
+    "username": "tester00",
+    "password": "123"
+}
+```
+
+### ok
+
+API will return user_uid.
+
+```json
+{
+    "msg": "",
+    "code": 200,
+    "data": "1"
+}
+```
+
 
 # Meal(recommandation, Main feature)
 
