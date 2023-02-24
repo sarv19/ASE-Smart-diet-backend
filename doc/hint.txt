@@ -14,3 +14,7 @@ such as(when the pid is 11156): kill -9 11156
 
 2023/02/24 Problem: Unable to append to .git/logs/refs/remotes/origin/main: Permission denied
 Cause: This would be caused by running "pod" with sudo initially, which would create the repositories as root. Thus when you run again without root it would fail with permission errors when trying to update the repository.
+
+Solution: go to the project folder and run the following command:
+sudo rm -rf target/
+rm sd.log
