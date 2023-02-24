@@ -23,7 +23,7 @@ public class User extends BaseEntity {
     /**
      * user Id
      */
-    @TableId(type = IdType.ASSIGN_UUID)
+    @TableId(type = IdType.ASSIGN_ID)
     private Long userId;
 
     private String userUid;
