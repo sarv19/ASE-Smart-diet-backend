@@ -37,7 +37,7 @@ Even this two param is missing, default values are set, which is 1 for pageNum a
 | Description    | Backup interface, not used for now. |
 
 ### request
-`username`,`password` can not be blank 
+`username`,`password` can not be blank.
 
 ```json
 {
@@ -58,6 +58,36 @@ API will return user_uid in the "data" field.
 }
 ```
 
+## register
+
+| Name           | value                |
+| -------------- |----------------------|
+| Route          | /user/register       |
+| Pre-condition  | 1.                   |
+| Post-condition | 1.                   |
+| Description    | Get data from Google |
+
+### request
+`userUid`,`email` can not be null.
+
+```json
+{
+  "userUid": "testdata00",
+  "email": "testdata00@gmail.com"
+}
+```
+
+### ok
+
+API will return `userUid`
+
+```json
+{
+    "msg": "",
+    "code": 200,
+    "data": "testdata00"
+}
+```
 
 
 # Meal(recommandation, Main feature)
