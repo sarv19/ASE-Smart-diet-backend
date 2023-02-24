@@ -6,6 +6,8 @@ import com.group42.model.entity.User;
 import com.group42.service.IUserService;
 import com.group42.utils.AESUtil;
 import com.group42.utils.StringUtils;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.NotNull;
@@ -15,6 +17,7 @@ import javax.validation.constraints.NotNull;
  * @since 2023-02-10
  */
 @Service
+@EnableCaching
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
 
     @Override
@@ -38,6 +41,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
+    @Cacheable(value = "users", key = "#userUid")
     public User validateUser(String userUid) {
         if (StringUtils.isEmpty(userUid))
             return null;
