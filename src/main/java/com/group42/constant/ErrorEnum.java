@@ -8,8 +8,8 @@ public enum ErrorEnum {
     BAD_PARAM(400, "bad param"),
 
     ERROR_ACCOUNT(401, "wrong username or password"),
-    NO_AUTHORITY(402, "No authority"),
-    NO_FOUND(404, "Not found"),
+    NO_AUTHORIZED(402, "No authorized"),
+    NOT_FOUND(404, "Not found"),
     SERVER_ERROR(500, "service error");
 
 

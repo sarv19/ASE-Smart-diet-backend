@@ -62,7 +62,7 @@ public class CollectionUtils {
      * @return HashMap
      * @since 3.4.0
      */
-    public static <K, V> HashMap<K, V> newHashMapWithExpectedSize(int expectedSize) {
+    public static <K, V> HashMap<K, V> HashMapWithExpectedSize(int expectedSize) {
         return new HashMap<>(capacity(expectedSize));
     }
 

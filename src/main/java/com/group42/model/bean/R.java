@@ -1,6 +1,8 @@
 package com.group42.model.bean;
 
 
+import com.alibaba.fastjson2.JSONObject;
+import com.group42.constant.ErrorEnum;
 import org.springframework.http.HttpStatus;
 
 import java.io.Serial;
@@ -18,6 +20,10 @@ public class R extends HashMap<String, Object> {
     private static final long serialVersionUID = 1L;
 
     public R() {
+    }
+
+    public R(ErrorEnum errorEnum) {
+        this(errorEnum.getCode(), errorEnum.getMessage(), null);
     }
 
     public R(int code, String msg, Object data) {
@@ -65,5 +71,10 @@ public class R extends HashMap<String, Object> {
     public R put(String key, Object value) {
         super.put(key, value);
         return this;
+    }
+
+    @Override
+    public String toString() {
+        return JSONObject.toJSONString(this);
     }
 }

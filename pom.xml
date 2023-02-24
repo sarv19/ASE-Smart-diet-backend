@@ -15,7 +15,7 @@
     <description>smartDiet</description>
     <properties>
         <java.version>17</java.version>
-        <smart.diet.version>0.0.1-SNAPSHOT</smart.diet.version>
+        <smart.diet.version>0.2.0</smart.diet.version>
         <maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
         <kaptcha.version>2.3.2</kaptcha.version>
         <mybatis.version>3.0.1</mybatis.version>
@@ -26,14 +26,10 @@
     </properties>
     <dependencies>
 <!--        basic-->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-data-redis</artifactId>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-security</artifactId>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -111,11 +107,11 @@
         </dependency>
 
 <!--        test-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-test</artifactId>-->
+<!--            <scope>test</scope>-->
+<!--        </dependency>-->
 <!--        <dependency>-->
 <!--            <groupId>org.springframework.security</groupId>-->
 <!--            <artifactId>spring-security-test</artifactId>-->

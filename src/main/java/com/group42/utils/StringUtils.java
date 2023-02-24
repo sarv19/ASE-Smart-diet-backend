@@ -3,6 +3,7 @@ package com.group42.utils;
 import org.springframework.util.AntPathMatcher;
 
 import java.util.*;
+import java.util.function.BiPredicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -255,4 +256,46 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
         }
         return dest;
     }
+
+    public static boolean equals(String target, String[] strings) {
+        return equals(target, strings, false);
+    }
+
+    public static boolean equals(String target, String[] strings, boolean ignoreCase) {
+        return compare(target, strings, (t, s) -> {
+            if (ignoreCase) {
+                return t.equalsIgnoreCase(s);
+            } else {
+                return t.equals(s);
+            }
+        });
+    }
+
+    public static boolean contains(String target, String[] strings) {
+        return contains(target, strings, false);
+    }
+
+    public static boolean contains(String target, String[] strings, boolean ignoreCase) {
+        return compare(target, strings, (t, s) -> {
+            if (ignoreCase) {
+                return containsIgnoreCase(t, s);
+            } else {
+                return t.contains(s);
+            }
+        });
+    }
+
+    public static boolean compare(String target, String[] strings, BiPredicate<String, String> compareMethod) {
+        if (target == null || strings == null) {
+            return false;
+        }
+        for (String string : strings) {
+            if (compareMethod.test(target, string)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
 }

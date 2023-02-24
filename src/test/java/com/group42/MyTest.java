@@ -1,7 +1,6 @@
 package com.group42;
 
 import com.group42.utils.DateUtils;
-import org.junit.jupiter.api.Test;
 
 import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -22,16 +21,16 @@ public class MyTest {
         }
         return yyMMddHHmm + "" + String.format("%02d", SEQ.get());
     }
-    @Test
-    public void test() {
-        System.out.println("MyTest");
-        System.out.println(nextUUID(null));
-        Integer max = 3;
-        Integer min = 1;
-        max^=min;
-        min^=max;
-        max^=min;
-        System.out.println(max);
-        System.out.println(min);
-    }
+//    @Test
+//    public void test() {
+//        System.out.println("MyTest");
+//        System.out.println(nextUUID(null));
+//        Integer max = 3;
+//        Integer min = 1;
+//        max^=min;
+//        min^=max;
+//        max^=min;
+//        System.out.println(max);
+//        System.out.println(min);
+//    }
 }

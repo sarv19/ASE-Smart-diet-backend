@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/ingredient")
-public class IngredientController {
+public class IngredientController extends BaseController{
     private final IIngredientService ingredientService;
 
     public IngredientController(IIngredientService ingredientService) {

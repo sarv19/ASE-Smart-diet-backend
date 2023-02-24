@@ -22,8 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.Map;
 
-import static com.group42.utils.PageUtils.startPage;
-
 /**
  *
  * @author Guofeng Lin
@@ -31,7 +29,7 @@ import static com.group42.utils.PageUtils.startPage;
  */
 @RestController
 @RequestMapping("/meal")
-public class MealController {
+public class MealController extends BaseController{
     private final IMealService mealService;
     private final IMealDetailService mealDetailService;
 

@@ -10,6 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/mealDetail")
-public class MealDetailController {
+public class MealDetailController extends BaseController{
 
 }
