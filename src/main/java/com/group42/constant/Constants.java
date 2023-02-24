@@ -12,7 +12,8 @@ public class Constants {
      */
     public static final String[] BYPASS_PATHS = {
             "/login",
-            "/logout"
+            "/logout",
+            "/register"
     };
 
     public static String[] getBypassPaths() {

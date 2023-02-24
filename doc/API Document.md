@@ -2,6 +2,14 @@
 
 This is the API document for smartDiet system.
 
+@since: 2023-02-24
+
+@version: v2.1
+
+## changes
+
+- [v2.1] not need to submit userId in the APIs that used need to, such as queryAMeal, confirmAMeal.
+
 # Page support
 
 please use this two param to use the page function.
@@ -40,7 +48,7 @@ Even this two param is missing, default values are set, which is 1 for pageNum a
 
 ### ok
 
-API will return user_uid.
+API will return user_uid in the "data" field.
 
 ```json
 {
@@ -49,6 +57,7 @@ API will return user_uid.
     "data": "1"
 }
 ```
+
 
 
 # Meal(recommandation, Main feature)
@@ -63,6 +72,10 @@ API will return user_uid.
 | Description    | Knowing which meal it is today |
 
 No ready to be used.
+
+# User(personal information settings)
+
+
 
 
 
@@ -81,7 +94,6 @@ No ready to be used.
 
 ```json
 {
-    "userId": 2023021021401001,
     "mealType": "dinner",
     "mealId": 2023022123281601,
     "pageNum": 1,
@@ -263,7 +275,6 @@ API will return a list of food, such as rice/pasta for grains, dog/beef for meet
 
 ```json
 {
-    "userId": 2023021021401001,
     "mealId": 2023022123281601,
     "ingredients": [
         {

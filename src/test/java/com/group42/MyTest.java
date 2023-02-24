@@ -14,14 +14,16 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class MyTest {
 
     private static final AtomicInteger SEQ = new AtomicInteger(0);
+
     public String nextUUID(Object entity) {
         String yyMMddHHmm = DateUtils.parseDateToStr(DateUtils.YYYYMMDDHHMMSS, new Date());
-        if(SEQ.incrementAndGet() > 99) {
+        if (SEQ.incrementAndGet() > 99) {
             SEQ.set(0);
         }
         return yyMMddHHmm + "" + String.format("%02d", SEQ.get());
     }
-//    @Test
+
+    //    @Test
 //    public void test() {
 //        System.out.println("MyTest");
 //        System.out.println(nextUUID(null));
@@ -33,4 +35,8 @@ public class MyTest {
 //        System.out.println(max);
 //        System.out.println(min);
 //    }
+    public static void main(String[] args) {
+        Long a = 2023022414114601L;
+        System.out.println(a);
+    }
 }

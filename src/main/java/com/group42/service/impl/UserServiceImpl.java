@@ -22,9 +22,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     @Override
     public boolean register(String userUid, String email) {
-        User user = new User();
+        User user = lambdaQuery().eq(User::getUserUid, userUid).one();
+        if (StringUtils.isNotNull(user))
+            return true;
         String userName = email.split("@")[0];
-        user.setUserUid(userUid).setEmailAddress(email).setPassword("").setUserName(userName)
+        user = new User().setUserUid(userUid).setEmailAddress(email).setPassword("").setUserName(userName)
                 .setFullName(userName).setTargetCaloriesMax(0).setTargetCaloriesMin(0);
         return save(user);
     }
@@ -45,7 +47,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     public User validateUser(String userUid) {
         if (StringUtils.isEmpty(userUid))
             return null;
-        userUid = userUid.replace("Bearer ", "").trim();
         return lambdaQuery().eq(User::getUserUid, userUid).one();
     }
 }
