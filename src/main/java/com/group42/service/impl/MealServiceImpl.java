@@ -47,13 +47,13 @@ public class MealServiceImpl extends ServiceImpl<MealMapper, Meal> implements IM
         if (save(meal) && prepareRecommend(meal)) {
             return meal;
         }
-        throw ExceptionUtils.newSER("Failed to recommend a meal for user: " + userId);
+        throw ExceptionUtils.newSE("Failed to recommend a meal for user: " + userId);
     }
 
     @Override
     public Meal confirmMeal(Long mealId, int totalCalories, int totalWeight) {
         Meal one = Optional.ofNullable(lambdaQuery().eq(Meal::getMealId, mealId).isNull(Meal::getMealDate).one())
-                .orElseThrow(() -> ExceptionUtils.newSER("Meal: " + mealId + " has been confirmed before"));
+                .orElseThrow(() -> ExceptionUtils.newSE("Meal: " + mealId + " has been confirmed before"));
         lambdaUpdate().eq(Meal::getMealId, mealId)
                 .set(Meal::getTotalCalories, totalCalories)
                 .set(Meal::getTotalWeight, totalWeight)
@@ -69,10 +69,10 @@ public class MealServiceImpl extends ServiceImpl<MealMapper, Meal> implements IM
         Integer max = user.getTargetCaloriesMax();
         Integer min = user.getTargetCaloriesMin();
         if (max == null || min == null) {
-            throw ExceptionUtils.newSER("User: " + user.getUserId() + " has not set target calories");
+            throw ExceptionUtils.newSE("User: " + user.getUserId() + " has not set target calories");
         }
         if (max < 1 || min < 1) {
-            throw ExceptionUtils.newSER("User: " + user.getUserId() + " has set target calories incorrectly");
+            throw ExceptionUtils.newSE("User: " + user.getUserId() + " has set target calories incorrectly");
         }
         if (max < min) { // swap values
             max ^= min;

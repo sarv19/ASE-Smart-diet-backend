@@ -1,16 +1,12 @@
 package com.group42.utils;
 
 
-import com.group42.excpetion.UtilException;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class SeqUtils {
-    public static final String commSeqType = "COMMON";
-
     private static final AtomicInteger commSeq = new AtomicInteger(1);
 
     private final static Integer machineCode = 1;
@@ -58,11 +54,11 @@ public class SeqUtils {
     }
 
     private synchronized static List<String> getBatchId(AtomicInteger atomicInt, int number, int maxLength) {
-        if (number < 0) throw new UtilException("The number of serial numbers obtained in batches cannot be less than 0");
+        if (number < 0) throw ExceptionUtils.newUE("The number of serial numbers obtained in batches cannot be less than 0");
         else if (0 == number) return Collections.emptyList();
         double maxSeq = Math.pow(10, maxLength);
         // to ensure (value + number) % maxSeq == 1 is true
-        if (number > maxSeq) throw new UtilException("The number of batches obtained cannot be greater than the maximum length");
+        if (number > maxSeq) throw ExceptionUtils.newUE("The number of batches obtained cannot be greater than the maximum length");
         int value = atomicInt.getAndAdd(number);
         if (atomicInt.get() >= maxSeq) {
             atomicInt.set((int) ((value + number) % maxSeq));

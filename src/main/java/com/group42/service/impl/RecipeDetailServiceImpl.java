@@ -47,6 +47,6 @@ public class RecipeDetailServiceImpl extends ServiceImpl<MealDetailMapper, MealD
         }
         if (saveBatch(mealDetails))
             return true;
-        throw ExceptionUtils.newSER("Confirm meal detail failed");
+        throw ExceptionUtils.newSE("Confirm meal detail failed");
     }
 }

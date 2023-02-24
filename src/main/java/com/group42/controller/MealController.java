@@ -80,6 +80,6 @@ public class MealController {
         Meal meal = mealService.confirmMeal(mealId, totalCalories, totalWeight);
         if (ObjectUtils.isNotEmpty(meal) && mealDetailService.confirmMealDetail(meal, ingredients))
             return R.ok();
-        throw ExceptionUtils.newSER("confirm meal failed");
+        throw ExceptionUtils.newSE("confirm meal failed");
     }
 }
