@@ -29,6 +29,6 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
         response.setHeader("Access-Control-Allow-Credentials", "true");
         response.setStatus(HttpStatus.OK.value());
         PrintWriter out = response.getWriter();
-        out.write(new R(ErrorEnum.NO_AUTHORIZED).toString());
+        out.write(new R(ErrorEnum.USER_NOT_EXISTS).toString());
     }
 }

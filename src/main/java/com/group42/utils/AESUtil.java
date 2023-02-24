@@ -14,8 +14,8 @@ public class AESUtil {
     private static final String ENCODING = "UTF-8";
     private static final String AES_ALGORITHM = "AES";
     private static final String CIPHER_CBC_PADDING = "AES/CBC/ISO10126Padding";
-    private static final String IV_SEED = "SEED20227UAT";
-    private static final String KEY = "UAT20230208KEY";
+    private static final String IV_SEED = "SEED20227UAT1111";
+    private static final String KEY = "UAT20230208KEY11";
 
     public static String encrypt(String content) {
         return encryptCBC(content, KEY);
@@ -67,7 +67,7 @@ public class AESUtil {
                 return new String(decrypted, ENCODING);
             } catch (Exception e) {
                 log.info("AES_CBC decrypt exception:" + e.getMessage());
-                throw new RuntimeException(e);
+                return null;
             }
         } else {
             log.info("AES_CBC decrypt: the aesKey is null or error!");
@@ -80,7 +80,7 @@ public class AESUtil {
         String password = "123";
         String cbcResult = encrypt(password);
         System.out.println("password: " + password + ", encrypt: " + cbcResult);
-        String cbcDecrypt = decrypt("ffvjeFBLCeh1xrCBEv0FjQ==");
+        String cbcDecrypt = decrypt("5gb8WEBlcW8xDhQqhshY1A==");
         System.out.println("aes decrypt: " + cbcDecrypt);
     }
 }

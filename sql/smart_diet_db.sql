@@ -13,7 +13,7 @@ create table user
     target_calories_min int          not null,
     target_calories_max int          not null,
     email_address       varchar(50)  not null,
-    google_uid          char(50)     not null,
+    user_uid            char(50)     not null comment 'user unique id from Google, Facebook, etc.',
     phone_number        char(15)     null,
     address             varchar(255) null,
     created_at          timestamp    not null                                            default current_timestamp,

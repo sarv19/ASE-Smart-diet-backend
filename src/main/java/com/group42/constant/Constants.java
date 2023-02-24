@@ -8,10 +8,18 @@ package com.group42.constant;
  */
 public class Constants {
     /**
-     * 不需要验证Token的地址集合
+     * Address collection that does not need to be verified
      */
     public static final String[] BYPASS_PATHS = {
             "/login",
             "/logout"
     };
+
+    public static String[] getBypassPaths() {
+        String[] SecurityBypassPaths = new String[Constants.BYPASS_PATHS.length];
+        for (int i = 0; i < BYPASS_PATHS.length; i++) {
+            SecurityBypassPaths[i] = "/**/" + BYPASS_PATHS[i];
+        }
+        return SecurityBypassPaths;
+    }
 }

@@ -12,6 +12,9 @@ import com.group42.model.entity.User;
  * @since 2023-02-10
  */
 public interface IUserService extends IService<User> {
-    User validateUser(String userId, String userUid);
+    boolean register(String userUid, String email);
 
+    User login(String username, String password);
+
+    User validateUser(String userUid);
 }

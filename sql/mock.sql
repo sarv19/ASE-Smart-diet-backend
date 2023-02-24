@@ -1,19 +1,19 @@
 INSERT INTO user(user_id, user_name, password, full_name, gender, email_address, phone_number, address,
-                 target_calories_min, target_calories_max)
-    value (2023021021401001, 'tester00', 'cPw1898Mrqie8Eem6GqwNw==', 'Aa Testa', 'male', 'testa@example.com',
-           '+10000000000', '401 Sunset Ave, Windsor, ON N9B 3P4', 1200, 2000);
+                 target_calories_min, target_calories_max, user_uid)
+    value (2023021021401001, 'tester00', '5gb8WEBlcW8xDhQqhshY1A==', 'Aa Testa', 'male', 'testa@example.com',
+           '+10000000000', '401 Sunset Ave, Windsor, ON N9B 3P4', 1200, 2000, '1');
 INSERT INTO user(user_id, user_name, password, full_name, gender, email_address, phone_number, address,
-                 target_calories_min, target_calories_max)
-    value (2023021021401002, 'tester01', 'cPw1898Mrqie8Eem6GqwNw==', 'Bb Testb', 'female', 'testb@example.com',
-           '+21111111111', '401 Sunset Ave, Windsor, ON N9B 3P4', 1200, 2000);
+                 target_calories_min, target_calories_max, user_uid)
+    value (2023021021401002, 'tester01', '1IGm5YkfWwQnWEkFgolGOA==', 'Bb Testb', 'female', 'testb@example.com',
+           '+21111111111', '401 Sunset Ave, Windsor, ON N9B 3P4', 1200, 2000, '2');
 INSERT INTO user(user_id, user_name, password, full_name, gender, email_address, phone_number, target_calories_min,
-                 target_calories_max)
-    value (2023021021401003, 'tester02', 'cPw1898Mrqie8Eem6GqwNw==', 'Cc Testc', 'universal', 'testc@example.com',
-           '+32222222222', 900, 1500);
+                 target_calories_max, user_uid)
+    value (2023021021401003, 'tester02', 'xBRWvDx6vF2Y8NBD1Jcebw==', 'Cc Testc', 'universal', 'testc@example.com',
+           '+32222222222', 900, 1500, '3');
 INSERT INTO user(user_id, user_name, password, full_name, gender, email_address, phone_number, target_calories_min,
-                 target_calories_max)
-    value (2023021021401004, 'tester03', 'cPw1898Mrqie8Eem6GqwNw==', 'Dd Testd', 'unknown', 'testd@example.com',
-           '+8612345678901', 900, 1500);
+                 target_calories_max, user_uid)
+    value (2023021021401004, 'tester03', 'oQuEl19YljlQcRqDmi5GkA==', 'Dd Testd', 'unknown', 'testd@example.com',
+           '+8612345678901', 900, 1500, '4');
 
 INSERT INTO meal(meal_id, user_id, meal_type, total_weight, total_calories)
     value (2023020921401001, 2023021021401001, 'breakfast', 600000, 43800);

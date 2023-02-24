@@ -26,6 +26,8 @@ public class User extends BaseEntity {
     @TableId(type = IdType.ASSIGN_UUID)
     private Long userId;
 
+    private String userUid;
+
     private String userName;
 
     private String password;

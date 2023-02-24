@@ -25,32 +25,27 @@ public class JwtAuthorizationTokenFilter extends OncePerRequestFilter {
     private final IUserService userService;
     private final UserDetailsService JwtUserDetailsService;
 
-    //    private final JwtTokenUtil jwtTokenUtil;
-
 
     public JwtAuthorizationTokenFilter(IUserService userService,UserDetailsService JwtUserDetailsService) {
-//        this.jwtTokenUtil = jwtTokenUtil;
         this.userService = userService;
         this.JwtUserDetailsService = JwtUserDetailsService;
     }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
-//        final String requestHeader = request.getHeader(this.tokenHeader);
         String uri = request.getRequestURI();
-
         log.info("=====request URI: " + uri);
         // Bypass path means that the path does not need to be validated
         boolean needValidate = !StringUtils.contains(uri, Constants.BYPASS_PATHS, true);
 
         User user = null;
         if (needValidate) {
-            user = userService.validateUser("123","123");
+            user = userService.validateUser(request.getHeader("authorization"));
         }
 
         if (user != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            // begin authentication
             UserDetails userDetails = JwtUserDetailsService.loadUserByUsername(user.getUserName());
-
             UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }

@@ -54,7 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
 
-                .antMatchers(Constants.BYPASS_PATHS).permitAll()
+                .antMatchers(Constants.getBypassPaths()).permitAll()
                 .antMatchers("/druid/**").permitAll()
                 .antMatchers(HttpMethod.OPTIONS, "/**").anonymous()
                 .anyRequest().authenticated()       // 剩下所有的验证都需要验证
