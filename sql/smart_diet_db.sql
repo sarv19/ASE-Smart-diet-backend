@@ -98,41 +98,50 @@ create table recipe
     recipe_portion      int          not null comment 'numbers of people for recipe',
     recipe_pic_url      varchar(100) not null comment 'picture for recipe',
     recipe_detail_url   varchar(100) not null comment 'detail of recipe',
-    recipe_description  varchar(255) null comment 'allergen'
+    description         varchar(255) null comment 'allergen',
+    created_at          timestamp    not null default current_timestamp,
+    updated_at          timestamp    not null default current_timestamp on update current_timestamp
 ) engine = innodb
   default charset = utf8mb4;
 
 drop table if exists seasoner;
 create table seasoner
 (
-    seasoner_id          BIGINT primary key comment 'seasoner id',
-    seasoner_name        varchar(50)  not null,
-    seasoner_description varchar(100) not null comment 'english name/precise information about the seasoner'
+    seasoner_id   BIGINT primary key comment 'seasoner id',
+    seasoner_name varchar(50)  not null,
+    description   varchar(100) not null comment 'english name/precise information about the seasoner',
+    created_at    timestamp    not null default current_timestamp,
+    updated_at    timestamp    not null default current_timestamp on update current_timestamp
 ) engine = innodb
   default charset = utf8mb4;
 
 drop table if exists recipe_content;
 create table recipe_content
 (
-    recipe_content_id          BIGINT primary key comment 'recipe ingredient relationship id',
-    recipe_id                  BIGINT comment 'recipe id',
-    ingredient_id              BIGINT comment 'ingredient id',
-    seasoner_id                BIGINT comment 'seasoner id',
-    recipe_content_ingredient  boolean comment 'true for have, false for none',
-    recipe_content_seasoner    boolean comment 'true for have, false for none',
-    recipe_content_description varchar(100) null comment 'comment for relationship'
+    recipe_content_id         BIGINT primary key comment 'recipe ingredient relationship id',
+    recipe_id                 BIGINT comment 'recipe id',
+    ingredient_id             BIGINT comment 'ingredient id',
+    seasoner_id               BIGINT comment 'seasoner id',
+    recipe_content_ingredient boolean comment 'true for have, false for none',
+    recipe_content_seasoner   boolean comment 'true for have, false for none',
+    description               varchar(100) null comment 'comment for relationship',
+    created_at                timestamp    not null default current_timestamp,
+    updated_at                timestamp    not null default current_timestamp on update current_timestamp
 ) engine = innodb
   default charset = utf8mb4;
 
-drop table if exists preference;
-create table preference
+drop table if exists eating_preference;
+create table eating_preference
 (
-    preference_id             BIGINT primary key comment 'preference id',
-    user_id                   BIGINT not null comment 'user id',
-    user_uid                  BIGINT not null comment 'user uid',
-    ingredient_id             BIGINT comment 'ingredient id',
-    seasoner_id               BIGINT comment 'seasoner id',
-    preference_ingredient boolean comment 'true for have, false for none',
-    preference_seasoner   boolean comment 'true for have, false for none',
-    preference_description varchar(100) null comment 'reason why like or not'
-)
+    preference_id BIGINT primary key comment 'preference id',
+    user_id       BIGINT       not null comment 'user id',
+    user_uid      BIGINT       not null comment 'user uid',
+    ingredient_id BIGINT comment 'ingredient id',
+    seasoner_id   BIGINT comment 'seasoner id',
+    is_like       boolean comment 'true for like, false for dislike',
+    is_allergen   boolean comment 'true for allergy, false for not',
+    description   varchar(100) null comment 'reason why like or not',
+    created_at    timestamp    not null default current_timestamp,
+    updated_at    timestamp    not null default current_timestamp on update current_timestamp
+) engine = innodb
+  default charset = utf8mb4;
