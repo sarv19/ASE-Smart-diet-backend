@@ -47,7 +47,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     public User validateUser(String userUid) {
         if (StringUtils.isEmpty(userUid))
             return null;
-        userUid = userUid.replace("Bearer ", "").trim();
         return lambdaQuery().eq(User::getUserUid, userUid).one();
     }
 }

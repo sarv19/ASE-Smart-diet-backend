@@ -3,6 +3,7 @@ package com.group42.security.filter;
 import com.group42.constant.Constants;
 import com.group42.model.entity.User;
 import com.group42.service.IUserService;
+import com.group42.utils.JwtUtils;
 import com.group42.utils.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -40,7 +41,7 @@ public class JwtAuthorizationTokenFilter extends OncePerRequestFilter {
 
         User user = null;
         if (needValidate) {
-            user = userService.validateUser(request.getHeader("authorization"));
+            user = userService.validateUser(JwtUtils.getUserUidFromRequest(request));
         }
 
         if (user != null && SecurityContextHolder.getContext().getAuthentication() == null) {
