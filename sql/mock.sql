@@ -31,7 +31,7 @@ INSERT INTO ingredient(ingredient_id, type_id, ingredient_name, description, cal
 INSERT INTO ingredient(ingredient_id, type_id, ingredient_name, description, calories)
     value (2023020821401003, 2023021023502002, 'Coconut', 'The fruit of coconut tree  ', 66);
 INSERT INTO ingredient(ingredient_id, type_id, ingredient_name, description, calories)
-    value (2023020821401004, 2023021023502001, 'Dog meet', 'yeah... the meet of dogs', 99);
+    value (2023020821401004, 2023021023502001, 'Mutton', 'Mutton is the meat of a mature adult sheep, typically between two and three years old', 99);
 INSERT INTO ingredient(ingredient_id, type_id, ingredient_name, description, calories)
     value (2023020821401005, 2023021023502003, 'Spinach', 'a leafy green flowering plant native to central and western Asia', 50);
 INSERT INTO ingredient(ingredient_id, type_id, ingredient_name, description, calories)
@@ -76,7 +76,7 @@ INSERT INTO meal_detail(detail_id, meal_id, ingredient_id, user_id, weight, calo
 INSERT INTO ingredient_type(type_id, type_name, base_type_name)
     value (2023021023502000, 'grains', 'sugars');
 INSERT INTO ingredient_type(type_id, type_name, base_type_name)
-    value (2023021023502001, 'meet', 'protein');
+    value (2023021023502001, 'meat', 'protein');
 INSERT INTO ingredient_type(type_id, type_name, base_type_name)
     value (2023021023502002, 'fruit', 'vegetable'); # The fruit food group is sometimes combined with the vegetable food group
 INSERT INTO ingredient_type(type_id, type_name, base_type_name)
