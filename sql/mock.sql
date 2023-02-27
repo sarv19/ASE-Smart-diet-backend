@@ -23,11 +23,11 @@ INSERT INTO user(user_id, user_name, password, full_name, gender, email_address,
 #     value (2023020921401003, 2023021021401002, 'dinner', 570, 650);
 # INSERT INTO meal(meal_id, user_id, meal_type, total_weight, total_calories)
 #     value (2023020921401004, 2023021021401002, 'snack', 300, 400);
-
+truncate table ingredient;
 INSERT INTO ingredient(ingredient_id, type_id, ingredient_name, description, calories)
     value (2023020821401001, 2023021023502002, 'Apple', 'An apple is an edible fruit produced by an apple tree', 100);
 INSERT INTO ingredient(ingredient_id, type_id, ingredient_name, description, calories)
-    value (2023020821401002, 2023021023502002, 'Banana', 'A banana is an elongated, edible fruit – botanically a berry – produced by several kinds of large herbaceous flowering plants in the genus Musa. ', 70);
+    value (2023020821401002, 2023021023502002, 'Banana', 'A banana is an elongated, edible fruit. ', 70);
 INSERT INTO ingredient(ingredient_id, type_id, ingredient_name, description, calories)
     value (2023020821401003, 2023021023502002, 'Coconut', 'The fruit of coconut tree  ', 66);
 INSERT INTO ingredient(ingredient_id, type_id, ingredient_name, description, calories)
@@ -49,7 +49,7 @@ INSERT INTO ingredient(ingredient_id, type_id, ingredient_name, description, cal
 INSERT INTO ingredient(ingredient_id, type_id, ingredient_name, description, calories)
     value (2023020821401012, 2023021023502000, 'Maize', 'corn', 50);
 INSERT INTO ingredient(ingredient_id, type_id, ingredient_name, description, calories)
-    value (2023020821401013, 2023021023502000, 'rice', 'the seed of the grass species Oryza sativa (Asian rice) or less commonly O. glaberrima (African rice). ', 50);
+    value (2023020821401013, 2023021023502000, 'rice', 'the seed of the grass species. ', 50);
 INSERT INTO ingredient(ingredient_id, type_id, ingredient_name, description, calories)
     value (2023020821401014, 2023021023502000, 'pasta', 'a type of food typically made from an unleavened dough of wheat flour mixed with water or eggs', 50);
 INSERT INTO ingredient(ingredient_id, type_id, ingredient_name, description, calories)
@@ -59,19 +59,19 @@ INSERT INTO ingredient(ingredient_id, type_id, ingredient_name, description, cal
 INSERT INTO ingredient(ingredient_id, type_id, ingredient_name, description, calories)
     value (2023020821401017, 2023021023502001, 'beef', 'meat from cattle (Bos taurus)', 50);
 
-INSERT INTO meal_detail(detail_id, meal_id, ingredient_id, user_id, weight, calories)
-    value (2023021021411001, 2023020921401001, 2023020821401001, 2023021021401001, 100000, 10000);
-INSERT INTO meal_detail(detail_id, meal_id, ingredient_id, user_id, weight, calories)
-    value (2023021021411002, 2023020921401001, 2023020821401002, 2023021021401001, 200000, 14000);
-INSERT INTO meal_detail(detail_id, meal_id, ingredient_id, user_id, weight, calories)
-    value (2023021021411003, 2023020921401001, 2023020821401003, 2023021021401001, 300000, 19800);
-
-INSERT INTO meal_detail(detail_id, meal_id, ingredient_id, user_id, weight, calories)
-    value (2023021021411004, 2023020921401002, 2023020821401002, 2023021021401001, 200000, 14000);
-INSERT INTO meal_detail(detail_id, meal_id, ingredient_id, user_id, weight, calories)
-    value (2023021021411005, 2023020921401002, 2023020821401003, 2023021021401001, 300000, 19800);
-INSERT INTO meal_detail(detail_id, meal_id, ingredient_id, user_id, weight, calories)
-    value (2023021021411006, 2023020921401002, 2023020821401004, 2023021021401001, 100000, 9900);
+# INSERT INTO meal_detail(detail_id, meal_id, ingredient_id, user_id, weight, calories)
+#     value (2023021021411001, 2023020921401001, 2023020821401001, 2023021021401001, 100000, 10000);
+# INSERT INTO meal_detail(detail_id, meal_id, ingredient_id, user_id, weight, calories)
+#     value (2023021021411002, 2023020921401001, 2023020821401002, 2023021021401001, 200000, 14000);
+# INSERT INTO meal_detail(detail_id, meal_id, ingredient_id, user_id, weight, calories)
+#     value (2023021021411003, 2023020921401001, 2023020821401003, 2023021021401001, 300000, 19800);
+#
+# INSERT INTO meal_detail(detail_id, meal_id, ingredient_id, user_id, weight, calories)
+#     value (2023021021411004, 2023020921401002, 2023020821401002, 2023021021401001, 200000, 14000);
+# INSERT INTO meal_detail(detail_id, meal_id, ingredient_id, user_id, weight, calories)
+#     value (2023021021411005, 2023020921401002, 2023020821401003, 2023021021401001, 300000, 19800);
+# INSERT INTO meal_detail(detail_id, meal_id, ingredient_id, user_id, weight, calories)
+#     value (2023021021411006, 2023020921401002, 2023020821401004, 2023021021401001, 100000, 9900);
 
 INSERT INTO ingredient_type(type_id, type_name, base_type_name)
     value (2023021023502000, 'grains', 'sugars');

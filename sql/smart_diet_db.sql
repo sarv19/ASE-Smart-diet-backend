@@ -37,8 +37,8 @@ create table meal
     user_uid       char(50)  not null comment 'user unique id from Google, Facebook, etc.',
     meal_type      char(10)  not null comment 'breakfast, lunch, dinner, snack',
     meal_date      datetime  null,
-    total_weight   int       not null comment 'total weight(g) of one meal',
-    total_calories int       not null comment 'total calories(mg) of one meal',
+    total_weight   int       not null comment 'total weight(g) of one meal, it store target_calories_min before confirmed',
+    total_calories int       not null comment 'total calories(mg) of one meal, it store target_calories_max before confirmed',
     created_at     timestamp not null default current_timestamp,
     updated_at     timestamp not null default current_timestamp on update current_timestamp
 ) engine = innodb
