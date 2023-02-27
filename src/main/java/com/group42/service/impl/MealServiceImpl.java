@@ -38,16 +38,18 @@ public class MealServiceImpl extends ServiceImpl<MealMapper, Meal> implements IM
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Meal recommandMeal(Long userId, String mealType) {
+    public Meal recommandMeal(String userUid, String mealType) {
         Meal meal = new Meal();
-        meal.setUserId(userId);
+        User user = userService.findUserByUid(userUid);
+        meal.setUserId(user.getUserId());
+        meal.setUserUid(userUid);
         meal.setMealType(mealType);
         meal.setTotalWeight(0);
         meal.setTotalCalories(0);
         if (save(meal) && prepareRecommend(meal)) {
             return meal;
         }
-        throw ExceptionUtils.newSE("Failed to recommend a meal for user: " + userId);
+        throw ExceptionUtils.newSE("Failed to recommend a meal for user: " + user.getUserUid());
     }
 
     @Override
@@ -91,6 +93,7 @@ public class MealServiceImpl extends ServiceImpl<MealMapper, Meal> implements IM
             mealDetail.setMealId(meal.getMealId());
             mealDetail.setIngredientId(type.getTypeId());
             mealDetail.setUserId(meal.getUserId());
+            mealDetail.setUserUid(meal.getUserUid());
             mealDetail.setWeight(100);
             mealDetail.setCalories(100);
             mealDetails.add(mealDetail);

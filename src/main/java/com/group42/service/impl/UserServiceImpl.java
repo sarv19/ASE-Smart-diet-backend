@@ -8,6 +8,7 @@ import com.group42.utils.AESUtil;
 import com.group42.utils.StringUtils;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.NotNull;
@@ -43,8 +44,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
+    @Nullable
     @Cacheable(value = "users", key = "#userUid")
-    public User validateUser(String userUid) {
+    public User findUserByUid(String userUid) {
         if (StringUtils.isEmpty(userUid))
             return null;
         return lambdaQuery().eq(User::getUserUid, userUid).one();

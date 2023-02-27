@@ -3,8 +3,6 @@ package com.group42.model.to;
 import com.group42.model.bean.SuggestBaseType;
 import com.group42.model.valid.Info;
 import com.group42.model.valid.Insert;
-import com.group42.model.valid.Query;
-import com.group42.model.valid.Update;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -21,8 +19,8 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class MealTO extends BaseTO {
-    @NotNull(groups = {Query.class, Update.class, Insert.class})
-    private Long userId;
+//    @NotNull(groups = {Query.class, Update.class, Insert.class})
+//    private Long userId;
     @NotNull(groups = {Info.class, Insert.class})
     private Long mealId;
     @NotNull(groups = {Info.class})

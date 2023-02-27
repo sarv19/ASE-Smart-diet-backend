@@ -31,6 +31,7 @@ public class MealDetail extends BaseEntity {
     private Long ingredientId;
 
     private Long userId;
+    private String userUid;
 
     /**
      * weight(g) of this ingredient in this recipe * 1000

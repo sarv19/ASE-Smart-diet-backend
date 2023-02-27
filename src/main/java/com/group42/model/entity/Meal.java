@@ -32,6 +32,7 @@ public class Meal extends BaseEntity {
     private Long mealId;
 
     private Long userId;
+    private String userUid;
 
     /**
      * breakfast, lunch, dinner, snack

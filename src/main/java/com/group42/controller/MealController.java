@@ -10,6 +10,7 @@ import com.group42.model.valid.Query;
 import com.group42.service.IMealDetailService;
 import com.group42.service.IMealService;
 import com.group42.utils.ExceptionUtils;
+import com.group42.utils.JwtUtils;
 import com.group42.utils.PageUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -39,13 +41,13 @@ public class MealController extends BaseController{
     }
 
     @PostMapping("/queryAMeal")
-    public R queryAMeal(@RequestBody @Validated({Query.class}) MealTO to) {
+    public R queryAMeal(@RequestBody @Validated({Query.class}) MealTO to, HttpServletRequest request) {
         Long mealId = to.getMealId();
         if (ObjectUtils.isEmpty(mealId)) { // first time to query a meal
             if (ObjectUtils.isEmpty(to.getMealType())) {
                 return R.error("meal type cannot be null while meal id is null");
             }
-            mealId = mealService.recommandMeal(to.getUserId(), to.getMealType()).getMealId();
+            mealId = mealService.recommandMeal(JwtUtils.getUserUidFromRequest(request), to.getMealType()).getMealId();
         }
         startPage(to);
         Map<String, Object> map = PageUtils.pageInfoMap(mealDetailService.getMealBaseTypeByMealId(mealId));

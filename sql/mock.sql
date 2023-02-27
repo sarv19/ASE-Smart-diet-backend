@@ -15,14 +15,14 @@ INSERT INTO user(user_id, user_name, password, full_name, gender, email_address,
     value (2023021021401004, 'tester03', 'oQuEl19YljlQcRqDmi5GkA==', 'Dd Testd', 'unknown', 'testd@example.com',
            '+8612345678901', 900, 1500, '4');
 
-INSERT INTO meal(meal_id, user_id, meal_type, total_weight, total_calories)
-    value (2023020921401001, 2023021021401001, 'breakfast', 600000, 43800);
-INSERT INTO meal(meal_id, user_id, meal_type, total_weight, total_calories)
-    value (2023020921401002, 2023021021401001, 'lunch', 600000, 43700);
-INSERT INTO meal(meal_id, user_id, meal_type, total_weight, total_calories)
-    value (2023020921401003, 2023021021401002, 'dinner', 570, 650);
-INSERT INTO meal(meal_id, user_id, meal_type, total_weight, total_calories)
-    value (2023020921401004, 2023021021401002, 'snack', 300, 400);
+# INSERT INTO meal(meal_id, user_id, meal_type, total_weight, total_calories)
+#     value (2023020921401001, 2023021021401001, 'breakfast', 600000, 43800);
+# INSERT INTO meal(meal_id, user_id, meal_type, total_weight, total_calories)
+#     value (2023020921401002, 2023021021401001, 'lunch', 600000, 43700);
+# INSERT INTO meal(meal_id, user_id, meal_type, total_weight, total_calories)
+#     value (2023020921401003, 2023021021401002, 'dinner', 570, 650);
+# INSERT INTO meal(meal_id, user_id, meal_type, total_weight, total_calories)
+#     value (2023020921401004, 2023021021401002, 'snack', 300, 400);
 
 INSERT INTO ingredient(ingredient_id, type_id, ingredient_name, description, calories)
     value (2023020821401001, 2023021023502002, 'test_food_A', 'apple', 100);
