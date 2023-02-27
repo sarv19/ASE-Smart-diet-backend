@@ -51,7 +51,7 @@ create table ingredient
     type_id         BIGINT comment 'type_id',
     ingredient_name varchar(50)  not null,
     description     varchar(100) not null comment 'english name/precise information about the ingredient',
-    calories        int          not null comment 'calories/1000g',
+    calories        int          not null comment 'calories/100g',
     fat             int          null comment 'mg/1000g',
     carbohydrate    int          null comment 'mg/1000g',
     protein         int          null comment 'mg/1000g',
