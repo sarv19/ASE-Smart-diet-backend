@@ -15,8 +15,9 @@
         SELECT md.meal_id,
                i.ingredient_name as 'ingredientName',
                i.ingredient_id,
-               md.calories,
-               md.weight
+               i.calories as 'ingredientCalories',
+               md.calories as 'targetCaloriesMax',
+               md.weight as 'targetCaloriesMin'
         FROM meal_detail md right join ingredient i on md.ingredient_id = i.type_id
         where meal_id = #{mealId}
           and md.ingredient_id = #{ingredientId}

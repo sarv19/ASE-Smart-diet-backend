@@ -1,5 +1,6 @@
 package com.group42.model.bean;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
@@ -17,5 +18,11 @@ public class SuggestBaseType {
     private String description;
     private Integer calories;
     private Integer weight;
+    @JsonIgnore
+    private Integer targetCaloriesMin;
+    @JsonIgnore
+    private Integer targetCaloriesMax;
+    @JsonIgnore
+    private Integer ingredientCalories;
 
 }

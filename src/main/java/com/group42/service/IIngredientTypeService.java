@@ -14,5 +14,5 @@ import java.util.List;
  * @since 2023-02-11
  */
 public interface IIngredientTypeService extends IService<IngredientType> {
-    List<IngredientType> getAcceptableBaseType(Long userId);
+    List<IngredientType> getAcceptableType(Long userId);
 }

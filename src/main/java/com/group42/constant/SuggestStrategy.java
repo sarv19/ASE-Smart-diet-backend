@@ -25,17 +25,17 @@ public class SuggestStrategy {
     public static final Integer SUGARS_BASE_PROPORTION = 50;
     public static final String GRAINS_TYPE = "grains";
     public static final String BEANS_TYPE = "beans";
-    public static final String MEET_TYPE = "meet";
+    public static final String MEAT_TYPE = "meat";
     public static final String MILK_TYPE = "milk";
     public static final String VEGETABLE_TYPE = "vegetable";
     public static final String FRUIT_TYPE = "fruit";
 
-    public static final Integer GRAINS_PROPORTION = 80;
-    public static final Integer BEANS_PROPORTION = 20;
-    public static final Integer MEET_PROPORTION = 50;
-    public static final Integer MILK_PROPORTION = 50;
-    public static final Integer VEGETABLE_PROPORTION = 50;
-    public static final Integer FRUIT_PROPORTION = 50;
+    public static final Integer GRAINS_PROPORTION = 40;
+    public static final Integer BEANS_PROPORTION = 10;
+    public static final Integer MEAT_PROPORTION = 20;
+    public static final Integer MILK_PROPORTION = 15;
+    public static final Integer VEGETABLE_PROPORTION = 30;
+    public static final Integer FRUIT_PROPORTION = 10;
 
     public static Integer getProportionByMealType(String mealType) {
         return switch (mealType) {
@@ -55,11 +55,11 @@ public class SuggestStrategy {
         };
     }
 
-    public static Integer getProportionByType(String typeName) {
+    public static Integer getProportionByFoodType(String typeName) {
         return switch (typeName) {
             case GRAINS_TYPE -> GRAINS_PROPORTION;
             case BEANS_TYPE -> BEANS_PROPORTION;
-            case MEET_TYPE -> MEET_PROPORTION;
+            case MEAT_TYPE -> MEAT_PROPORTION;
             case MILK_TYPE -> MILK_PROPORTION;
             case VEGETABLE_TYPE -> VEGETABLE_PROPORTION;
             case FRUIT_TYPE -> FRUIT_PROPORTION;

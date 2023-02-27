@@ -14,4 +14,6 @@ import com.group42.model.entity.Meal;
 public interface IMealService extends IService<Meal> {
     Meal recommandMeal(String userUid, String mealType);
     Meal confirmMeal(Long mealId, int totalCalories, int totalWeight);
+    boolean isConfirmMeal(Meal meal);
+    boolean isConfirmMeal(String mealId);
 }

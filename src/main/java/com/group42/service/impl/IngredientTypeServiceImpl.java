@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- *
  * @author Guofeng Lin
  * @since 2023-02-11
  */
@@ -17,7 +16,8 @@ import java.util.List;
 public class IngredientTypeServiceImpl extends ServiceImpl<IngredientTypeMapper, IngredientType> implements IIngredientTypeService {
 
     @Override
-    public List<IngredientType> getAcceptableBaseType(Long userId) {
-        return getBaseMapper().selectAcceptableBaseType(userId);
+    public List<IngredientType> getAcceptableType(Long userId) {
+        return lambdaQuery().select(IngredientType::getTypeId, IngredientType::getTypeName, IngredientType::getBaseTypeName).list();
+//        return getBaseMapper().selectAcceptableBaseType(userId);
     }
 }

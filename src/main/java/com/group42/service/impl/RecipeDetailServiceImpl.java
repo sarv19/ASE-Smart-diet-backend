@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * @author Guofeng Lin
@@ -20,6 +21,8 @@ import java.util.List;
 @Service
 public class RecipeDetailServiceImpl extends ServiceImpl<MealDetailMapper, MealDetail> implements IMealDetailService {
 
+    private static final Random random = new Random();
+
     @Override
     public List<SuggestBaseType> getMealBaseTypeByMealId(Long mealId) {
         return getBaseMapper().selectMealBaseTypeByMealId(mealId);
@@ -27,7 +30,14 @@ public class RecipeDetailServiceImpl extends ServiceImpl<MealDetailMapper, MealD
 
     @Override
     public List<SuggestBaseType> getMealDetail(Long mealId, Long ingredientId) {
-        return getBaseMapper().selectMealDetail(mealId, ingredientId);
+        List<SuggestBaseType> result = getBaseMapper().selectMealDetail(mealId, ingredientId);
+        for (SuggestBaseType type : result) {
+            System.out.println(type);
+            type.setCalories((int) ((type.getTargetCaloriesMax() + type.getTargetCaloriesMin()) * 1.0 / 2));
+            type.setWeight((int) (type.getCalories() / (type.getIngredientCalories() * 1.0) * 100));
+            type.setCalories((int) (type.getWeight() * (type.getIngredientCalories() * 1.0) / 100));
+        }
+        return result;
     }
 
     @Override
@@ -37,11 +47,9 @@ public class RecipeDetailServiceImpl extends ServiceImpl<MealDetailMapper, MealD
         List<MealDetail> mealDetails = new ArrayList<>(ingredients.size());
         for (SuggestBaseType ingredient : ingredients) {
             MealDetail mealDetail = new MealDetail();
-            mealDetail.setMealId(meal.getMealId());
+            mealDetail.setMealId(meal.getMealId()).setUserId(meal.getUserId()).setUserUid(meal.getUserUid());
             mealDetail.setIngredientId(ingredient.getIngredientId());
-            mealDetail.setUserId(meal.getUserId());
-            mealDetail.setWeight(ingredient.getWeight());
-            mealDetail.setCalories(ingredient.getCalories());
+            mealDetail.setWeight(ingredient.getWeight()).setCalories(ingredient.getCalories());
 
             mealDetails.add(mealDetail);
         }

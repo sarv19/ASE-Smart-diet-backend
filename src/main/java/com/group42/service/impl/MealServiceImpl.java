@@ -14,6 +14,7 @@ import com.group42.service.IUserService;
 import com.group42.utils.ExceptionUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ObjectUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -30,7 +31,11 @@ public class MealServiceImpl extends ServiceImpl<MealMapper, Meal> implements IM
     private final IIngredientTypeService ingredientTypeService;
     private final IMealDetailService mealDetailService;
 
-    public MealServiceImpl(IUserService userService, IIngredientTypeService ingredientTypeService, IMealDetailService mealDetailService) {
+    public MealServiceImpl(
+            IUserService userService,
+            IIngredientTypeService ingredientTypeService,
+            IMealDetailService mealDetailService
+    ) {
         this.userService = userService;
         this.ingredientTypeService = ingredientTypeService;
         this.mealDetailService = mealDetailService;
@@ -41,12 +46,25 @@ public class MealServiceImpl extends ServiceImpl<MealMapper, Meal> implements IM
     public Meal recommandMeal(String userUid, String mealType) {
         Meal meal = new Meal();
         User user = userService.findUserByUid(userUid);
-        meal.setUserId(user.getUserId());
-        meal.setUserUid(userUid);
+        meal.setUserId(user.getUserId()).setUserUid(userUid);
         meal.setMealType(mealType);
-        meal.setTotalWeight(0);
-        meal.setTotalCalories(0);
-        if (save(meal) && prepareRecommend(meal)) {
+        Integer max = user.getTargetCaloriesMax();
+        Integer min = user.getTargetCaloriesMin();
+        if (max == null || min == null) {
+            throw ExceptionUtils.newSE("User: " + user.getUserId() + " has not set target calories");
+        }
+        if (max < 1 || min < 1) {
+            throw ExceptionUtils.newSE("User: " + user.getUserId() + " has set target calories incorrectly");
+        }
+        if (max < min) { // swap values
+            max ^= min;
+            min ^= max;
+            max ^= min;
+        }
+        Integer proportion = SuggestStrategy.getProportionByMealType(meal.getMealType());
+        max = max * proportion / 100;
+        min = min * proportion / 100;
+        if (save(meal.setTotalWeight(min).setTotalCalories(max)) && prepareRecommend(meal)) {
             return meal;
         }
         throw ExceptionUtils.newSE("Failed to recommend a meal for user: " + user.getUserUid());
@@ -64,38 +82,29 @@ public class MealServiceImpl extends ServiceImpl<MealMapper, Meal> implements IM
         return one;
     }
 
+    @Override
+    public boolean isConfirmMeal(Meal meal) {
+        return !ObjectUtils.isEmpty(meal.getMealDate());
+    }
+
+    @Override
+    public boolean isConfirmMeal(String mealId) {
+        return isConfirmMeal(getById(mealId));
+    }
+
     private boolean prepareRecommend(Meal meal) {
-        // gather information
-        // 1. user's target calories
-        User user = userService.getById(meal.getUserId());
-        Integer max = user.getTargetCaloriesMax();
-        Integer min = user.getTargetCaloriesMin();
-        if (max == null || min == null) {
-            throw ExceptionUtils.newSE("User: " + user.getUserId() + " has not set target calories");
-        }
-        if (max < 1 || min < 1) {
-            throw ExceptionUtils.newSE("User: " + user.getUserId() + " has set target calories incorrectly");
-        }
-        if (max < min) { // swap values
-            max ^= min;
-            min ^= max;
-            max ^= min;
-        }
-        Integer proportion = SuggestStrategy.getProportionByMealType(meal.getMealType());
-        max = max * proportion / 100;
-        min = min * proportion / 100;
-        // 2. ingredients by preference (include type group information)
-        List<IngredientType> acceptableType = ingredientTypeService.getAcceptableBaseType(meal.getUserId());
+        // ingredients by preference (include type group information)
+        List<IngredientType> acceptableType = ingredientTypeService.getAcceptableType(meal.getUserId());
         // recommend by type
         List<MealDetail> mealDetails = new ArrayList<>(acceptableType.size() * 2);
         for (IngredientType type : acceptableType) {
             MealDetail mealDetail = new MealDetail();
-            mealDetail.setMealId(meal.getMealId());
+            mealDetail.setMealId(meal.getMealId()).setUserId(meal.getUserId()).setUserUid(meal.getUserUid());
+            Integer proportion = SuggestStrategy.getProportionByFoodType(type.getTypeName());
+//            proportion = proportion * SuggestStrategy.getProportionByBaseType(type.getBaseTypeName()) / 100;
             mealDetail.setIngredientId(type.getTypeId());
-            mealDetail.setUserId(meal.getUserId());
-            mealDetail.setUserUid(meal.getUserUid());
-            mealDetail.setWeight(100);
-            mealDetail.setCalories(100);
+            mealDetail.setWeight(meal.getTotalWeight() * proportion / 100).setCalories(meal.getTotalCalories() * proportion / 100);
+
             mealDetails.add(mealDetail);
         }
         return mealDetailService.saveBatch(mealDetails);
