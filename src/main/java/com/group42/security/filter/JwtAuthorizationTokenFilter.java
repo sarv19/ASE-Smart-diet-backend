@@ -50,15 +50,6 @@ public class JwtAuthorizationTokenFilter extends OncePerRequestFilter {
             UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
-//        try {
-//            BufferedReader streamReader = new BufferedReader(new InputStreamReader(request.getInputStream(), StandardCharsets.UTF_8));
-//            String inputStr;
-//            while ((inputStr = streamReader.readLine()) != null)
-//                System.out.println(inputStr);
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
         chain.doFilter(request, response);
     }
 }

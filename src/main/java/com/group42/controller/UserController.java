@@ -1,6 +1,7 @@
 package com.group42.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.group42.constant.ErrorEnum;
 import com.group42.model.bean.R;
 import com.group42.model.entity.User;
 import com.group42.model.to.BaseTO;
@@ -34,7 +35,7 @@ public class UserController extends BaseController {
         User login = userService.login(to.getUsername(), to.getPassword());
         if (StringUtils.isNotNull(login))
             return R.ok("", login.getUserUid());
-        return R.error();
+        return new R(ErrorEnum.FAIL_LOGIN);
     }
 
     @PostMapping("/register")

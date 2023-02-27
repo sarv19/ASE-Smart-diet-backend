@@ -3,7 +3,7 @@ package com.group42.constant;
 public enum ErrorEnum {
 
     ACCOUNT_BANNED(202, "account banned"),
-    TOKEN_INVALID(300, "token invalid"),
+    FAIL_LOGIN(300, "wrong username or password"),
     BAD_PARAM(400, "bad param"),
 
     NEED_AUTHORIZATION(401, "authorization header is not exists"),
