@@ -39,13 +39,30 @@ public class User extends BaseEntity {
      */
     private String gender;
 
+    private Integer targetCaloriesMin;
+
+    private Integer targetCaloriesMax;
+
+    private Integer targetProteinMin;
+
+    private Integer targetProteinMax;
+
+    private Integer targetCarbohydrateMax;
+
+    private Integer targetCarbohydrateMin;
+
+    private Integer targetFatMin;
+
+    private Integer targetFatMax;
+
+    private Integer targetMineralsMin;
+
+    private Integer targetMineralsMax;
+
     private String emailAddress;
 
     private String phoneNumber;
 
     private String address;
-
-    private Integer targetCaloriesMin;
-    private Integer targetCaloriesMax;
 
 }

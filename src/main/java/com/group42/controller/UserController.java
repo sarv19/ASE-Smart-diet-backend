@@ -5,9 +5,11 @@ import com.group42.constant.ErrorEnum;
 import com.group42.model.bean.R;
 import com.group42.model.entity.User;
 import com.group42.model.to.BaseTO;
+import com.group42.model.to.UserSettingTO;
 import com.group42.model.to.UserTO;
 import com.group42.model.valid.Insert;
 import com.group42.model.valid.Query;
+import com.group42.model.valid.Update;
 import com.group42.service.IUserService;
 import com.group42.utils.StringUtils;
 import org.springframework.validation.annotation.Validated;
@@ -43,6 +45,15 @@ public class UserController extends BaseController {
         if (userService.register(to.getUserUid(), to.getEmail()))
             return R.ok("",to.getUserUid());
         return R.error();
+    }
+
+    @PostMapping("/queryDietPreference")
+    public R queryDietPreference(@RequestBody @Validated(Query.class) UserSettingTO to){
+            return R.ok();
+    }
+    @PostMapping("/editDietPreference")
+    public R editDietPreference(@RequestBody @Validated(Update.class) UserSettingTO to){
+            return R.ok();
     }
 
     @PostMapping("/query")
