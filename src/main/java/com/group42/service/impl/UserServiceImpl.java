@@ -25,11 +25,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     @Override
     public boolean register(String userUid, String email) {
-        User user = lambdaQuery().eq(User::getUserUid, userUid).one();
-        if (StringUtils.isNotNull(user))
+        List<User> users = lambdaQuery().eq(User::getUserUid, userUid).list();
+        if (StringUtils.isNotNull(users))
             return true;
         String userName = email.split("@")[0];
-        user = new User().setUserUid(userUid).setEmailAddress(email)
+        User user = new User().setUserUid(userUid).setEmailAddress(email)
                 .setPassword("").setUserName(userName).setFullName(userName)
                 .setTargetCaloriesMax(DefaultValue.DEFAULT_TARGET_CALORIES).setTargetCaloriesMin(DefaultValue.DEFAULT_TARGET_CALORIES);
         return save(user);
