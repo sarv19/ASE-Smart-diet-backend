@@ -43,7 +43,7 @@ public class User extends BaseEntity {
 
     private Integer targetCaloriesMax;
 
-    private Integer targetProteinMin;
+    private Integer targetProteinMin; //target_protein_min
 
     private Integer targetProteinMax;
 

@@ -1,6 +1,6 @@
-drop database if exists smart_diet;
-create database smart_diet;
-use smart_diet;
+drop database if exists smartDiet;
+create database smartDiet;
+use smartDiet;
 
 drop table if exists user;
 create table user

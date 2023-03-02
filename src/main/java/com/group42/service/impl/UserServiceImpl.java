@@ -7,6 +7,7 @@ import com.group42.model.entity.User;
 import com.group42.service.IUserService;
 import com.group42.utils.AESUtil;
 import com.group42.utils.StringUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.lang.Nullable;
@@ -26,8 +27,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Override
     public boolean register(String userUid, String email) {
         List<User> users = lambdaQuery().eq(User::getUserUid, userUid).list();
-        if (StringUtils.isNotNull(users))
+        if (ObjectUtils.isNotEmpty(users)){
+            System.out.println(users);
             return true;
+        }
         String userName = email.split("@")[0];
         User user = new User().setUserUid(userUid).setEmailAddress(email)
                 .setPassword("").setUserName(userName).setFullName(userName)
