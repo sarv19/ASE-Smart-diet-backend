@@ -27,7 +27,7 @@ public class JwtAuthorizationTokenFilter extends OncePerRequestFilter {
     private final UserDetailsService JwtUserDetailsService;
 
 
-    public JwtAuthorizationTokenFilter(IUserService userService,UserDetailsService JwtUserDetailsService) {
+    public JwtAuthorizationTokenFilter(IUserService userService, UserDetailsService JwtUserDetailsService) {
         this.userService = userService;
         this.JwtUserDetailsService = JwtUserDetailsService;
     }
@@ -44,6 +44,7 @@ public class JwtAuthorizationTokenFilter extends OncePerRequestFilter {
             user = userService.findUserByUid(JwtUtils.getUserUidFromRequest(request));
         }
         System.out.println(JwtUtils.getUserUidFromRequest(request));
+        System.out.println(null == user);
         if (user != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             System.out.println("=====user: " + user);
             // begin authentication

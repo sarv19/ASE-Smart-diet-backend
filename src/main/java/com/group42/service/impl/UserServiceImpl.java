@@ -8,6 +8,7 @@ import com.group42.service.IUserService;
 import com.group42.utils.AESUtil;
 import com.group42.utils.StringUtils;
 import org.apache.commons.lang3.ObjectUtils;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.lang.Nullable;
@@ -25,9 +26,10 @@ import java.util.List;
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
 
     @Override
+    @CacheEvict(value = "cacheById", key = "#userUid", beforeInvocation = true)
     public boolean register(String userUid, String email) {
         List<User> users = lambdaQuery().eq(User::getUserUid, userUid).list();
-        if (ObjectUtils.isNotEmpty(users)){
+        if (ObjectUtils.isNotEmpty(users)) {
             System.out.println(users);
             return true;
         }
@@ -53,7 +55,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     @Override
     @Nullable
-    @Cacheable(value = "users", key = "#userUid")
+    @Cacheable(value = "users", key = "#userUid", unless = "#result == null")
     public User findUserByUid(String userUid) {
         if (StringUtils.isEmpty(userUid))
             return null;
