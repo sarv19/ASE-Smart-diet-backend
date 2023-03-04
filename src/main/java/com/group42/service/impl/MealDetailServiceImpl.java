@@ -54,9 +54,9 @@ public class MealDetailServiceImpl extends ServiceImpl<MealDetailMapper, MealDet
     private List<SuggestMealDetail> calcMealDetail(List<SuggestMealDetail> suggestMealDetails) {
         for (SuggestMealDetail type : suggestMealDetails) {
             // (type.getTargetCaloriesMax() + type.getTargetCaloriesMin()) * 1.0 / 2
-            type.setCalories(type.getTargetCaloriesMin() + ((type.getTargetCaloriesMax() - type.getTargetCaloriesMin())) >> 1);
-            type.setWeight((int) (type.getCalories() / (type.getIngredientCalories() * 1.0) * 100));
-            type.setCalories((int) (type.getWeight() * (type.getIngredientCalories() * 1.0) / 100));
+            type.setCalories(type.getTargetCaloriesMin() + ((type.getTargetCaloriesMax() - type.getTargetCaloriesMin()) >> 1));
+            type.setWeight((int) (type.getCalories() * 1.0 / (type.getIngredientCalories()) * 100));
+//            type.setCalories((int) (type.getWeight() * (type.getIngredientCalories() * 1.0) / 100));
         }
         SuggestMealDetail[] target = suggestMealDetails.toArray(new SuggestMealDetail[0]);
         Arrays.sort(target, (o1, o2) -> (int) (o1.getTypeId() - o2.getTypeId()));

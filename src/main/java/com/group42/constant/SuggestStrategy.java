@@ -13,7 +13,7 @@ public class SuggestStrategy {
     public static final String DINNER = "dinner";
     public static final Integer BREAKFAST_PROPORTION = 30;
     public static final Integer LUNCH_PROPORTION = 40;
-    public static final Integer DINNER_PROPORTION = 25;
+    public static final Integer DINNER_PROPORTION = 30;
     public static final Integer OTHER_PROPORTION = 10;
 
     // food type proportion
@@ -30,9 +30,9 @@ public class SuggestStrategy {
     public static final String VEGETABLE_TYPE = "vegetable";
     public static final String FRUIT_TYPE = "fruit";
 
-    public static final Integer GRAINS_PROPORTION = 40;
+    public static final Integer GRAINS_PROPORTION = 45;
     public static final Integer BEANS_PROPORTION = 10;
-    public static final Integer MEAT_PROPORTION = 20;
+    public static final Integer MEAT_PROPORTION = 25;
     public static final Integer MILK_PROPORTION = 15;
     public static final Integer VEGETABLE_PROPORTION = 30;
     public static final Integer FRUIT_PROPORTION = 10;

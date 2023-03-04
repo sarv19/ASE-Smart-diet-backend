@@ -38,7 +38,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         String userName = email.split("@")[0];
         User user = new User().setUserUid(userUid).setEmailAddress(email)
                 .setPassword("").setUserName(userName).setFullName(userName)
-                .setTargetCaloriesMax(DefaultValue.DEFAULT_TARGET_CALORIES).setTargetCaloriesMin(DefaultValue.DEFAULT_TARGET_CALORIES);
+                .setTargetCaloriesMax(DefaultValue.DEFAULT_MAX_CALORIES).setTargetCaloriesMin(DefaultValue.DEFAULT_MIN_CALORIES);
         log.info("user register successfully: " + user);
         return save(user);
     }
