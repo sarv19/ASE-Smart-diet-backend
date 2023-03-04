@@ -1,23 +1,29 @@
 package com.group42.model.entity;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
 
 /**
- * <p>
- * 
- * </p>
  *
  * @author Guofeng Lin
  * @since 2023-02-27
  */
-public class Seasoner implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+@TableName("seasoner")
+@Data
+@EqualsAndHashCode(callSuper = true)
+@Accessors(chain = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class Seasoner extends BaseEntity {
 
     /**
      * seasoner id
      */
+    @TableId(type = IdType.ASSIGN_ID)
     private Long seasonerId;
 
     private String seasonerName;
@@ -27,58 +33,4 @@ public class Seasoner implements Serializable {
      */
     private String description;
 
-    private LocalDateTime createdAt;
-
-    private LocalDateTime updatedAt;
-
-    public Long getSeasonerId() {
-        return seasonerId;
-    }
-
-    public void setSeasonerId(Long seasonerId) {
-        this.seasonerId = seasonerId;
-    }
-
-    public String getSeasonerName() {
-        return seasonerName;
-    }
-
-    public void setSeasonerName(String seasonerName) {
-        this.seasonerName = seasonerName;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    @Override
-    public String toString() {
-        return "Seasoner{" +
-        "seasonerId = " + seasonerId +
-        ", seasonerName = " + seasonerName +
-        ", description = " + description +
-        ", createdAt = " + createdAt +
-        ", updatedAt = " + updatedAt +
-        "}";
-    }
 }

@@ -1,6 +1,6 @@
 package com.group42.model.to;
 
-import com.group42.model.bean.SuggestBaseType;
+import com.group42.model.bean.SuggestMealDetail;
 import com.group42.model.valid.Info;
 import com.group42.model.valid.Insert;
 import lombok.Data;
@@ -29,6 +29,6 @@ public class MealTO extends BaseTO {
     private String mealDate;
     @NotNull(groups = {Insert.class})
     @Size(min = 0, max = 1000, groups = {Insert.class})
-    private List<SuggestBaseType> ingredients;
+    private List<SuggestMealDetail> ingredients;
 
 }

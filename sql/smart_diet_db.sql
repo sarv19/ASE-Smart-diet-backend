@@ -137,6 +137,7 @@ create table eating_preference
     user_id       BIGINT       not null comment 'user id',
     user_uid      BIGINT       not null comment 'user uid',
     ingredient_id BIGINT comment 'ingredient id',
+    type_id       BIGINT comment 'type id',
     seasoner_id   BIGINT comment 'seasoner id',
     is_like       boolean comment 'true for like, false for dislike',
     is_allergen   boolean comment 'true for allergy, false for not',

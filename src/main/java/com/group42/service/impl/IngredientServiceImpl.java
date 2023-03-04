@@ -4,11 +4,14 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.group42.dao.IngredientMapper;
 import com.group42.model.bean.SuggestIngredient;
 import com.group42.model.entity.Ingredient;
+import com.group42.model.entity.MealDetail;
 import com.group42.model.vo.IngredientVO;
 import com.group42.service.IIngredientService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Guofeng Lin
@@ -25,5 +28,21 @@ public class IngredientServiceImpl extends ServiceImpl<IngredientMapper, Ingredi
     @Override
     public List<SuggestIngredient> getAcceptableIngredients(Long userId) {
         return null;
+    }
+
+    @Override
+    public List<MealDetail> recommendByBaseType(Long userId, Map<Long, MealDetail> detailMap) {
+        List<Ingredient> ingredients = getBaseMapper().selectRecommendByPreference(userId);
+        List<MealDetail> mealDetails = new ArrayList<>(detailMap.size());
+        for (Ingredient ingredient : ingredients) {
+            MealDetail mealDetail = detailMap.get(ingredient.getTypeId());
+            if (mealDetail == null) {
+                continue;
+            }
+            mealDetail.setIngredientId(ingredient.getIngredientId());
+//            mealDetail.setWeight((int) (mealDetail.getCalories() * 1.0 / ingredient.getCalories()));
+            mealDetails.add(mealDetail);
+        }
+        return mealDetails;
     }
 }

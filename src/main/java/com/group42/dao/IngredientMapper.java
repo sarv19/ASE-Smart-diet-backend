@@ -17,5 +17,6 @@ import java.util.List;
  */
 public interface IngredientMapper extends BaseMapper<Ingredient> {
     List<IngredientVO> selectIngredientsByPreference(@Param("userId") Long userId, @Param("mealId") Long mealId);
+    List<Ingredient> selectRecommendByPreference(@Param("userId") Long userId);
 
 }

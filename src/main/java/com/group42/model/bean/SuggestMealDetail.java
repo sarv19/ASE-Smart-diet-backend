@@ -5,15 +5,16 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 /**
- * SuggestBaseType
+ * SuggestMealDetail
  *
  * @author Guofeng Lin
  * @since 2023/2/11
  */
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class SuggestBaseType {
+public class SuggestMealDetail {
     private Long ingredientId;
+    private Long typeId;
     private String ingredientName;
     private String description;
     private Integer calories;

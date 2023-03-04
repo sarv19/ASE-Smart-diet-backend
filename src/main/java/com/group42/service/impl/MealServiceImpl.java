@@ -7,19 +7,13 @@ import com.group42.model.entity.IngredientType;
 import com.group42.model.entity.Meal;
 import com.group42.model.entity.MealDetail;
 import com.group42.model.entity.User;
-import com.group42.service.IIngredientTypeService;
-import com.group42.service.IMealDetailService;
-import com.group42.service.IMealService;
-import com.group42.service.IUserService;
+import com.group42.service.*;
 import com.group42.utils.ExceptionUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * @author Guofeng Lin
@@ -29,15 +23,18 @@ import java.util.Optional;
 public class MealServiceImpl extends ServiceImpl<MealMapper, Meal> implements IMealService {
     private final IUserService userService;
     private final IIngredientTypeService ingredientTypeService;
+    private final IIngredientService ingredientService;
     private final IMealDetailService mealDetailService;
 
     public MealServiceImpl(
             IUserService userService,
             IIngredientTypeService ingredientTypeService,
+            IIngredientService ingredientService,
             IMealDetailService mealDetailService
     ) {
         this.userService = userService;
         this.ingredientTypeService = ingredientTypeService;
+        this.ingredientService = ingredientService;
         this.mealDetailService = mealDetailService;
     }
 
@@ -96,17 +93,18 @@ public class MealServiceImpl extends ServiceImpl<MealMapper, Meal> implements IM
         // ingredients by preference (include type group information)
         List<IngredientType> acceptableType = ingredientTypeService.getAcceptableType(meal.getUserId());
         // recommend by type
-        List<MealDetail> mealDetails = new ArrayList<>(acceptableType.size() * 2);
+        Map<Long, MealDetail> typeMap = new HashMap<>(acceptableType.size() * 2);
         for (IngredientType type : acceptableType) {
             MealDetail mealDetail = new MealDetail();
             mealDetail.setMealId(meal.getMealId()).setUserId(meal.getUserId()).setUserUid(meal.getUserUid());
             Integer proportion = SuggestStrategy.getProportionByFoodType(type.getTypeName());
 //            proportion = proportion * SuggestStrategy.getProportionByBaseType(type.getBaseTypeName()) / 100;
             mealDetail.setIngredientId(type.getTypeId());
-            mealDetail.setWeight(meal.getTotalWeight() * proportion / 100).setCalories(meal.getTotalCalories() * proportion / 100);
-
-            mealDetails.add(mealDetail);
+            mealDetail.setWeight((int) (meal.getTotalWeight() * proportion / 100.0))
+                    .setCalories((int) (meal.getTotalCalories() * proportion / 100.0));
+            typeMap.put(type.getTypeId(), mealDetail);
         }
-        return mealDetailService.saveBatch(mealDetails);
+        // recommend by base type
+        return mealDetailService.saveBatch(ingredientService.recommendByBaseType(meal.getUserId(), typeMap));
     }
 }

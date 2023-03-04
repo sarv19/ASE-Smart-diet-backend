@@ -11,9 +11,6 @@ import java.util.Map;
 
 public class PageUtils extends PageHelper {
 
-    /**
-     * 设置请求分页数据
-     */
     public static void startPage(BaseTO baseTO) {
         if (null == baseTO) {
             PageHelper.startPage(1, 10).setReasonable(true);

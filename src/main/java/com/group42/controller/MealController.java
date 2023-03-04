@@ -1,7 +1,7 @@
 package com.group42.controller;
 
 import com.group42.model.bean.R;
-import com.group42.model.bean.SuggestBaseType;
+import com.group42.model.bean.SuggestMealDetail;
 import com.group42.model.entity.Meal;
 import com.group42.model.to.MealTO;
 import com.group42.model.valid.Info;
@@ -25,13 +25,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *
  * @author Guofeng Lin
  * @since 2023-02-10
  */
 @RestController
 @RequestMapping("/meal")
-public class MealController extends BaseController{
+public class MealController extends BaseController {
     private final IMealService mealService;
     private final IMealDetailService mealDetailService;
 
@@ -50,7 +49,7 @@ public class MealController extends BaseController{
             mealId = mealService.recommandMeal(JwtUtils.getUserUidFromRequest(request), to.getMealType()).getMealId();
         }
         startPage(to);
-        Map<String, Object> map = PageUtils.pageInfoMap(mealDetailService.getMealBaseTypeByMealId(mealId));
+        Map<String, Object> map = PageUtils.pageInfoMap(mealDetailService.getMealDetailByMealId(mealId));
         map.put("mealId", mealId);
         return R.ok(map);
     }
@@ -61,9 +60,11 @@ public class MealController extends BaseController{
     }
 
     @PostMapping("/querySubstitutions")
-    public R querySubstitutions(@RequestBody @Validated({Info.class}) MealTO to) {
+    public R querySubstitutions(@RequestBody @Validated({Info.class}) MealTO to, HttpServletRequest request) {
         startPage(to);
-        return R.ok(PageUtils.pageInfoMap(mealDetailService.getMealDetail(to.getMealId(), to.getIngredientId())));
+        return R.ok(PageUtils.pageInfoMap(
+                mealDetailService.getSubstitutions(JwtUtils.getUserUidFromRequest(request), to.getMealId(), to.getIngredientId())
+        ));
     }
 
     @PostMapping("/confirmAMeal")
@@ -71,8 +72,8 @@ public class MealController extends BaseController{
     public R confirmAMeal(@RequestBody @Validated({Insert.class}) MealTO to) {
         int totalCalories = 0;
         int totalWeight = 0;
-        List<SuggestBaseType> ingredients = to.getIngredients();
-        for (SuggestBaseType ingredient : ingredients) {
+        List<SuggestMealDetail> ingredients = to.getIngredients();
+        for (SuggestMealDetail ingredient : ingredients) {
             totalCalories += ingredient.getCalories();
             totalWeight += ingredient.getWeight();
         }

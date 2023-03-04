@@ -13,4 +13,26 @@
                sodium
         FROM ingredient i
     </select>
+
+    <select id="selectRecommendByPreference" resultType="com.group42.model.entity.Ingredient">
+        select i.ingredient_id,
+               type_id,
+               ingredient_name,
+               description,
+               calories,
+               fat,
+               carbohydrate,
+               protein,
+               sodium
+        from ingredient i
+                 right join (select ANY_VALUE(ingredient_id) as ingredient_id
+                             from ingredient i
+                             where ingredient_id not in
+                                   (select ingredient_id
+                                    from eating_preference
+                                    where user_id = #{userId}
+                                      and is_like is false)
+                             group by type_id
+                             ORDER BY RAND()) tmp on i.ingredient_id = tmp.ingredient_id
+    </select>
 </mapper>
