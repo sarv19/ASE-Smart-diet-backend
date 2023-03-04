@@ -7,6 +7,7 @@ import com.group42.model.entity.User;
 import com.group42.service.IUserService;
 import com.group42.utils.AESUtil;
 import com.group42.utils.StringUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -23,6 +24,7 @@ import java.util.List;
  */
 @Service
 @EnableCaching
+@Slf4j
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
 
     @Override
@@ -30,14 +32,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     public boolean register(String userUid, String email) {
         List<User> users = lambdaQuery().eq(User::getUserUid, userUid).list();
         if (ObjectUtils.isNotEmpty(users)) {
-            System.out.println(users);
+            log.info("Found " + users.size() + "user(s) for " + userUid);
             return true;
         }
         String userName = email.split("@")[0];
         User user = new User().setUserUid(userUid).setEmailAddress(email)
                 .setPassword("").setUserName(userName).setFullName(userName)
                 .setTargetCaloriesMax(DefaultValue.DEFAULT_TARGET_CALORIES).setTargetCaloriesMin(DefaultValue.DEFAULT_TARGET_CALORIES);
-        System.out.println("user is registered: " + user);
+        log.info("user register successfully: " + user);
         return save(user);
     }
 
