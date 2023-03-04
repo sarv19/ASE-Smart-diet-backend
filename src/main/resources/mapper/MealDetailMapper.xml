@@ -28,5 +28,6 @@
                        where md.meal_id = #{mealId}
                          and md.ingredient_id = #{ingredientId}) tmp
                       on i1.type_id = tmp.type_id
+        where i1.ingredient_id != #{ingredientId}
     </select>
 </mapper>
