@@ -19,10 +19,10 @@ public class MySQLGeneratorTest extends BaseGeneratorTest {
     @Test
     public void testSimple() {
         AutoGenerator generator = new AutoGenerator(DATA_SOURCE_CONFIG);
-        generator.strategy(strategyConfig().build());
+//        generator.strategy(strategyConfig().build());
         generator.global(globalConfig().outputDir("src/test/java").author("Guofeng Lin").build());
         generator.packageInfo(packageConfig().parent("com.group42").mapper("dao").build());
-//        generator.strategy(strategyConfig().addInclude("ingredient_type").build());
+        generator.strategy(strategyConfig().addInclude("user_target").build());
         generator.execute();
     }
 }

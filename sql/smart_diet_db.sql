@@ -22,7 +22,7 @@ create table user
 drop table if exists user_target;
 create table user_target
 (
-    target_id               BIGINT comment 'target Id',
+    target_id               BIGINT primary key comment 'target Id',
     user_id                 BIGINT comment 'user Id',
     user_uid                char(50)  not null comment 'user unique id from Google, Facebook, etc.',
     target_calories_min     int       not null,

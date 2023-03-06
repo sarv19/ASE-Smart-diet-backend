@@ -12,23 +12,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class UserSettingTO extends BaseTO{
-    private Integer targetCaloriesMin;
+    private String gender;
+    private String address;
 
-    private Integer targetCaloriesMax;
-
-    private Integer targetProteinMin;
-
-    private Integer targetProteinMax;
-
-    private Integer targetCarbohydrateMax;
-
-    private Integer targetCarbohydrateMin;
-
-    private Integer targetFatMin;
-
-    private Integer targetFatMax;
-
-    private Integer targetMineralsMin;
-
-    private Integer targetMineralsMax;
 }
