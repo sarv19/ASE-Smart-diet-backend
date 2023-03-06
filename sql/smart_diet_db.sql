@@ -5,27 +5,38 @@ use smartDiet;
 drop table if exists user;
 create table user
 (
-    user_id                 BIGINT primary key comment 'user Id',
-    user_name               varchar(100) not null,
-    password                char(50)     not null,
-    full_name               varchar(100) not null,
-    gender                  char(10)     not null comment 'male, female, universal, unknown' default 'unknown',
-    target_calories_min     int          not null,
-    target_calories_max     int          not null,
-    target_protein_min      int          null,
-    target_protein_max      int          null,
-    target_carbohydrate_max int          null,
-    target_carbohydrate_min int          null,
-    target_fat_min          int          null,
-    target_fat_max          int          null,
-    target_minerals_min     int          null,
-    target_minerals_max     int          null,
-    email_address           varchar(50)  not null,
-    user_uid                char(50)     not null comment 'user unique id from Google, Facebook, etc.',
-    phone_number            char(15)     null,
-    address                 varchar(255) null,
-    created_at              timestamp    not null                                            default current_timestamp,
-    updated_at              timestamp    not null                                            default current_timestamp on update current_timestamp
+    user_id       BIGINT primary key comment 'user Id',
+    user_name     varchar(100) not null,
+    password      char(50)     not null,
+    full_name     varchar(100) not null,
+    gender        char(10)     not null comment 'male, female, universal, unknown' default 'unknown',
+    email_address varchar(50)  not null,
+    user_uid      char(50)     not null comment 'user unique id from Google, Facebook, etc.',
+    phone_number  char(15)     null,
+    address       varchar(255) null,
+    created_at    timestamp    not null                                            default current_timestamp,
+    updated_at    timestamp    not null                                            default current_timestamp on update current_timestamp
+) engine = innodb
+  default charset = utf8mb4;
+
+drop table if exists user_target;
+create table user_target
+(
+    target_id               BIGINT comment 'target Id',
+    user_id                 BIGINT comment 'user Id',
+    user_uid                char(50)  not null comment 'user unique id from Google, Facebook, etc.',
+    target_calories_min     int       not null,
+    target_calories_max     int       not null,
+    target_protein_min      int       null,
+    target_protein_max      int       null,
+    target_carbohydrate_max int       null,
+    target_carbohydrate_min int       null,
+    target_fat_min          int       null,
+    target_fat_max          int       null,
+    target_minerals_min     int       null,
+    target_minerals_max     int       null,
+    created_at              timestamp not null default current_timestamp,
+    updated_at              timestamp not null default current_timestamp on update current_timestamp
 ) engine = innodb
   default charset = utf8mb4;
 
