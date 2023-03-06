@@ -1,26 +1,26 @@
 INSERT INTO user(user_id, user_name, password, full_name, gender, email_address, phone_number, address,
                  user_uid)
     value (2023021021401001, 'tester00', '5gb8WEBlcW8xDhQqhshY1A==', 'Aa Testa', 'male', 'testa@example.com',
-           '+10000000000', '401 Sunset Ave, Windsor, ON N9B 3P4', 1200, 2000, '1');
+           '+10000000000', '401 Sunset Ave, Windsor, ON N9B 3P4', '1');
 INSERT INTO user(user_id, user_name, password, full_name, gender, email_address, phone_number, address,
                  user_uid)
     value (2023021021401002, 'tester01', '1IGm5YkfWwQnWEkFgolGOA==', 'Bb Testb', 'female', 'testb@example.com',
-           '+21111111111', '401 Sunset Ave, Windsor, ON N9B 3P4', 1200, 2000, '2');
+           '+21111111111', '401 Sunset Ave, Windsor, ON N9B 3P4', '2');
 INSERT INTO user(user_id, user_name, password, full_name, gender, email_address, phone_number, user_uid)
     value (2023021021401003, 'tester02', 'xBRWvDx6vF2Y8NBD1Jcebw==', 'Cc Testc', 'universal', 'testc@example.com',
-           '+32222222222', 900, 1500, '3');
+           '+32222222222', '3');
 INSERT INTO user(user_id, user_name, password, full_name, gender, email_address, phone_number, user_uid)
     value (2023021021401004, 'tester03', 'oQuEl19YljlQcRqDmi5GkA==', 'Dd Testd', 'unknown', 'testd@example.com',
-           '+8612345678901', 900, 1500, '4');
+           '+8612345678901', '4');
 
-INSERT INTO user_target(target_id, user_id, user_uid, target_calories_min, target_calories_max)
-    value (2023030621401004, 2023021021401001, '1', 1200, 2000);
-INSERT INTO user_target(target_id, user_id, user_uid, target_calories_min, target_calories_max)
-    value (2023030621401005, 2023021021401002, '2', 1200, 2000);
-INSERT INTO user_target(target_id, user_id, user_uid, target_calories_min, target_calories_max)
-    value (2023030621401006, 2023021021401003, '3', 900, 1500);
-INSERT INTO user_target(target_id, user_id, user_uid, target_calories_min, target_calories_max)
-    value (2023030621401007, 2023021021401004, '4', 900, 1500);
+INSERT INTO user_target(target_id, user_id, user_uid, target_calories_min, target_calories_max,is_active)
+    value (2023030621401004, 2023021021401001, '1', 1200, 2000, true);
+INSERT INTO user_target(target_id, user_id, user_uid, target_calories_min, target_calories_max,is_active)
+    value (2023030621401005, 2023021021401002, '2', 1200, 2000, true);
+INSERT INTO user_target(target_id, user_id, user_uid, target_calories_min, target_calories_max,is_active)
+    value (2023030621401006, 2023021021401003, '3', 900, 1500, true);
+INSERT INTO user_target(target_id, user_id, user_uid, target_calories_min, target_calories_max,is_active)
+    value (2023030621401007, 2023021021401004, '4', 900, 1500, true);
 
 truncate table ingredient;
 INSERT INTO ingredient(ingredient_id, type_id, ingredient_name, description, calories)
