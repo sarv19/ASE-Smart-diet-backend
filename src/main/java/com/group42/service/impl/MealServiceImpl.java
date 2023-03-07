@@ -6,7 +6,7 @@ import com.group42.dao.MealMapper;
 import com.group42.model.entity.IngredientType;
 import com.group42.model.entity.Meal;
 import com.group42.model.entity.MealDetail;
-import com.group42.model.entity.User;
+import com.group42.model.entity.UserTarget;
 import com.group42.service.*;
 import com.group42.utils.ExceptionUtils;
 import org.springframework.stereotype.Service;
@@ -25,33 +25,36 @@ public class MealServiceImpl extends ServiceImpl<MealMapper, Meal> implements IM
     private final IIngredientTypeService ingredientTypeService;
     private final IIngredientService ingredientService;
     private final IMealDetailService mealDetailService;
+    private final IUserTargetService userTargetService;
 
     public MealServiceImpl(
             IUserService userService,
             IIngredientTypeService ingredientTypeService,
             IIngredientService ingredientService,
-            IMealDetailService mealDetailService
+            IMealDetailService mealDetailService,
+            IUserTargetService userTargetService
     ) {
         this.userService = userService;
         this.ingredientTypeService = ingredientTypeService;
         this.ingredientService = ingredientService;
         this.mealDetailService = mealDetailService;
+        this.userTargetService = userTargetService;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Meal recommandMeal(String userUid, String mealType) {
         Meal meal = new Meal();
-        User user = userService.findUserByUid(userUid);
-        meal.setUserId(user.getUserId()).setUserUid(userUid);
+        UserTarget userTarget = userTargetService.findActiveTargetByUid(userUid);
+        meal.setUserId(userTarget.getUserId()).setUserUid(userUid);
         meal.setMealType(mealType);
-        Integer max = user.getTargetCaloriesMax();
-        Integer min = user.getTargetCaloriesMin();
+        Integer max = userTarget.getTargetCaloriesMax();
+        Integer min = userTarget.getTargetCaloriesMin();
         if (max == null || min == null) {
-            throw ExceptionUtils.newSE("User: " + user.getUserId() + " has not set target calories");
+            throw ExceptionUtils.newSE("User: " + userTarget.getUserId() + " has not set target calories");
         }
         if (max < 1 || min < 1) {
-            throw ExceptionUtils.newSE("User: " + user.getUserId() + " has set target calories incorrectly");
+            throw ExceptionUtils.newSE("User: " + userTarget.getUserId() + " has set target calories incorrectly");
         }
         if (max < min) { // swap values
             max ^= min;
@@ -64,7 +67,7 @@ public class MealServiceImpl extends ServiceImpl<MealMapper, Meal> implements IM
         if (save(meal.setTotalWeight(min).setTotalCalories(max)) && prepareRecommend(meal)) {
             return meal;
         }
-        throw ExceptionUtils.newSE("Failed to recommend a meal for user: " + user.getUserUid());
+        throw ExceptionUtils.newSE("Failed to recommend a meal for user: " + userTarget.getUserUid());
     }
 
     @Override

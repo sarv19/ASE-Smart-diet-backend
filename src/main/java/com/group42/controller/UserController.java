@@ -62,9 +62,23 @@ public class UserController extends BaseController {
         return R.ok(new PageInfo<>(userTargetService.lambdaQuery()
                 .eq(UserTarget::getUserUid, JwtUtils.getUserUidFromRequest(request)).list()));
     }
+    @PostMapping("/addDietPreference")
+    public R addDietPreference(@RequestBody @Validated(Insert.class) EatingPerformanceTO to, HttpServletRequest request) {
+        startPage(to);
+        return R.ok(new PageInfo<>(userTargetService.lambdaQuery()
+                .eq(UserTarget::getUserUid, JwtUtils.getUserUidFromRequest(request)).list()));
+    }
 
     @PostMapping("/editDietPreference")
     public R editDietPreference(@RequestBody @Validated(Update.class) EatingPerformanceTO to, HttpServletRequest request) {
+        UserTarget userTarget = new UserTarget();
+        PojoUtils.copyProperties(to, userTarget);
+        if (userTargetService.updateUserTarget(userTarget.setUserUid(JwtUtils.getUserUidFromRequest(request))))
+            return R.ok();
+        return R.error();
+    }
+    @PostMapping("/deleteDietPreference")
+    public R deleteDietPreference(@RequestBody @Validated(Update.class) EatingPerformanceTO to, HttpServletRequest request) {
         UserTarget userTarget = new UserTarget();
         PojoUtils.copyProperties(to, userTarget);
         if (userTargetService.updateUserTarget(userTarget.setUserUid(JwtUtils.getUserUidFromRequest(request))))

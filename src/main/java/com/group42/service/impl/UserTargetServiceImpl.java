@@ -17,4 +17,9 @@ public class UserTargetServiceImpl extends ServiceImpl<UserTargetMapper, UserTar
     public boolean updateUserTarget(UserTarget userTarget) {
         return saveOrUpdate(userTarget);
     }
+
+    @Override
+    public UserTarget findActiveTargetByUid(String userUid) {
+        return lambdaQuery().eq(UserTarget::getUserUid, userUid).eq(UserTarget::getIsActive, true).one();
+    }
 }

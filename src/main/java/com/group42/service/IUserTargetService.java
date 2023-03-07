@@ -10,4 +10,6 @@ import com.group42.model.entity.UserTarget;
  */
 public interface IUserTargetService extends IService<UserTarget> {
     boolean updateUserTarget(UserTarget userTarget);
+
+    UserTarget findActiveTargetByUid(String userUid);
 }

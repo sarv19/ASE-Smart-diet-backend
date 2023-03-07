@@ -9,7 +9,6 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 /**
- *
  * @author Guofeng Lin
  * @since 2023-03-06
  */
@@ -35,6 +34,7 @@ public class UserTarget extends BaseEntity {
      * user unique id from Google, Facebook, etc.
      */
     private String userUid;
+    private Boolean isActive;
 
     private Integer targetCaloriesMin;
 
