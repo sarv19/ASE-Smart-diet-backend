@@ -48,8 +48,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         User user = new User().setUserUid(userUid).setEmailAddress(email)
                 .setPassword("").setUserName(userName).setFullName(userName);
         log.info("user register successfully: " + user);
-        return save(user) &&
-                userTargetService.save(new UserTarget().setUserId(user.getUserId()).setUserUid(userUid)
+        return save(user) && userTargetService.save(
+                new UserTarget()
+                        .setUserId(user.getUserId()).setUserUid(userUid).setIsActive(true)
                         .setTargetCaloriesMax(DefaultValue.DEFAULT_MAX_CALORIES).setTargetCaloriesMin(DefaultValue.DEFAULT_MIN_CALORIES));
     }
 
@@ -73,4 +74,5 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             return null;
         return lambdaQuery().eq(User::getUserUid, userUid).one();
     }
+
 }

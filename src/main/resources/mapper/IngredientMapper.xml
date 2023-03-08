@@ -15,7 +15,7 @@
     </select>
 
     <select id="selectRecommendByPreference" resultType="com.group42.model.entity.Ingredient">
-        select i.ingredient_id,
+        select ingredient_id,
                type_id,
                ingredient_name,
                description,
@@ -24,15 +24,18 @@
                carbohydrate,
                protein,
                sodium
-        from ingredient i
-                 right join (select ANY_VALUE(ingredient_id) as ingredient_id
-                             from ingredient i
-                             where ingredient_id not in
-                                   (select ingredient_id
-                                    from eating_preference
-                                    where user_id = #{userId}
-                                      and is_like is false)
-                             group by type_id
-                             ORDER BY RAND()) tmp on i.ingredient_id = tmp.ingredient_id
+        from ingredient i3
+                 inner join (select ANY_VALUE(i1.ingredient_id) as id
+                             from ingredient i2
+                                      join (select DISTINCT ingredient_id, type_id
+                                            from ingredient
+                                            where ingredient_id not in
+                                                  (select ingredient_id
+                                                   from eating_preference
+                                                   where user_id = #{userId}
+                                                     and is_like is false)
+                                            order by rand()) i1
+                                           on i1.type_id = i2.type_id
+                             group by i2.type_id) tmp on i3.ingredient_id = tmp.id
     </select>
 </mapper>

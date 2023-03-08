@@ -35,7 +35,7 @@ create table user_target
     target_fat_max          int       null,
     target_minerals_min     int       null,
     target_minerals_max     int       null,
-    is_active               boolean comment 'is active or not',
+    is_active               boolean   not null comment 'is active or not',
     created_at              timestamp not null default current_timestamp,
     updated_at              timestamp not null default current_timestamp on update current_timestamp
 ) engine = innodb
@@ -72,6 +72,8 @@ create table ingredient
     updated_at      timestamp    not null default current_timestamp on update current_timestamp
 ) engine = innodb
   default charset = utf8mb4;
+create index idx_ingredient_type_id on ingredient (type_id);
+
 
 drop table if exists meal_detail;
 create table meal_detail
@@ -158,3 +160,4 @@ create table eating_preference
     updated_at    timestamp    not null default current_timestamp on update current_timestamp
 ) engine = innodb
   default charset = utf8mb4;
+create index idx_eating_preference_user_id on eating_preference (user_id);

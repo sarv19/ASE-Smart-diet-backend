@@ -1,5 +1,6 @@
 package com.group42.model.to;
 
+import com.group42.model.valid.Delete;
 import com.group42.model.valid.Update;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -13,7 +14,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class EatingPerformanceTO extends BaseTO {
-    @NotNull(groups = {Update.class})
+    @NotNull(groups = {Update.class, Delete.class})
     private Long targetId;
 
     private Integer targetCaloriesMin;

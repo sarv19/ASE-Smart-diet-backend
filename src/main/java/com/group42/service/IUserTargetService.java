@@ -9,7 +9,10 @@ import com.group42.model.entity.UserTarget;
  * @since 2023-03-06
  */
 public interface IUserTargetService extends IService<UserTarget> {
-    boolean updateUserTarget(UserTarget userTarget);
+
+    UserTarget saveOrUpdateTarget(UserTarget userTarget);
 
     UserTarget findActiveTargetByUid(String userUid);
+
+    boolean activeATarget(UserTarget userTarget);
 }

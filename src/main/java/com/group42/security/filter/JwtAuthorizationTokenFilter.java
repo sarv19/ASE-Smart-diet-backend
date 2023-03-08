@@ -43,13 +43,13 @@ public class JwtAuthorizationTokenFilter extends OncePerRequestFilter {
         if (needValidate) {
             user = userService.findUserByUid(JwtUtils.getUserUidFromRequest(request));
         }
-        log.info("user is " + (null == user ? "null" : "found")+" for "+JwtUtils.getUserUidFromRequest(request));
+//        log.info("user is " + (null == user ? "null" : "found")+" for "+JwtUtils.getUserUidFromRequest(request));
         if (user != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             // begin authentication
             UserDetails userDetails = JwtUserDetailsService.loadUserByUsername(user.getUserName());
             UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
-            log.info("=====authentication success");
+//            log.info("=====authentication success");
         }
         chain.doFilter(request, response);
     }
