@@ -82,7 +82,7 @@ public class UserController extends BaseController {
     @PostMapping("/editDietPreference")
     public R editDietPreference(@RequestBody @Validated(Update.class) EatingPerformanceTO to, HttpServletRequest request) {
         UserTarget userTarget = initUserTarget(to, request);
-        userTarget = userTargetService.updateTarget(userTarget);
+        userTarget = userTargetService.updateTarget(userTarget.setTargetId(to.getTargetId()));
         if (ObjectUtils.isNotEmpty(userTarget))
             return R.ok(userTarget);
         return R.error();
