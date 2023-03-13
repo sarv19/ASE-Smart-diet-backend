@@ -1,19 +1,16 @@
-package com.group42.model.to;
+package com.group42.model.vo;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 /**
- * UserSettingTO
+ * UserVO
  *
  * @author Guofeng Lin
- * @since 2023/2/27
+ * @since 2023/3/13
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-public class UserSettingTO extends BaseTO{
-    private String password;
-
+//@JsonInclude(JsonInclude.Include.NON_NULL)
+public class UserVO {
     private String fullName;
 
     /**
@@ -26,5 +23,4 @@ public class UserSettingTO extends BaseTO{
     private String phoneNumber;
 
     private String address;
-
 }

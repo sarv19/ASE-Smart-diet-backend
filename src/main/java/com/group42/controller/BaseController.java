@@ -1,12 +1,16 @@
 package com.group42.controller;
 
+import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
 import com.group42.model.to.BaseTO;
 import com.group42.utils.DateUtils;
 import com.group42.utils.PageUtils;
+import com.group42.utils.PojoUtils;
+import org.springframework.lang.Nullable;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 
 import java.beans.PropertyEditorSupport;
+import java.lang.reflect.InvocationTargetException;
 import java.text.ParseException;
 import java.util.Date;
 
@@ -30,6 +34,18 @@ public abstract class BaseController {
                 }
             }
         });
+    }
+
+    @SafeVarargs
+    public final <T> T initParam(Object to, Class<T> clazz, @Nullable SFunction<T, ?>... ignoreProperties) {
+        try {
+            T newInstance = clazz.getDeclaredConstructor().newInstance();
+            PojoUtils.copyPropertiesLambda(to, newInstance, ignoreProperties);
+            return newInstance;
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
+                 NoSuchMethodException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     protected void startPage(BaseTO baseTO) {

@@ -36,7 +36,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
-    @CacheEvict(value = "cacheById", key = "#userUid", beforeInvocation = true)
+    @CacheEvict(value = "users", key = "#userUid", beforeInvocation = true)
     @Transactional(rollbackFor = Exception.class)
     public boolean register(String userUid, String email) {
         List<User> users = lambdaQuery().eq(User::getUserUid, userUid).list();
@@ -74,5 +74,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             return null;
         return lambdaQuery().eq(User::getUserUid, userUid).one();
     }
+
+    @Override
+    @CacheEvict(value = "users", key = "#userUid", beforeInvocation = true)
+    @Transactional(rollbackFor = Exception.class)
+    public User updatePersonalSetting(String userUid, User user) {
+        if (updateById(user))
+            return user.setPassword(null).setUserId(null).setUserUid(null);
+        return null;
+    }
+
 
 }

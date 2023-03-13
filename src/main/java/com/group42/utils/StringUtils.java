@@ -36,6 +36,14 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
         return (str == null ? "" : str.trim());
     }
 
+    public static boolean lengthCheck(String str, int length) {
+        return isNotNull(str) && str.length() == length;
+    }
+
+    public static boolean lengthCheck(String str, int min, int max) {
+        return isNotNull(str) && str.length() <= max && str.length() >= min;
+    }
+
     public static String substring(final String str, int start) {
         if (str == null) {
             return NULLSTR;

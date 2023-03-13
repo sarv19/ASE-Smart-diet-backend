@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -44,14 +45,25 @@ public class MealController extends BaseController {
         Long mealId = to.getMealId();
         String userUid = JwtUtils.getUserUidFromRequest(request);
         Meal todayMeal = mealService.getTodayMeal(userUid, to.getMealType());
-        if (ObjectUtils.isEmpty(mealId) && ObjectUtils.isEmpty(todayMeal)) { // first time to query a meal
+
+        Map<String, Object> response = new HashMap<>();
+        if (ObjectUtils.isNotEmpty(todayMeal)){
+            response.put("mealDate", todayMeal.getMealDate());
+            response.put("totalCalories", todayMeal.getTotalCalories());
+            response.put("totalWeight", todayMeal.getTotalWeight());
+            response.put("mealType", todayMeal.getMealType());
+        }else {
+            response.put("mealDate", null);
+            if (ObjectUtils.isEmpty(mealId)) { // first time to query a meal
                 todayMeal = mealService.InitMeal(userUid, to.getMealType());
+            }
         }
         mealId = todayMeal.getMealId();
+        response.put("mealId", mealId);
+
         startPage(to);
         Map<String, Object> map = PageUtils.pageInfoMap(mealDetailService.getMealDetailByMealId(mealId));
-        map.put("mealId", mealId);
-        map.put("mealDate", todayMeal.getMealDate());
+        map.putAll(response);
         return R.ok(map);
     }
 

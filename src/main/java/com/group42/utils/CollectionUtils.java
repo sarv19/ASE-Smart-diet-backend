@@ -1,6 +1,8 @@
 package com.group42.utils;
 
 
+import org.springframework.util.ObjectUtils;
+
 import java.util.*;
 import java.util.function.Function;
 
@@ -9,7 +11,7 @@ import java.util.function.Function;
  * @author Guofeng Lin
  * @since 2023-02-10
  */
-public class CollectionUtils {
+public class CollectionUtils extends org.springframework.util.CollectionUtils {
 
     private static final int MAX_POWER_OF_TWO = 1 << (Integer.SIZE - 2);
 
@@ -21,6 +23,30 @@ public class CollectionUtils {
      */
     public static boolean isEmpty(Collection<?> coll) {
         return (coll == null || coll.isEmpty());
+    }
+
+    public static boolean isAllEmpty(Collection<?> ... coll) {
+        if (coll == null) {
+            return true;
+        }
+        for (Collection<?> c : coll) {
+            if (c != null && !c.isEmpty()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static boolean isAllEmpty(Object ... coll) {
+        if (coll == null) {
+            return true;
+        }
+        for (Object c : coll) {
+            if (!ObjectUtils.isEmpty(c)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
@@ -54,25 +80,12 @@ public class CollectionUtils {
     }
 
     /**
-     * 根据预期大小创建HashMap.
-     *
-     * @param expectedSize 预期大小
-     * @param <K>          K
-     * @param <V>          V
-     * @return HashMap
-     * @since 3.4.0
-     */
-    public static <K, V> HashMap<K, V> HashMapWithExpectedSize(int expectedSize) {
-        return new HashMap<>(capacity(expectedSize));
-    }
-
-    /**
-     * 用来过渡下Jdk1.8下ConcurrentHashMap的性能bug
+     * Avoid the bug of Jdk1.8下ConcurrentHashMap
      * <a href="https://bugs.openjdk.java.net/browse/JDK-8161372">
      * ConcurrentHashMap.computeIfAbsent(k,f) locks bin when k present
      * </a>
      *
-     * @param concurrentHashMap ConcurrentHashMap 没限制类型了，非ConcurrentHashMap就别调用这方法了
+     * @param concurrentHashMap Don't call this method unless ConcurrentHashMap
      * @param key               key
      * @param mappingFunction   function
      * @param <K>               k
