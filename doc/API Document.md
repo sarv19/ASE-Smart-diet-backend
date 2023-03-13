@@ -15,8 +15,11 @@ This is the API document for smartDiet system.
 please use this two param to use the page function.
 
 ```json
-"pageNum": 1,
-"pageSize": 10
+{
+  "pageNum": 1,
+  "pageSize": 10
+}
+
 ```
 
 **It only work for those APIs which support page.**
@@ -89,6 +92,161 @@ API will return `userUid`
 }
 ```
 
+## queryDietPreference
+
+| Name           | value                                       |
+| -------------- |---------------------------------------------|
+| Route          | /user/queryDietPreference                   |
+| Pre-condition  | 1. User already login                       |
+| Post-condition | 1.                                          |
+| Description    | Return the list of diet preference of user. |
+
+### request
+
+```json
+{
+  "userUid": "test123"
+}
+```
+
+### ok
+
+```json
+{
+  "msg": "success",
+  "code": 200,
+  "data": {
+    "total": 1,
+    "list": [
+      {
+        "createdAt": "2023-03-07 22:34:33",
+        "updatedAt": "2023-03-07 22:34:33",
+        "targetId": 2023030621401004,
+        "userId": 2023021021401001,
+        "userUid": "1",
+        "isActive": true,
+        "targetCaloriesMin": 1500,
+        "targetCaloriesMax": 2000
+      }
+    ],
+    "pageNum": 1,
+    "pageSize": 10,
+    "size": 1,
+    "startRow": 1,
+    "endRow": 1,
+    "pages": 1,
+    "prePage": 0,
+    "nextPage": 0,
+    "isFirstPage": true,
+    "isLastPage": true,
+    "hasPreviousPage": false,
+    "hasNextPage": false,
+    "navigatePages": 8,
+    "navigatepageNums": [
+      1
+    ],
+    "navigateFirstPage": 1,
+    "navigateLastPage": 1
+  }
+}
+```
+
+## addDietPreference
+
+| Name           | value                                    |
+| -------------- |------------------------------------------|
+| Route          | /user/addDietPreference                  |
+| Pre-condition  | 1. User already login                    |
+| Post-condition | 1.                                       |
+| Description    | Add the list of diet preference of user. |
+
+### request
+
+```json
+{
+  "targetCaloriesMin": 1500,
+  "targetCaloriesMax": 2000
+}
+```
+
+### ok
+
+```json
+{
+  "msg": "success",
+  "code": 200,
+  "data": {
+    "targetId": 2023031305260190,
+    "userId": 2023030803381701,
+    "userUid": "test123",
+    "isActive": true,
+    "targetCaloriesMin": 1500,
+    "targetCaloriesMax": 2000
+  }
+}
+```
+
+## editDietPreference
+
+| Name           | value                                     |
+| -------------- |-------------------------------------------|
+| Route          | /user/editDietPreference                  |
+| Pre-condition  | 1. User already login                     |
+| Post-condition | 1.                                        |
+| Description    | Edit the list of diet preference of user. |
+
+### request
+
+```json
+{
+  "targetId": 2023031305575402,
+  "targetCaloriesMin": 1500,
+  "targetCaloriesMax": 2000
+}
+```
+
+### ok
+
+```json
+{
+  "msg": "success",
+  "code": 200,
+  "data": {
+    "targetId": 2023031305575402,
+    "userId": 2023031305575401,
+    "userUid": "test123",
+    "isActive": true,
+    "targetCaloriesMin": 1500,
+    "targetCaloriesMax": 2000
+  }
+}
+```
+
+## deleteDietPreference
+
+| Name           | value                                       |
+| -------------- |---------------------------------------------|
+| Route          | /user/deleteDietPreference                  |
+| Pre-condition  | 1. User already login                       |
+| Post-condition | 1.                                          |
+| Description    | delete the list of diet preference of user. |
+
+### request
+
+```json
+{
+  "targetId": 2023031305315593
+}
+```
+
+### ok
+
+```json
+{
+  "msg": "success",
+  "code": 200
+}
+```
 
 # Meal(recommandation, Main feature)
 
@@ -331,6 +489,4 @@ API will return a list of food, such as rice/pasta for grains, dog/beef for meet
     "code": 200
 }
 ```
-
-
 
