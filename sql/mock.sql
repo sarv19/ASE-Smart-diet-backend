@@ -14,13 +14,13 @@ INSERT INTO user(user_id, user_name, password, full_name, gender, email_address,
            '+8612345678901', '4');
 
 INSERT INTO user_target(target_id, user_id, user_uid, target_calories_min, target_calories_max,is_active)
-    value (2023030621401004, 2023021021401001, '1', 1200, 2000, true);
+    value (2023030621401004, 2023021021401001, '1', 1500, 2000, true);
 INSERT INTO user_target(target_id, user_id, user_uid, target_calories_min, target_calories_max,is_active)
-    value (2023030621401005, 2023021021401002, '2', 1200, 2000, true);
+    value (2023030621401005, 2023021021401002, '2', 1800, 2000, true);
 INSERT INTO user_target(target_id, user_id, user_uid, target_calories_min, target_calories_max,is_active)
-    value (2023030621401006, 2023021021401003, '3', 900, 1500, true);
+    value (2023030621401006, 2023021021401003, '3', 2000, 2300, true);
 INSERT INTO user_target(target_id, user_id, user_uid, target_calories_min, target_calories_max,is_active)
-    value (2023030621401007, 2023021021401004, '4', 900, 1500, true);
+    value (2023030621401007, 2023021021401004, '4', 1700, 1800, true);
 
 truncate table ingredient;
 INSERT INTO ingredient(ingredient_id, type_id, ingredient_name, description, calories)
@@ -67,13 +67,13 @@ INSERT INTO ingredient(ingredient_id, type_id, ingredient_name, description, cal
 
 truncate table ingredient_type;
 INSERT INTO ingredient_type(type_id, type_name, base_type_name)
-    value (2, 'grains', 'sugars');
-INSERT INTO ingredient_type(type_id, type_name, base_type_name)
     value (1, 'meat', 'protein');
 INSERT INTO ingredient_type(type_id, type_name, base_type_name)
-    value (4, 'fruit', 'vegetable'); # The fruit food group is sometimes combined with the vegetable food group
+    value (2, 'grains', 'sugars');
 INSERT INTO ingredient_type(type_id, type_name, base_type_name)
     value (3, 'vegetable', 'vegetable');
+INSERT INTO ingredient_type(type_id, type_name, base_type_name)
+    value (4, 'fruit', 'vegetable'); # The fruit food group is sometimes combined with the vegetable food group
 INSERT INTO ingredient_type(type_id, type_name, base_type_name)
     value (5, 'milk', 'protein');
 INSERT INTO ingredient_type(type_id, type_name, base_type_name)

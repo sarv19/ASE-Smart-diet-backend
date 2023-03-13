@@ -43,7 +43,7 @@ public class MealServiceImpl extends ServiceImpl<MealMapper, Meal> implements IM
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Meal recommandMeal(String userUid, String mealType) {
+    public Meal InitMeal(String userUid, String mealType) {
         Meal meal = new Meal();
         UserTarget userTarget = userTargetService.findActiveTargetByUid(userUid);
         meal.setUserId(userTarget.getUserId()).setUserUid(userUid);
@@ -71,6 +71,12 @@ public class MealServiceImpl extends ServiceImpl<MealMapper, Meal> implements IM
     }
 
     @Override
+    public Meal getTodayMeal(String userUid, String mealType) {
+        return getBaseMapper().findTodayMealByUserUid(userUid, mealType);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
     public Meal confirmMeal(Long mealId, int totalCalories, int totalWeight) {
         Meal one = Optional.ofNullable(lambdaQuery().eq(Meal::getMealId, mealId).isNull(Meal::getMealDate).one())
                 .orElseThrow(() -> ExceptionUtils.newSE("Meal: " + mealId + " has been confirmed before"));

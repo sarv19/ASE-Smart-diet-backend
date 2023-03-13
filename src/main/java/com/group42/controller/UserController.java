@@ -64,7 +64,7 @@ public class UserController extends BaseController {
         return R.ok(new PageInfo<>(
                         userTargetService.lambdaQuery()
                                 .eq(UserTarget::getUserUid, JwtUtils.getUserUidFromRequest(request))
-                                .orderByAsc(UserTarget::getIsActive)
+                                .orderByDesc(UserTarget::getIsActive)
                                 .list()
                 )
         );
@@ -72,13 +72,17 @@ public class UserController extends BaseController {
 
     @PostMapping("/addDietPreference")
     public R addDietPreference(@RequestBody @Validated(Insert.class) EatingPerformanceTO to, HttpServletRequest request) {
-        return editDietPreference(to, request);
+        UserTarget userTarget = initUserTarget(to, request);
+        userTarget = userTargetService.saveTarget(userTarget);
+        if (ObjectUtils.isNotEmpty(userTarget))
+            return R.ok(userTarget);
+        return R.error();
     }
 
     @PostMapping("/editDietPreference")
     public R editDietPreference(@RequestBody @Validated(Update.class) EatingPerformanceTO to, HttpServletRequest request) {
         UserTarget userTarget = initUserTarget(to, request);
-        userTarget = userTargetService.saveOrUpdateTarget(userTarget);
+        userTarget = userTargetService.updateTarget(userTarget);
         if (ObjectUtils.isNotEmpty(userTarget))
             return R.ok(userTarget);
         return R.error();

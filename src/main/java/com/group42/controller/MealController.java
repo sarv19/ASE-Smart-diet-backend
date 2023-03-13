@@ -42,21 +42,17 @@ public class MealController extends BaseController {
     @PostMapping("/queryAMeal")
     public R queryAMeal(@RequestBody @Validated({Query.class}) MealTO to, HttpServletRequest request) {
         Long mealId = to.getMealId();
-        if (ObjectUtils.isEmpty(mealId)) { // first time to query a meal
-            if (ObjectUtils.isEmpty(to.getMealType())) {
-                return R.error("meal type cannot be null while meal id is null");
-            }
-            mealId = mealService.recommandMeal(JwtUtils.getUserUidFromRequest(request), to.getMealType()).getMealId();
+        String userUid = JwtUtils.getUserUidFromRequest(request);
+        Meal todayMeal = mealService.getTodayMeal(userUid, to.getMealType());
+        if (ObjectUtils.isEmpty(mealId) && ObjectUtils.isEmpty(todayMeal)) { // first time to query a meal
+                todayMeal = mealService.InitMeal(userUid, to.getMealType());
         }
+        mealId = todayMeal.getMealId();
         startPage(to);
         Map<String, Object> map = PageUtils.pageInfoMap(mealDetailService.getMealDetailByMealId(mealId));
         map.put("mealId", mealId);
+        map.put("mealDate", todayMeal.getMealDate());
         return R.ok(map);
-    }
-
-    @PostMapping("/mealForToday")
-    public R mealForToday(@RequestBody @Validated({Query.class}) MealTO to) {
-        return R.ok();
     }
 
     @PostMapping("/querySubstitutions")

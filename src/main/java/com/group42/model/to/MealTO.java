@@ -3,6 +3,7 @@ package com.group42.model.to;
 import com.group42.model.bean.SuggestMealDetail;
 import com.group42.model.valid.Info;
 import com.group42.model.valid.Insert;
+import com.group42.model.valid.Query;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -25,6 +26,7 @@ public class MealTO extends BaseTO {
     private Long mealId;
     @NotNull(groups = {Info.class})
     private Long ingredientId;
+    @NotNull(groups = {Query.class})
     private String mealType;
     private String mealDate;
     @NotNull(groups = {Insert.class})

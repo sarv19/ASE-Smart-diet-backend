@@ -6,7 +6,7 @@ public enum ErrorEnum {
     FAIL_LOGIN(300, "wrong username or password"),
     BAD_PARAM(400, "bad param"),
 
-    NEED_AUTHORIZATION(401, "authorization header is not exists"),
+    NEED_AUTHORIZATION(401, "Authorization header is missing or invalid"),
     NO_AUTHORIZED(402, "No authorized"),
     NOT_FOUND(404, "Not found"),
     SERVER_ERROR(500, "service error");
