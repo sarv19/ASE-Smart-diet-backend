@@ -16,9 +16,19 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserTargetServiceImpl extends ServiceImpl<UserTargetMapper, UserTarget> implements IUserTargetService {
 
     @Override
-    public UserTarget saveOrUpdateTarget(UserTarget userTarget) {
-        if (activeATarget(userTarget))
+    public UserTarget saveTarget(UserTarget userTarget) {
+        if (inactiveTarget(userTarget)){
+            save(userTarget.setIsActive(true));
             return userTarget;
+        }
+        return null;
+    }
+    @Override
+    public UserTarget updateTarget(UserTarget userTarget) {
+        if (inactiveTarget(userTarget)){
+            updateById(userTarget.setIsActive(true));
+            return userTarget;
+        }
         return null;
     }
 
@@ -28,15 +38,10 @@ public class UserTargetServiceImpl extends ServiceImpl<UserTargetMapper, UserTar
     }
 
     @Transactional(rollbackFor = Exception.class)
-    @Override
-    public boolean activeATarget(UserTarget userTarget) {
+    public boolean inactiveTarget(UserTarget userTarget) {
         Assert.notNull(userTarget.getUserId(),"userId cannot be null");
         Assert.notNull(userTarget.getUserUid(),"userUid cannot be null");
-        boolean updated = lambdaUpdate().eq(UserTarget::getUserId, userTarget.getUserId()).eq(UserTarget::getIsActive, true)
+        return lambdaUpdate().eq(UserTarget::getUserId, userTarget.getUserId()).eq(UserTarget::getIsActive, true)
                 .set(UserTarget::getIsActive, false).update();
-        if (updated) {
-            updated = saveOrUpdate(userTarget.setIsActive(true));
-        }
-        return updated;
     }
 }
