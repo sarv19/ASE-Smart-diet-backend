@@ -2,12 +2,13 @@
 
 This is the API document for smartDiet system.
 
-@since: 2023-02-24
+@since: 2023-03-13
 
-@version: v2.1
+@version: v2.2
 
 ## changes
 
+- [v2.2] add functions about the eating preformance
 - [v2.1] not need to submit userId in the APIs that used need to, such as queryAMeal, confirmAMeal.
 
 # Page support
@@ -32,12 +33,12 @@ Even this two param is missing, default values are set, which is 1 for pageNum a
 
 ## login
 
-| Name           | value                               |
-| -------------- |-------------------------------------|
-| Route          | /user/login                         |
-| Pre-condition  | 1.                                  |
-| Post-condition | 1.                                  |
-| Description    | Backup interface, not used for now. |
+| Name           | value            |
+| -------------- | ---------------- |
+| Route          | /user/login      |
+| Pre-condition  | 1.               |
+| Post-condition | 1.               |
+| Description    | Backup interface |
 
 ### request
 `username`,`password` can not be blank.
@@ -63,12 +64,12 @@ API will return user_uid in the "data" field.
 
 ## register
 
-| Name           | value                |
-| -------------- |----------------------|
-| Route          | /user/register       |
-| Pre-condition  | 1.                   |
-| Post-condition | 1.                   |
-| Description    | Get data from Google |
+| Name           | value                           |
+| -------------- | ------------------------------- |
+| Route          | /user/register                  |
+| Pre-condition  | 1.                              |
+| Post-condition | 1.                              |
+| Description    | Get data from email information |
 
 ### request
 `userUid`,`email` can not be null.
@@ -153,12 +154,12 @@ API will return `userUid`
 
 ## addDietPreference
 
-| Name           | value                                    |
-| -------------- |------------------------------------------|
-| Route          | /user/addDietPreference                  |
-| Pre-condition  | 1. User already login                    |
-| Post-condition | 1.                                       |
-| Description    | Add the list of diet preference of user. |
+| Name           | value                                                        |
+| -------------- | ------------------------------------------------------------ |
+| Route          | /user/addDietPreference                                      |
+| Pre-condition  | 1. User already login 2. targetId **must** be null           |
+| Post-condition | 1. The new setting will be actived, the old one is inactived. |
+| Description    | Add the list of diet preference of user.                     |
 
 ### request
 
@@ -188,12 +189,12 @@ API will return `userUid`
 
 ## editDietPreference
 
-| Name           | value                                     |
-| -------------- |-------------------------------------------|
-| Route          | /user/editDietPreference                  |
-| Pre-condition  | 1. User already login                     |
-| Post-condition | 1.                                        |
-| Description    | Edit the list of diet preference of user. |
+| Name           | value                                                       |
+| -------------- | ----------------------------------------------------------- |
+| Route          | /user/editDietPreference                                    |
+| Pre-condition  | 1. User already login 2. targetId **cannot** be null        |
+| Post-condition | 1. The orignial one is inactived, and then active this one. |
+| Description    | Edit the list of diet preference of user.                   |
 
 ### request
 
@@ -224,12 +225,12 @@ API will return `userUid`
 
 ## deleteDietPreference
 
-| Name           | value                                       |
-| -------------- |---------------------------------------------|
-| Route          | /user/deleteDietPreference                  |
-| Pre-condition  | 1. User already login                       |
-| Post-condition | 1.                                          |
-| Description    | delete the list of diet preference of user. |
+| Name           | value                                                        |
+| -------------- | ------------------------------------------------------------ |
+| Route          | /user/deleteDietPreference                                   |
+| Pre-condition  | 1. User already login 2. targetId **cannot** be null 3. cannot delete an active setting |
+| Post-condition | 1.                                                           |
+| Description    | delete the list of diet preference of user.                  |
 
 ### request
 
