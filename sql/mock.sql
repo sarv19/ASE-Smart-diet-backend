@@ -83,4 +83,4 @@ Values (2023031414301000, 1, 'chicken breast', 'chicken breast', 136, 30, null, 
        (2023031414401015, 3, 'squash', 'squash', 18, 20, 360, 160, null),
        (2023031414401016, 6, 'olive oil', 'olive oil', 884, 1000, null, null, 20),
        (2023031414401017, 6, 'vinegar', 'vinegar', 18, null, null, null, 20),
-       (2023031414401017, 6, 'soy sauce', 'soy sauce', 53, 6, 49, 80, 54930);
+       (2023031414401018, 6, 'soy sauce', 'soy sauce', 53, 6, 49, 80, 54930);
