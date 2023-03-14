@@ -8,9 +8,9 @@ import com.group42.model.entity.UserTarget;
 import com.group42.service.IUserService;
 import com.group42.service.IUserTargetService;
 import com.group42.utils.AESUtil;
+import com.group42.utils.SeqUtils;
 import com.group42.utils.StringUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.EnableCaching;
@@ -39,19 +39,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @CacheEvict(value = "users", key = "#userUid", beforeInvocation = true)
     @Transactional(rollbackFor = Exception.class)
     public boolean register(String userUid, String email) {
-        List<User> users = lambdaQuery().eq(User::getUserUid, userUid).list();
-        if (ObjectUtils.isNotEmpty(users)) {
-            log.info("Found " + users.size() + "user(s) for " + userUid);
-            return true;
-        }
         String userName = email.split("@")[0];
-        User user = new User().setUserUid(userUid).setEmailAddress(email)
+        User user = new User().setUserId(SeqUtils.getId()).setUserUid(userUid).setEmailAddress(email)
                 .setPassword("").setUserName(userName).setFullName(userName);
-        log.info("user register successfully: " + user);
-        return save(user) && userTargetService.save(
-                new UserTarget()
-                        .setUserId(user.getUserId()).setUserUid(userUid).setIsActive(true)
-                        .setTargetCaloriesMax(DefaultValue.DEFAULT_MAX_CALORIES).setTargetCaloriesMin(DefaultValue.DEFAULT_MIN_CALORIES));
+        if (getBaseMapper().insertIgnore(user)) {
+            log.info("user( " + userUid + " ) register successfully: " + user);
+            return userTargetService.save(
+                    new UserTarget()
+                            .setUserId(user.getUserId()).setUserUid(userUid).setIsActive(true)
+                            .setTargetCaloriesMax(DefaultValue.DEFAULT_MAX_CALORIES).setTargetCaloriesMin(DefaultValue.DEFAULT_MIN_CALORIES));
+        }
+        log.info("user( " + userUid + " ) already register");
+        return true;
     }
 
     @Override

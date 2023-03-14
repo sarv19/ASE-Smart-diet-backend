@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * @author Guofeng Lin
@@ -47,15 +48,17 @@ public class MealController extends BaseController {
         Meal todayMeal = mealService.getTodayMeal(userUid, to.getMealType());
 
         Map<String, Object> response = new HashMap<>();
-        if (ObjectUtils.isNotEmpty(todayMeal)){
+        if (ObjectUtils.isNotEmpty(todayMeal)) {
             response.put("mealDate", todayMeal.getMealDate());
             response.put("totalCalories", todayMeal.getTotalCalories());
             response.put("totalWeight", todayMeal.getTotalWeight());
             response.put("mealType", todayMeal.getMealType());
-        }else {
+        } else {
             response.put("mealDate", null);
             if (ObjectUtils.isEmpty(mealId)) { // first time to query a meal
-                todayMeal = mealService.InitMeal(userUid, to.getMealType());
+                todayMeal = Optional.
+                        ofNullable(mealService.InitMeal(userUid, to.getMealType())).
+                        orElse(mealService.getTodayMeal(userUid, to.getMealType()));
             }
         }
         mealId = todayMeal.getMealId();

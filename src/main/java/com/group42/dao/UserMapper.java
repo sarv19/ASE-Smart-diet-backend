@@ -2,6 +2,7 @@ package com.group42.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.group42.model.entity.User;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -14,5 +15,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface UserMapper extends BaseMapper<User> {
-
+    Boolean insertIgnore(@Param("user") User user);
 }

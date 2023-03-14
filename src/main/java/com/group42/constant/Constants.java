@@ -1,5 +1,7 @@
 package com.group42.constant;
 
+import com.group42.utils.DateUtils;
+
 /**
  * Constants
  *
@@ -7,6 +9,10 @@ package com.group42.constant;
  * @since 2023/2/9
  */
 public class Constants {
+    /**
+     * Time prefix format for id generation
+     */
+    public static final String idTimePrefixFormat = DateUtils.YYYYMMDDHHMMSS;
     /**
      * Address collection that does not need to be verified
      */

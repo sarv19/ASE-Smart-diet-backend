@@ -1,10 +1,10 @@
 package com.group42.config;
 
 import com.baomidou.mybatisplus.core.incrementer.IdentifierGenerator;
+import com.group42.constant.Constants;
 import com.group42.utils.DateUtils;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Component
@@ -20,7 +20,7 @@ public class DefaultIdGenerator implements IdentifierGenerator {
 
     @Override
     public String nextUUID(Object entity) {
-        String timePrefix = DateUtils.parseDateToStr(DateUtils.YYYYMMDDHHMMSS, new Date());
+        String timePrefix = DateUtils.dateTimeNow(Constants.idTimePrefixFormat);
         if(SEQ.incrementAndGet() > 99) {
             SEQ.set(0);
         }

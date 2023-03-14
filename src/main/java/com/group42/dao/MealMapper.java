@@ -14,4 +14,5 @@ import org.apache.ibatis.annotations.Param;
  */
 public interface MealMapper extends BaseMapper<Meal> {
     Meal findTodayMealByUserUid(@Param("userUid") String userUid, @Param("mealType") String mealType);
+    Boolean insertIgnore(@Param("meal") Meal meal);
 }

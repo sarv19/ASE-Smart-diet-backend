@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.group42.dao.MealMapper">
+    <insert id="insertIgnore">
+        insert into meal
+        (meal_id, user_id, user_uid, meal_type, meal_date, total_weight, total_calories)
+        select #{meal.mealId},
+               #{meal.userId},
+               #{meal.userUid},
+               #{meal.mealType},
+               null,
+               #{meal.totalWeight},
+               #{meal.totalCalories}
+        from meal
+                 right join user on meal.user_uid = user.user_uid
+        where 0 = (select count(0) from meal where user_uid = #{meal.userUid} limit 1)
+        limit 1
+    </insert>
 
     <select id="findTodayMealByUserUid" resultType="com.group42.model.entity.Meal">
         select meal_id,
@@ -13,6 +28,7 @@
         from meal
         where user_uid = #{userUid}
           and meal_type = #{mealType}
-          and datediff(now(), updated_at) = 0
+          and datediff(now(), created_at) = 0
+        limit 1
     </select>
 </mapper>

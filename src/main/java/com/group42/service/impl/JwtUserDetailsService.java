@@ -17,11 +17,8 @@ public class JwtUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String user) {
-        log.info("JwtUserDetailsService:{}", user);
         List<GrantedAuthority> authorityList = new ArrayList<>();
         authorityList.add(new SimpleGrantedAuthority("USER"));
         return new SecurityUserDetails(user, authorityList);
-
     }
-
 }

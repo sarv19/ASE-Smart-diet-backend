@@ -2,4 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.group42.dao.UserMapper">
 
+    <insert id="insertIgnore">
+        INSERT IGNORE INTO user(user_id, user_name, password, full_name, email_address, user_uid, phone_number, address)
+        VALUES (#{user.userId}, #{user.userName}, '', #{user.fullName}, #{user.emailAddress}, #{user.userUid}, null, null)
+    </insert>
 </mapper>

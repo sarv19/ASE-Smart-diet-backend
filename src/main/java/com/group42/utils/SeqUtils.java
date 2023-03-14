@@ -1,79 +1,39 @@
 package com.group42.utils;
 
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import com.group42.constant.Constants;
+
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class SeqUtils {
     private static final AtomicInteger commSeq = new AtomicInteger(1);
 
-    private final static Integer machineCode = 1;
-
     private static final int default_length = 2;
 
-    public static String getId() {
+    public static Long getId() {
         return getId(commSeq, default_length);
     }
 
     /**
      * Common interface serial number: yyMMddHHmmss + machineCode + commSeq
-     *
      */
-    public static String getId(AtomicInteger atomicInt, int length) {
-        return calcSeq(DateUtils.dateTimeNow(), getSeq(atomicInt, length));
-    }
-
-    /**
-     * Obtain a large number of IDs at once
-     *
-     * @param number the number of ID you want to get
-     */
-    public static List<String> getBatchId(int number) {
-        return getBatchId(number, default_length);
-    }
-
-    /**
-     * Obtain a large number of IDs at once
-     *
-     */
-    public static List<String> getBatchId(int number, int maxLength) {
-        String dateTimeNow = DateUtils.dateTimeNow();
-        List<String> batchId = getBatchId(commSeq, number, maxLength);
-        List<String> result = new ArrayList<>(batchId.size() * 2);
-        for (String id : batchId) {
-            result.add(calcSeq(dateTimeNow, id));
-        }
-        return result;
+    public static Long getId(AtomicInteger atomicInt, int length) {
+        return calcSeq(DateUtils.dateTimeNow(Constants.idTimePrefixFormat), getSeq(atomicInt, length));
     }
 
     private synchronized static String getSeq(AtomicInteger atomicInt, int length) {
-        List<String> batchId = getBatchId(atomicInt, 1, length);
-        return batchId.get(0);
-    }
-
-    private synchronized static List<String> getBatchId(AtomicInteger atomicInt, int number, int maxLength) {
-        if (number < 0) throw ExceptionUtils.newUE("The number of serial numbers obtained in batches cannot be less than 0");
-        else if (0 == number) return Collections.emptyList();
-        double maxSeq = Math.pow(10, maxLength);
+        double maxSeq = Math.pow(10, length);
         // to ensure (value + number) % maxSeq == 1 is true
-        if (number > maxSeq) throw ExceptionUtils.newUE("The number of batches obtained cannot be greater than the maximum length");
-        int value = atomicInt.getAndAdd(number);
-        if (atomicInt.get() >= maxSeq) {
-            atomicInt.set((int) ((value + number) % maxSeq));
+        int value;
+        if (atomicInt.incrementAndGet() >= maxSeq) {
+            atomicInt.set((int) ((atomicInt.get() + 1) % maxSeq));
         }
-        List<String> result = new ArrayList<>(2 * number);
-        for (int i = 0; i < number; i++) {
-            result.add(StringUtils.padl(value++, maxLength));
-        }
-        return result;
+        value = atomicInt.get();
+        return StringUtils.padl(value, length);
     }
 
-    private static String calcSeq(String dateTimeNow, String seq) {
-        String result = dateTimeNow;
-        result += machineCode;
-        result += seq;
-        return result;
+
+    private static Long calcSeq(String dateTimeNow, String seq) {
+        return Long.valueOf(dateTimeNow + seq);
     }
 }

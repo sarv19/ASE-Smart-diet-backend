@@ -36,7 +36,13 @@ public class MyTest {
 //        System.out.println(min);
 //    }
     public static void main(String[] args) {
-        Long a = 2023022414114601L;
-        System.out.println(a);
+        final int num = 11;
+        int res = num;
+        for (int i = 2; i <= 8; i++) {
+            res *= num;
+            System.out.println("i is: " + i + ", and res is " + res + ", and res%89 is " + res % 89);
+            res %= 89;
+        }
+        System.out.println(res);
     }
 }

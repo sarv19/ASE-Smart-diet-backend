@@ -9,6 +9,8 @@ import com.group42.model.entity.MealDetail;
 import com.group42.model.entity.UserTarget;
 import com.group42.service.*;
 import com.group42.utils.ExceptionUtils;
+import com.group42.utils.SeqUtils;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
@@ -21,20 +23,17 @@ import java.util.*;
  */
 @Service
 public class MealServiceImpl extends ServiceImpl<MealMapper, Meal> implements IMealService {
-    private final IUserService userService;
     private final IIngredientTypeService ingredientTypeService;
     private final IIngredientService ingredientService;
     private final IMealDetailService mealDetailService;
     private final IUserTargetService userTargetService;
 
     public MealServiceImpl(
-            IUserService userService,
             IIngredientTypeService ingredientTypeService,
             IIngredientService ingredientService,
             IMealDetailService mealDetailService,
             IUserTargetService userTargetService
     ) {
-        this.userService = userService;
         this.ingredientTypeService = ingredientTypeService;
         this.ingredientService = ingredientService;
         this.mealDetailService = mealDetailService;
@@ -43,9 +42,10 @@ public class MealServiceImpl extends ServiceImpl<MealMapper, Meal> implements IM
 
     @Override
     @Transactional(rollbackFor = Exception.class)
+    @Nullable
     public Meal InitMeal(String userUid, String mealType) {
-        Meal meal = new Meal();
         UserTarget userTarget = userTargetService.findActiveTargetByUid(userUid);
+        Meal meal = new Meal().setMealId(SeqUtils.getId());
         meal.setUserId(userTarget.getUserId()).setUserUid(userUid);
         meal.setMealType(mealType);
         Integer max = userTarget.getTargetCaloriesMax();
@@ -64,10 +64,11 @@ public class MealServiceImpl extends ServiceImpl<MealMapper, Meal> implements IM
         Integer proportion = SuggestStrategy.getProportionByMealType(meal.getMealType());
         max = max * proportion / 100;
         min = min * proportion / 100;
-        if (save(meal.setTotalWeight(min).setTotalCalories(max)) && prepareRecommend(meal)) {
+        // if fail to save a meal at this time, means that it is saved before
+        if (getBaseMapper().insertIgnore(meal.setTotalWeight(min).setTotalCalories(max)) && prepareRecommend(meal)) {
             return meal;
         }
-        throw ExceptionUtils.newSE("Failed to recommend a meal for user: " + userTarget.getUserUid());
+        return null;
     }
 
     @Override

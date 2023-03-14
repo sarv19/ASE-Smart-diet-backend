@@ -18,6 +18,7 @@ create table user
     updated_at    timestamp    not null                                            default current_timestamp on update current_timestamp
 ) engine = innodb
   default charset = utf8mb4;
+create unique index idx_user_user_uid on user (user_uid);
 
 drop table if exists user_target;
 create table user_target
@@ -55,6 +56,7 @@ create table meal
     updated_at     timestamp not null default current_timestamp on update current_timestamp
 ) engine = innodb
   default charset = utf8mb4;
+create index idx_meal_user_id on meal (user_id);
 
 drop table if exists ingredient;
 create table ingredient
