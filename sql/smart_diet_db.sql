@@ -60,7 +60,7 @@ drop table if exists ingredient;
 create table ingredient
 (
     ingredient_id   BIGINT primary key comment 'ingredient Id',
-    type_id         BIGINT comment 'type_id',
+    type_id         BIGINT not null comment 'type_id',
     ingredient_name varchar(50)  not null,
     description     varchar(100) not null comment 'english name/precise information about the ingredient',
     calories        int          not null comment 'calories/100g',
