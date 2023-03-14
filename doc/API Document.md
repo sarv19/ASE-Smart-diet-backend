@@ -2,14 +2,18 @@
 
 This is the API document for smartDiet system.
 
-@since: 2023-03-13
+@since: 2023-03-14
 
-@version: v2.2
+@version: v0.3.0
 
 ## changes
 
-- [v2.2] add functions about the eating preformance
-- [v2.1] not need to submit userId in the APIs that used need to, such as queryAMeal, confirmAMeal.
+- [0.3.0] add functions about the personal settings
+  - fix a bug that causes fail authorization.
+  - fix a bug that stops generating meal.
+
+- [0.2.2] add functions about the eating preformance
+- [0.2.1] not need to submit userId in the APIs that used need to, such as queryAMeal, confirmAMeal.
 
 # Page support
 
@@ -26,8 +30,6 @@ please use this two param to use the page function.
 **It only work for those APIs which support page.**
 
 Even this two param is missing, default values are set, which is 1 for pageNum and 10 for pageSize.
-
-
 
 # Login(to gain authorization)
 
@@ -96,8 +98,8 @@ API will return `userUid`
 ## queryDietPreference
 
 | Name           | value                                       |
-| -------------- |---------------------------------------------|
-| Route          | /user/queryDietPreference                   |
+| -------------- | ------------------------------------------- |
+| Route          | /settings/queryDietPreference               |
 | Pre-condition  | 1. User already login                       |
 | Post-condition | 1.                                          |
 | Description    | Return the list of diet preference of user. |
@@ -156,7 +158,7 @@ API will return `userUid`
 
 | Name           | value                                                        |
 | -------------- | ------------------------------------------------------------ |
-| Route          | /user/addDietPreference                                      |
+| Route          | /settings/addDietPreference                                  |
 | Pre-condition  | 1. User already login 2. targetId **must** be null           |
 | Post-condition | 1. The new setting will be actived, the old one is inactived. |
 | Description    | Add the list of diet preference of user.                     |
@@ -191,7 +193,7 @@ API will return `userUid`
 
 | Name           | value                                                       |
 | -------------- | ----------------------------------------------------------- |
-| Route          | /user/editDietPreference                                    |
+| Route          | /settings/editDietPreference                                |
 | Pre-condition  | 1. User already login 2. targetId **cannot** be null        |
 | Post-condition | 1. The orignial one is inactived, and then active this one. |
 | Description    | Edit the list of diet preference of user.                   |
@@ -227,7 +229,7 @@ API will return `userUid`
 
 | Name           | value                                                        |
 | -------------- | ------------------------------------------------------------ |
-| Route          | /user/deleteDietPreference                                   |
+| Route          | /settings/deleteDietPreference                               |
 | Pre-condition  | 1. User already login 2. targetId **cannot** be null 3. cannot delete an active setting |
 | Post-condition | 1.                                                           |
 | Description    | delete the list of diet preference of user.                  |

@@ -13,7 +13,12 @@
                #{meal.totalCalories}
         from meal
                  right join user on meal.user_uid = user.user_uid
-        where 0 = (select count(0) from meal where user_uid = #{meal.userUid} limit 1)
+        where 0 = (select count(0)
+                   from meal
+                   where user_uid = #{meal.userUid}
+                     and meal_type = #{meal.mealType}
+                     and datediff(now(), created_at) = 0
+                   limit 1)
         limit 1
     </insert>
 
