@@ -22,50 +22,7 @@ INSERT INTO user_target(target_id, user_id, user_uid, target_calories_min, targe
 INSERT INTO user_target(target_id, user_id, user_uid, target_calories_min, target_calories_max,is_active)
     value (2023030621401007, 2023021021401004, '4', 1700, 1800, true);
 
-# Note: The following data is old and has been discarded.
 
-/*truncate table ingredient;
-INSERT INTO ingredient(ingredient_id, type_id, ingredient_name, description, calories)
-    value (2023020821401001, 4, 'Apple', 'An apple is an edible fruit produced by an apple tree', 53);
-INSERT INTO ingredient(ingredient_id, type_id, ingredient_name, description, calories)
-    value (2023020821401002, 4, 'Banana', 'A banana is an elongated, edible fruit. ', 93);
-INSERT INTO ingredient(ingredient_id, type_id, ingredient_name, description, calories)
-    value (2023020821401003, 4, 'Coconut', 'The fruit of coconut tree  ', 241);
-INSERT INTO ingredient(ingredient_id, type_id, ingredient_name, description, calories)
-    value (2023020821401004, 1, 'Mutton',
-           'Mutton is the meat of a mature adult sheep, typically between two and three years old', 118);
-INSERT INTO ingredient(ingredient_id, type_id, ingredient_name, description, calories)
-    value (2023020821401005, 3, 'Spinach', 'a leafy green flowering plant native to central and western Asia', 28);
-INSERT INTO ingredient(ingredient_id, type_id, ingredient_name, description, calories)
-    value (2023020821401006, 3, 'cabbage',
-           'It is a leafy green, red (purple), or white (pale green) biennial plant grown', 24);
-INSERT INTO ingredient(ingredient_id, type_id, ingredient_name, description, calories)
-    value (2023020821401007, 3, 'lettuce', 'an annual plant of the family Asteraceae', 18);
-INSERT INTO ingredient(ingredient_id, type_id, ingredient_name, description, calories)
-    value (2023020821401008, 5, 'milk', 'a white liquid food produced by the mammary glands of mammals.', 66);
-INSERT INTO ingredient(ingredient_id, type_id, ingredient_name, description, calories)
-    value (2023020821401009, 5, 'skimmed milk', 'It is made when all the milk-fat is removed from whole milk.', 33);
-INSERT INTO ingredient(ingredient_id, type_id, ingredient_name, description, calories)
-    value (2023020821401010, 6, 'green bean',
-           'Green beans are young, unripe fruits of various cultivars of the common bean.', 329);
-INSERT INTO ingredient(ingredient_id, type_id, ingredient_name, description, calories)
-    value (2023020821401011, 6, 'soybean', 'a species of legume native to East Asia, widely grown for its edible bean',
-           390);
-INSERT INTO ingredient(ingredient_id, type_id, ingredient_name, description, calories)
-    value (2023020821401012, 2, 'Maize', 'corn', 112);
-INSERT INTO ingredient(ingredient_id, type_id, ingredient_name, description, calories)
-    value (2023020821401013, 2, 'rice', 'the seed of the grass species. ', 346);
-INSERT INTO ingredient(ingredient_id, type_id, ingredient_name, description, calories)
-    value (2023020821401014, 2, 'pasta',
-           'a type of food typically made from an unleavened dough of wheat flour mixed with water or eggs', 351);
-INSERT INTO ingredient(ingredient_id, type_id, ingredient_name, description, calories)
-    value (2023020821401015, 2, 'wheat',
-           'a grass widely cultivated for its seed, a cereal grain that is a worldwide staple food', 338);
-INSERT INTO ingredient(ingredient_id, type_id, ingredient_name, description, calories)
-    value (2023020821401016, 2, 'bread',
-           'a staple food prepared from a dough of flour (usually wheat) and water, usually by baking.', 313);
-INSERT INTO ingredient(ingredient_id, type_id, ingredient_name, description, calories)
-    value (2023020821401017, 1, 'beef', 'meat from cattle (Bos taurus)', 125);*/
 
 truncate table ingredient_type;
 INSERT INTO ingredient_type(type_id, type_name, base_type_name)
@@ -79,10 +36,7 @@ INSERT INTO ingredient_type(type_id, type_name, base_type_name)
 INSERT INTO ingredient_type(type_id, type_name, base_type_name)
     value (5, 'milk', 'protein');
 INSERT INTO ingredient_type(type_id, type_name, base_type_name)
-    value (6, 'beans', 'sugars');
-INSERT INTO ingredient_type(type_id, type_name, base_type_name, type_comment)
-    value (7, 'others', 'mixture',
-           'A type of mixture in which ingredients contain a variety of different raw materials');
+    value (6, 'other', 'seasoner');
 
 truncate table ingredient;
 INSERT INTO ingredient(ingredient_id, type_id, ingredient_name, description, calories, fat, carbohydrate, protein,
@@ -111,10 +65,10 @@ Values (2023031414301000, 1, 'chicken breast', 'chicken breast', 136, 30, null, 
        (2023031414301021, 3, 'broccoli', 'broccoli', 30, 3, 58, 25, null),
        (2023031414301022, 3, 'mushroom', 'mushroom', 21, 3, 31, 30, null),
        (2023031414301023, 3, 'green bell pepper', 'green bell pepper', 30, 2, 70, 12, null),
-       (2023031414401000, 7, 'tortilla', 'tortilla', 750, 240, 1200, 210, 14400),
-       (2023031414401001, 7, 'butter unsalted', 'butter unsalted', 256, 2880, null, null, null),
-       (2023031414401002, 7, 'bread crumb', 'bread crumb', 310, 1000, 6000, 420, null),
-       (2023031414401003, 7, 'tortilla chip', 'tortilla chip', 140, 700, 1900, 200, null),
+       (2023031414401000, 2, 'tortilla', 'tortilla', 750, 240, 1200, 210, 14400),
+       (2023031414401001, 6, 'butter unsalted', 'butter unsalted', 256, 2880, null, null, null),
+       (2023031414401002, 2, 'bread crumb', 'bread crumb', 310, 1000, 6000, 420, null),
+       (2023031414401003, 2, 'tortilla chip', 'tortilla chip', 140, 700, 1900, 200, null),
        (2023031414401004, 5, 'cheddar cheese', 'cheddar cheese', 178, 1150, 150, 160, null),
        (2023031414401005, 5, 'cow milk', 'cow milk', 63, 350, 500, 300, null),
        (2023031414401006, 5, 'soy milk', 'soy milk', 81, 360, 1200, 630, null),
