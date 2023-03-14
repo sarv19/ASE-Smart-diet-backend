@@ -13,13 +13,13 @@ INSERT INTO user(user_id, user_name, password, full_name, gender, email_address,
     value (2023021021401004, 'tester03', 'oQuEl19YljlQcRqDmi5GkA==', 'Dd Testd', 'unknown', 'testd@example.com',
            '+8612345678901', '4');
 
-INSERT INTO user_target(target_id, user_id, user_uid, target_calories_min, target_calories_max,is_active)
+INSERT INTO user_target(target_id, user_id, user_uid, target_calories_min, target_calories_max, is_active)
     value (2023030621401004, 2023021021401001, '1', 1500, 2000, true);
-INSERT INTO user_target(target_id, user_id, user_uid, target_calories_min, target_calories_max,is_active)
+INSERT INTO user_target(target_id, user_id, user_uid, target_calories_min, target_calories_max, is_active)
     value (2023030621401005, 2023021021401002, '2', 1800, 2000, true);
-INSERT INTO user_target(target_id, user_id, user_uid, target_calories_min, target_calories_max,is_active)
+INSERT INTO user_target(target_id, user_id, user_uid, target_calories_min, target_calories_max, is_active)
     value (2023030621401006, 2023021021401003, '3', 2000, 2300, true);
-INSERT INTO user_target(target_id, user_id, user_uid, target_calories_min, target_calories_max,is_active)
+INSERT INTO user_target(target_id, user_id, user_uid, target_calories_min, target_calories_max, is_active)
     value (2023030621401007, 2023021021401004, '4', 1700, 1800, true);
 
 
@@ -80,4 +80,7 @@ Values (2023031414301000, 1, 'chicken breast', 'chicken breast', 136, 30, null, 
        (2023031414401012, 4, 'banana', 'banana', 105, 40, 2700, 130, null),
        (2023031414401013, 3, 'cherry tomato', 'cherry tomato', 15, 30, 210, 30, null),
        (2023031414401014, 3, 'potato', 'potato', 283, 1010, 4400, 540, null),
-       (2023031414401015, 3, 'squash', 'squash', 18, 20, 360, 160, null);
+       (2023031414401015, 3, 'squash', 'squash', 18, 20, 360, 160, null),
+       (2023031414401016, 6, 'olive oil', 'olive oil', 884, 1000, null, null, 20),
+       (2023031414401017, 6, 'vinegar', 'vinegar', 18, null, null, null, 20),
+       (2023031414401017, 6, 'soy sauce', 'soy sauce', 53, 6, 49, 80, 54930);
