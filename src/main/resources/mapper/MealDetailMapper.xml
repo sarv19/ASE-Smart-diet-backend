@@ -30,4 +30,18 @@
                       on i1.type_id = tmp.type_id
         where i1.ingredient_id != #{ingredientId}
     </select>
+    <select id="selectSummaryDetail" resultType="com.group42.model.vo.SummaryDetailVO">
+        select md.meal_id, md.ingredient_id, md.weight, md.calories,
+        if(i.fat is null, 0, i.fat) as 'fat',
+        if(i.carbohydrate is null, 0, i.carbohydrate) as 'carbohydrate',
+        if(i.sodium is null, 0, i.sodium) as 'sodium',
+        if(i.protein is null, 0, i.protein) as 'protein'
+        from meal_detail md
+        join ingredient i on md.ingredient_id = i.ingredient_id
+        where meal_id in
+        <foreach collection="mealIds" open="(" separator="," close=")" item="mealId">
+            #{mealId}
+        </foreach>
+        and datediff(now(), md.created_at) <![CDATA[<=]]>#{day}
+    </select>
 </mapper>

@@ -27,4 +27,8 @@ public class PageUtils extends PageHelper {
         return map;
     }
 
+    public static <T> PageInfo<T> page(List<T> data) {
+        return new PageInfo<>(data);
+    }
+
 }

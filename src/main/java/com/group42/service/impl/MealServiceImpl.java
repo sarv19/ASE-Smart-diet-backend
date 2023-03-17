@@ -7,7 +7,11 @@ import com.group42.model.entity.IngredientType;
 import com.group42.model.entity.Meal;
 import com.group42.model.entity.MealDetail;
 import com.group42.model.entity.UserTarget;
+import com.group42.model.vo.SummaryDetailVO;
+import com.group42.model.vo.SummaryMealVO;
+import com.group42.model.vo.SummaryVO;
 import com.group42.service.*;
+import com.group42.utils.CollectionUtils;
 import com.group42.utils.ExceptionUtils;
 import com.group42.utils.SeqUtils;
 import org.springframework.lang.Nullable;
@@ -16,6 +20,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
 import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * @author Guofeng Lin
@@ -90,6 +96,44 @@ public class MealServiceImpl extends ServiceImpl<MealMapper, Meal> implements IM
     }
 
     @Override
+    public List<Meal> queryMealHistory(String userUid) {
+        return lambdaQuery().eq(Meal::getUserUid, userUid).isNotNull(Meal::getMealDate)
+                .orderByDesc(Meal::getCreatedAt).list();
+    }
+
+    @Override
+    public List<SummaryVO> summaryToday(String userUid) {
+        List<SummaryMealVO> summaryMealVOS = this.getBaseMapper().selectSummaryMeal(userUid, 0);
+        Map<Long, SummaryVO> summaryResultMap = CollectionUtils.newHashMap(summaryMealVOS.size());
+        Map<Long, SummaryMealVO> summaryMealVOMap = summaryMealVOS.stream()
+                .collect(Collectors.toMap(SummaryMealVO::getMealId, Function.identity()));
+        List<SummaryDetailVO> summaryDetailVOS = mealDetailService.selectSummaryDetail(
+                summaryMealVOS.stream().map(SummaryMealVO::getMealId).collect(Collectors.toList()),
+                userUid
+        );
+        for (SummaryDetailVO summaryDetailVO : summaryDetailVOS) {
+            // need to add data into summary which mealId is #{mealId}
+            Long mealId = summaryDetailVO.getMealId();
+
+            // if there is no Summary information of this mealId, create a new one
+            SummaryVO now = summaryResultMap.getOrDefault(mealId, new SummaryVO().setMealId(mealId));
+
+            // if there is no meal information of this mealId, get it from summaryMealVOMap
+            SummaryMealVO meal = Optional.ofNullable(now.getMeal()).orElse(summaryMealVOMap.get(mealId));
+            if (ObjectUtils.isEmpty(meal)) continue; // if somehow meal is null, skip this loop. it shouldn't happen
+
+            // get ingredients of this meal
+            List<SummaryDetailVO> ingredients = Optional.ofNullable(now.getIngredients()).orElse(new ArrayList<>());
+            ingredients.add(summaryDetailVO);
+
+            // update data
+            now.setMeal(calcDetailForMeal(meal, summaryDetailVO));
+            summaryResultMap.put(mealId, now.setIngredients(ingredients));
+        }
+        return new ArrayList<>(summaryResultMap.values());
+    }
+
+    @Override
     public boolean isConfirmMeal(Meal meal) {
         return !ObjectUtils.isEmpty(meal.getMealDate());
     }
@@ -116,5 +160,15 @@ public class MealServiceImpl extends ServiceImpl<MealMapper, Meal> implements IM
         }
         // recommend by base type
         return mealDetailService.saveBatch(ingredientService.recommendByBaseType(meal.getUserId(), typeMap));
+    }
+
+    private SummaryMealVO calcDetailForMeal(SummaryMealVO mealVO, SummaryDetailVO detailVO) {
+        mealVO.setTotalWeight(mealVO.getTotalWeight() + detailVO.getWeight());
+        mealVO.setTotalCalories(mealVO.getTotalCalories() + detailVO.getCalories());
+        mealVO.setTotalProtein(mealVO.getTotalProtein() + detailVO.getProtein());
+        mealVO.setTotalFat(mealVO.getTotalFat() + detailVO.getFat());
+        mealVO.setTotalCarbohydrate(mealVO.getTotalCarbohydrate() + detailVO.getCarbohydrate());
+        mealVO.setTotalSodium(mealVO.getTotalSodium() + detailVO.getSodium());
+        return mealVO;
     }
 }

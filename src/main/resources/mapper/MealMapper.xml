@@ -36,4 +36,27 @@
           and datediff(now(), created_at) = 0
         limit 1
     </select>
+    <select id="selectSummaryMeal" resultType="com.group42.model.vo.SummaryMealVO">
+        select meal_id,
+               meal_type,
+               meal_date,
+               total_weight,
+               total_calories,
+               0 as 'totalProtein',
+               0 as 'totalFat',
+               0 as 'totalCarbohydrate',
+               0 as 'totalSodium'
+        from meal m
+        where user_uid = #{userUid}
+          and meal_date is not null
+          and datediff(now(), created_at) <![CDATA[<=]]> #{day}
+    </select>
+    <select id="getCurrentMealId" resultType="long">
+        select meal_id
+        from meal
+        where user_uid = #{userUid}
+          and meal_type = #{mealType}
+          and datediff(now(), created_at) = 0
+        limit 1
+    </select>
 </mapper>

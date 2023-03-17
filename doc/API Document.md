@@ -2,17 +2,19 @@
 
 This is the API document for smartDiet system.
 
-@since: 2023-03-14
+@since: 2023-03-17
 
-@version: v0.3.0
+@version: v0.4.0
 
 ## changes
+- [0.4.0] add functions about the summary
+  - API document not fully updated yet.
 
 - [0.3.0] add functions about the personal settings
   - fix a bug that causes fail authorization.
   - fix a bug that stops generating meal.
 
-- [0.2.2] add functions about the eating preformance
+- [0.2.2] add functions about the eating performance
 - [0.2.1] not need to submit userId in the APIs that used need to, such as queryAMeal, confirmAMeal.
 
 # Page support
@@ -94,6 +96,8 @@ API will return `userUid`
     "data": "testdata00"
 }
 ```
+
+# Settings(personal information settings)
 
 ## queryDietPreference
 
@@ -252,23 +256,6 @@ API will return `userUid`
 ```
 
 # Meal(recommandation, Main feature)
-
-## mealForToday
-
-| Name           | value                          |
-| -------------- | ------------------------------ |
-| Route          | /meal/mealForToday             |
-| Pre-condition  | 1. User already login          |
-| Post-condition | 1.                             |
-| Description    | Knowing which meal it is today |
-
-No ready to be used.
-
-# User(personal information settings)
-
-
-
-
 
 ## queryAMeal
 
@@ -451,8 +438,6 @@ API will return a list of food, such as rice/pasta for grains, dog/beef for meet
 }
 ```
 
-
-
 ## confirmAMeal
 
 | Name           | value                                                        |
@@ -490,6 +475,106 @@ API will return a list of food, such as rice/pasta for grains, dog/beef for meet
 {
     "msg": "success",
     "code": 200
+}
+```
+
+# Summary(Summary of all meals in a day)
+
+## summarizeToday
+
+| Name           | value                                                |
+| -------------- | ---------------------------------------------------- |
+| Route          | summary/summarizeToday                               |
+| Pre-condition  | 1. User already login                                |
+| Post-condition |                                                      |
+| Description    | Return the list of substitutions that user selected. |
+
+### request
+
+```json
+{}
+```
+
+### ok
+
+```json
+{
+    "msg": "success",
+    "code": 200,
+    "data": [
+        {
+            "mealId": 2023031700370002,
+            "meal": {
+                "mealId": 2023031700370002,
+                "mealType": "dinner",
+                "mealDate": "2023-03-17T00:37:10",
+                "totalWeight": 408,
+                "totalCalories": 800,
+                "totalProtein": 600,
+                "totalFat": 1260,
+                "totalCarbohydrate": 1900,
+                "totalSodium": 0
+            },
+            "ingredients": [
+                {
+                    "ingredientId": 2023031414301003,
+                    "mealId": 2023031700370002,
+                    "weight": 22,
+                    "calories": 144,
+                    "fat": 560,
+                    "carbohydrate": 0,
+                    "protein": 400,
+                    "sodium": 0
+                },
+                {
+                    "ingredientId": 2023031414401003,
+                    "mealId": 2023031700370002,
+                    "weight": 182,
+                    "calories": 256,
+                    "fat": 700,
+                    "carbohydrate": 1900,
+                    "protein": 200,
+                    "sodium": 0
+                }
+            ]
+        },
+        {
+            "mealId": 2023031700404502,
+            "meal": {
+                "mealId": 2023031700404502,
+                "mealType": "lunch",
+                "mealDate": "2023-03-17T00:40:54",
+                "totalWeight": 408,
+                "totalCalories": 800,
+                "totalProtein": 600,
+                "totalFat": 1260,
+                "totalCarbohydrate": 1900,
+                "totalSodium": 0
+            },
+            "ingredients": [
+                {
+                    "ingredientId": 2023031414301003,
+                    "mealId": 2023031700404502,
+                    "weight": 22,
+                    "calories": 144,
+                    "fat": 560,
+                    "carbohydrate": 0,
+                    "protein": 400,
+                    "sodium": 0
+                },
+                {
+                    "ingredientId": 2023031414401003,
+                    "mealId": 2023031700404502,
+                    "weight": 182,
+                    "calories": 256,
+                    "fat": 700,
+                    "carbohydrate": 1900,
+                    "protein": 200,
+                    "sodium": 0
+                }
+            ]
+        }
+    ]
 }
 ```
 

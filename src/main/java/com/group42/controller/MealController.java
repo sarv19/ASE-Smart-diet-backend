@@ -72,6 +72,8 @@ public class MealController extends BaseController {
 
     @PostMapping("/querySubstitutions")
     public R querySubstitutions(@RequestBody @Validated({Info.class}) MealTO to, HttpServletRequest request) {
+        to.setPageSize(5); // only need 5 ingredients
+        to.setPageNum(1); // only query the first page
         startPage(to);
         return R.ok(PageUtils.pageInfoMap(
                 mealDetailService.getSubstitutions(JwtUtils.getUserUidFromRequest(request), to.getMealId(), to.getIngredientId())
@@ -94,4 +96,13 @@ public class MealController extends BaseController {
             return R.ok();
         throw ExceptionUtils.newSE("confirm meal failed");
     }
+
+    @PostMapping("/mealHistory")
+    @Transactional(rollbackFor = Exception.class)
+    public R mealHistory(@RequestBody MealTO to, HttpServletRequest request) {
+        String uid = JwtUtils.getUserUidFromRequest(request);
+        startPage(to);
+        return R.ok(PageUtils.page(mealService.queryMealHistory(uid)));
+    }
+
 }

@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.group42.model.bean.SuggestMealDetail;
 import com.group42.model.entity.Meal;
 import com.group42.model.entity.MealDetail;
+import com.group42.model.vo.SummaryDetailVO;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -18,6 +20,7 @@ import java.util.List;
 public interface IMealDetailService extends IService<MealDetail> {
     List<SuggestMealDetail> getMealDetailByMealId(Long mealId);
     List<SuggestMealDetail> getSubstitutions(String userUid, Long mealId, Long ingredientId);
-
     boolean confirmMealDetail(Meal meal, List<SuggestMealDetail> ingredients);
+    List<SummaryDetailVO> selectSummaryDetail(@Param("mealIds") List<Long> mealIds, String userUid);
+
 }

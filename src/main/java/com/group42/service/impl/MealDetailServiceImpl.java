@@ -5,6 +5,7 @@ import com.group42.dao.MealDetailMapper;
 import com.group42.model.bean.SuggestMealDetail;
 import com.group42.model.entity.Meal;
 import com.group42.model.entity.MealDetail;
+import com.group42.model.vo.SummaryDetailVO;
 import com.group42.service.IMealDetailService;
 import com.group42.utils.ExceptionUtils;
 import org.springframework.stereotype.Service;
@@ -49,6 +50,11 @@ public class MealDetailServiceImpl extends ServiceImpl<MealDetailMapper, MealDet
         if (saveBatch(mealDetails))
             return true;
         throw ExceptionUtils.newSE("Confirm meal detail failed");
+    }
+
+    @Override
+    public List<SummaryDetailVO> selectSummaryDetail(List<Long> mealIds, String userUid) {
+        return this.getBaseMapper().selectSummaryDetail(mealIds, 0);
     }
 
     private List<SuggestMealDetail> calcMealDetail(List<SuggestMealDetail> suggestMealDetails) {
