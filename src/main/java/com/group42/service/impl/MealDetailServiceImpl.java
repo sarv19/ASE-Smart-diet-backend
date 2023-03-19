@@ -7,12 +7,14 @@ import com.group42.model.entity.Meal;
 import com.group42.model.entity.MealDetail;
 import com.group42.model.vo.SummaryDetailVO;
 import com.group42.service.IMealDetailService;
+import com.group42.utils.CollectionUtils;
 import com.group42.utils.ExceptionUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -54,6 +56,7 @@ public class MealDetailServiceImpl extends ServiceImpl<MealDetailMapper, MealDet
 
     @Override
     public List<SummaryDetailVO> selectSummaryDetail(List<Long> mealIds, String userUid) {
+        if (CollectionUtils.isEmpty(mealIds)) return Collections.emptyList();
         return this.getBaseMapper().selectSummaryDetail(mealIds, 0);
     }
 
