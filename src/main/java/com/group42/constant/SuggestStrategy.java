@@ -30,11 +30,11 @@ public class SuggestStrategy {
     public static final String VEGETABLE_TYPE = "vegetable";
     public static final String FRUIT_TYPE = "fruit";
 
-    public static final Integer GRAINS_PROPORTION = 45;
-    public static final Integer BEANS_PROPORTION = 10;
-    public static final Integer MEAT_PROPORTION = 25;
-    public static final Integer MILK_PROPORTION = 15;
-    public static final Integer VEGETABLE_PROPORTION = 30;
+    public static final Integer GRAINS_PROPORTION = 20;
+    public static final Integer BEANS_PROPORTION = 7;
+    public static final Integer MEAT_PROPORTION = 30;
+    public static final Integer MILK_PROPORTION = 13;
+    public static final Integer VEGETABLE_PROPORTION = 20;
     public static final Integer FRUIT_PROPORTION = 10;
 
     public static Integer getProportionByMealType(String mealType) {

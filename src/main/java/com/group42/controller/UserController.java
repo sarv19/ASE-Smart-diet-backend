@@ -26,11 +26,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController extends BaseController {
 
     private final IUserService userService;
-    private final IUserTargetService userTargetService;
 
-    public UserController(IUserService userService, IUserTargetService userTargetService) {
+    public UserController(IUserService userService) {
         this.userService = userService;
-        this.userTargetService = userTargetService;
     }
 
     @PostMapping("/login")
