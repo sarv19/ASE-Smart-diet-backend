@@ -22,6 +22,7 @@ public interface IMealService extends IService<Meal> {
     Meal confirmMeal(Long mealId, int totalCalories, int totalWeight);
     List<Meal> queryMealHistory(String userUid);
     List<SummaryVO> summaryToday(String userUid);
+    boolean clearAllMeal(String userUid);
     boolean isConfirmMeal(Meal meal);
     boolean isConfirmMeal(String mealId);
 }

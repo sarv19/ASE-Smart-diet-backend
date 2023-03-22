@@ -17,15 +17,16 @@ public class UserTargetServiceImpl extends ServiceImpl<UserTargetMapper, UserTar
 
     @Override
     public UserTarget saveTarget(UserTarget userTarget) {
-        if (inactiveTarget(userTarget)){
+        if (inactiveTarget(userTarget)) {
             save(userTarget.setIsActive(true));
             return userTarget;
         }
         return null;
     }
+
     @Override
     public UserTarget updateTarget(UserTarget userTarget) {
-        if (inactiveTarget(userTarget)){
+        if (inactiveTarget(userTarget)) {
             updateById(userTarget.setIsActive(true));
             return userTarget;
         }
@@ -34,13 +35,13 @@ public class UserTargetServiceImpl extends ServiceImpl<UserTargetMapper, UserTar
 
     @Override
     public UserTarget findActiveTargetByUid(String userUid) {
-        return lambdaQuery().eq(UserTarget::getUserUid, userUid).eq(UserTarget::getIsActive, true).one();
+        return lambdaQuery().eq(UserTarget::getUserUid, userUid).eq(UserTarget::getIsActive, true).last("limit 1").one();
     }
 
     @Transactional(rollbackFor = Exception.class)
     public boolean inactiveTarget(UserTarget userTarget) {
-        Assert.notNull(userTarget.getUserId(),"userId cannot be null");
-        Assert.notNull(userTarget.getUserUid(),"userUid cannot be null");
+        Assert.notNull(userTarget.getUserId(), "userId cannot be null");
+        Assert.notNull(userTarget.getUserUid(), "userUid cannot be null");
         return lambdaUpdate().eq(UserTarget::getUserId, userTarget.getUserId()).eq(UserTarget::getIsActive, true)
                 .set(UserTarget::getIsActive, false).update();
     }

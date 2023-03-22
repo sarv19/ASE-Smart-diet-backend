@@ -105,4 +105,8 @@ public class MealController extends BaseController {
         return R.ok(PageUtils.page(mealService.queryMealHistory(uid)));
     }
 
+    @PostMapping("/clearHistory")
+    public R clearHistory(@RequestBody MealTO to, HttpServletRequest request) {
+        return R.ok(mealService.clearAllMeal(JwtUtils.getUserUidFromRequest(request)));
+    }
 }

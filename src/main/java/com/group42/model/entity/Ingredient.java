@@ -38,9 +38,6 @@ public class Ingredient extends BaseEntity {
      */
     private String description;
 
-    /**
-     * mg/1000g
-     */
     private Integer calories;
 
     /**

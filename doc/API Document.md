@@ -4,13 +4,14 @@ This is the API document for smartDiet system.
 
 @since: 2023-03-17
 
-@version: v0.4.0
+@version: v0.4.1
 
 ## changes
 
+- [0.4.1] fix bugs about the summary function
+    
 - [0.4.0] add functions about the summary
-    - API document not fully updated yet.
-
+    
 - [0.3.0] add functions about the personal settings
     - fix a bug that causes fail authorization.
     - fix a bug that stops generating meal.
@@ -34,18 +35,24 @@ please use this two param to use the page function.
 
 Even this two param is missing, default values are set, which is 1 for pageNum and 10 for pageSize.
 
-# Login(to gain authorization)
+# Path
 
-## login
+All API path should start with `/sd`. For example, `HTTP://IP:PORT/sd/user/login`
 
-| Name           | value            |
-|----------------|------------------|
-| Route          | /user/login      |
-| Pre-condition  | 1.               |
-| Post-condition | 1.               |
-| Description    | Backup interface |
+# APIs
 
-### request
+## User(to gain authorization)
+
+### login
+
+| Name           | value                                         |
+| -------------- | --------------------------------------------- |
+| Route          | /user/login                                   |
+| Pre-condition  | 1.                                            |
+| Post-condition | 1.                                            |
+| Description    | Backup interface. Get the `userUid` of a user |
+
+#### request
 
 `username`,`password` can not be blank.
 
@@ -56,9 +63,9 @@ Even this two param is missing, default values are set, which is 1 for pageNum a
 }
 ```
 
-### ok
+#### ok
 
-API will return user_uid in the "data" field.
+API will return `userUid` in the "data" field.
 
 ```json
 {
@@ -68,7 +75,7 @@ API will return user_uid in the "data" field.
 }
 ```
 
-## register
+### register
 
 | Name           | value                           |
 |----------------|---------------------------------|
@@ -77,7 +84,7 @@ API will return user_uid in the "data" field.
 | Post-condition | 1.                              |
 | Description    | Get data from email information |
 
-### request
+#### request
 
 `userUid`,`email` can not be null.
 
@@ -88,7 +95,7 @@ API will return user_uid in the "data" field.
 }
 ```
 
-### ok
+#### ok
 
 API will return `userUid`
 
@@ -100,9 +107,9 @@ API will return `userUid`
 }
 ```
 
-# Settings(personal information settings)
+## Settings(personal information settings)
 
-## queryDietPreference
+### queryDietPreference
 
 | Name           | value                                       |
 |----------------|---------------------------------------------|
@@ -111,7 +118,7 @@ API will return `userUid`
 | Post-condition | 1.                                          |
 | Description    | Return the list of diet preference of user. |
 
-### request
+#### request
 
 ```json
 {
@@ -119,7 +126,7 @@ API will return `userUid`
 }
 ```
 
-### ok
+#### ok
 
 ```json
 {
@@ -161,7 +168,7 @@ API will return `userUid`
 }
 ```
 
-## addDietPreference
+### addDietPreference
 
 | Name           | value                                                         |
 |----------------|---------------------------------------------------------------|
@@ -170,7 +177,7 @@ API will return `userUid`
 | Post-condition | 1. The new setting will be actived, the old one is inactived. |
 | Description    | Add the list of diet preference of user.                      |
 
-### request
+#### request
 
 ```json
 {
@@ -179,7 +186,7 @@ API will return `userUid`
 }
 ```
 
-### ok
+#### ok
 
 ```json
 {
@@ -196,7 +203,7 @@ API will return `userUid`
 }
 ```
 
-## editDietPreference
+### editDietPreference
 
 | Name           | value                                                       |
 |----------------|-------------------------------------------------------------|
@@ -205,7 +212,7 @@ API will return `userUid`
 | Post-condition | 1. The orignial one is inactived, and then active this one. |
 | Description    | Edit the list of diet preference of user.                   |
 
-### request
+#### request
 
 ```json
 {
@@ -215,7 +222,7 @@ API will return `userUid`
 }
 ```
 
-### ok
+#### ok
 
 ```json
 {
@@ -232,7 +239,7 @@ API will return `userUid`
 }
 ```
 
-## deleteDietPreference
+### deleteDietPreference
 
 | Name           | value                                                                                   |
 |----------------|-----------------------------------------------------------------------------------------|
@@ -241,7 +248,7 @@ API will return `userUid`
 | Post-condition | 1.                                                                                      |
 | Description    | delete the list of diet preference of user.                                             |
 
-### request
+#### request
 
 ```json
 {
@@ -249,7 +256,7 @@ API will return `userUid`
 }
 ```
 
-### ok
+#### ok
 
 ```json
 {
@@ -258,7 +265,7 @@ API will return `userUid`
 }
 ```
 
-## querySettings
+### querySettings
 
 | Name           | value                               |
 |----------------|-------------------------------------|
@@ -267,7 +274,7 @@ API will return `userUid`
 | Post-condition | 1.                                  |
 | Description    | query the list of settings of user. |
 
-### request
+#### request
 
 ```json
 {
@@ -275,7 +282,7 @@ API will return `userUid`
 }
 ```
 
-### ok
+#### ok
 
 ```json
 {
@@ -291,7 +298,7 @@ API will return `userUid`
 }
 ```
 
-## editSettings
+### editSettings
 
 | Name           | value                          |
 |----------------|--------------------------------|
@@ -300,7 +307,7 @@ API will return `userUid`
 | Post-condition | 1.                             |
 | Description    | edit the list of settings of user. |
 
-### request
+#### request
 
 ```json
 {
@@ -308,7 +315,7 @@ API will return `userUid`
 }
 ```
 
-### ok
+#### ok
 
 ```json
 {
@@ -317,9 +324,9 @@ API will return `userUid`
 }
 ```
 
-# Meal(recommandation, Main feature)
+## Meal(recommandation, Main feature)
 
-## queryAMeal
+### queryAMeal
 
 | Name           | value                                                                                                   |
 |----------------|---------------------------------------------------------------------------------------------------------|
@@ -328,7 +335,7 @@ API will return `userUid`
 | Post-condition | 1.                                                                                                      |
 | Description    | Return the list of type of food that user can select. Use `/querySubstitutions` to query substitutions. |
 
-### request
+#### request
 
 `MealId` **can be null at the first time**. However, `MealId` should be **the same** in the following queries for the
 same meal.
@@ -336,86 +343,93 @@ same meal.
 ```json
 {
   "mealType": "dinner",
-  "mealId": 2023022123281601,
+  "mealId": 2023032100563037,
   "pageNum": 1,
   "pageSize": 10
 }
 ```
 
-### ok
+#### ok
 
 API will return a list of type of food, such as grains(rice/pasta), meet(dog/beef).
 
 ```json
 {
-  "msg": "success",
-  "code": 200,
-  "data": {
-    "mealId": 2023022123281601,
+    "msg": "success",
+    "code": 200,
     "data": {
-      "total": 6,
-      "list": [
-        {
-          "ingredientId": 2023021023502000,
-          "ingredientName": "grains",
-          "calories": 100,
-          "weight": 100
+        "mealId": 2023032100563037,
+        "data": {
+            "total": 6,
+            "list": [
+                {
+                    "ingredientId": 2023031414301001,
+                    "typeId": 1,
+                    "ingredientName": "chicken thigh",
+                    "calories": 228,
+                    "weight": 91
+                },
+                {
+                    "ingredientId": 2023031414301012,
+                    "typeId": 2,
+                    "ingredientName": "corn",
+                    "calories": 152,
+                    "weight": 233
+                },
+                {
+                    "ingredientId": 2023031414301017,
+                    "typeId": 3,
+                    "ingredientName": "celery",
+                    "calories": 152,
+                    "weight": 1085
+                },
+                {
+                    "ingredientId": 2023031414401012,
+                    "typeId": 4,
+                    "ingredientName": "banana",
+                    "calories": 76,
+                    "weight": 72
+                },
+                {
+                    "ingredientId": 2023031414401005,
+                    "typeId": 5,
+                    "ingredientName": "cow milk",
+                    "calories": 98,
+                    "weight": 155
+                },
+                {
+                    "ingredientId": 2023031414401001,
+                    "typeId": 6,
+                    "ingredientName": "butter unsalted",
+                    "calories": 76,
+                    "weight": 29
+                }
+            ],
+            "pageNum": 1,
+            "pageSize": 6,
+            "size": 6,
+            "startRow": 0,
+            "endRow": 5,
+            "pages": 1,
+            "prePage": 0,
+            "nextPage": 0,
+            "isFirstPage": true,
+            "isLastPage": true,
+            "hasPreviousPage": false,
+            "hasNextPage": false,
+            "navigatePages": 8,
+            "navigatepageNums": [
+                1
+            ],
+            "navigateFirstPage": 1,
+            "navigateLastPage": 1
         },
-        {
-          "ingredientId": 2023021023502001,
-          "ingredientName": "meet",
-          "calories": 100,
-          "weight": 100
-        },
-        {
-          "ingredientId": 2023021023502002,
-          "ingredientName": "fruit",
-          "calories": 100,
-          "weight": 100
-        },
-        {
-          "ingredientId": 2023021023502003,
-          "ingredientName": "vegetable",
-          "calories": 100,
-          "weight": 100
-        },
-        {
-          "ingredientId": 2023021023502004,
-          "ingredientName": "milk",
-          "calories": 100,
-          "weight": 100
-        },
-        {
-          "ingredientId": 2023021023502005,
-          "ingredientName": "beans",
-          "calories": 100,
-          "weight": 100
-        }
-      ],
-      "pageNum": 1,
-      "pageSize": 10,
-      "size": 6,
-      "startRow": 1,
-      "endRow": 6,
-      "pages": 1,
-      "prePage": 0,
-      "nextPage": 0,
-      "isFirstPage": true,
-      "isLastPage": true,
-      "hasPreviousPage": false,
-      "hasNextPage": false,
-      "navigatePages": 8,
-      "navigatepageNums": [
-        1
-      ],
-      "navigateFirstPage": 1,
-      "navigateLastPage": 1
+        "mealDate": null
     }
-  }
 }
 ```
 
-## querySubstitutions
+### querySubstitutions
 
 | Name           | value                                                |
 |----------------|------------------------------------------------------|
@@ -424,82 +438,87 @@ API will return a list of type of food, such as grains(rice/pasta), meet(dog/bee
 | Post-condition | 1.                                                   |
 | Description    | Return the list of substitutions that user selected. |
 
-### request
+#### request
 
 ```json
 {
-  "mealId": 2023022123281601,
-  "ingredientId": 2023021023502000
+    "mealId": 2023032100563037,
+    "ingredientId": 2023031414301001
 }
 ```
 
-### ok
+#### ok
 
 API will return a list of food, such as rice/pasta for grains, dog/beef for meet.
 
 ```json
 {
-  "msg": "success",
-  "code": 200,
-  "data": {
+    "msg": "success",
+    "code": 200,
     "data": {
-      "total": 5,
-      "list": [
-        {
-          "ingredientId": 12,
-          "ingredientName": "test_food_L",
-          "calories": 100,
-          "weight": 100
-        },
-        {
-          "ingredientId": 13,
-          "ingredientName": "test_food_M",
-          "calories": 100,
-          "weight": 100
-        },
-        {
-          "ingredientId": 14,
-          "ingredientName": "test_food_N",
-          "calories": 100,
-          "weight": 100
-        },
-        {
-          "ingredientId": 15,
-          "ingredientName": "test_food_O",
-          "calories": 100,
-          "weight": 100
-        },
-        {
-          "ingredientId": 16,
-          "ingredientName": "test_food_P",
-          "calories": 100,
-          "weight": 100
+        "data": {
+            "total": 5,
+            "list": [
+                {
+                    "ingredientId": 2023031414301011,
+                    "typeId": 1,
+                    "ingredientName": "tuna",
+                    "calories": 228,
+                    "weight": 455
+                },
+                {
+                    "ingredientId": 2023031414301010,
+                    "typeId": 1,
+                    "ingredientName": "salmon",
+                    "calories": 228,
+                    "weight": 227
+                },
+                {
+                    "ingredientId": 2023031414301009,
+                    "typeId": 1,
+                    "ingredientName": "ground beef",
+                    "calories": 228,
+                    "weight": 113
+                },
+                {
+                    "ingredientId": 2023031414301008,
+                    "typeId": 1,
+                    "ingredientName": "egg",
+                    "calories": 228,
+                    "weight": 162
+                },
+                {
+                    "ingredientId": 2023031414301007,
+                    "typeId": 1,
+                    "ingredientName": "pork loin",
+                    "calories": 228,
+                    "weight": 190
+                }
+            ],
+            "pageNum": 1,
+            "pageSize": 5,
+            "size": 5,
+            "startRow": 0,
+            "endRow": 4,
+            "pages": 1,
+            "prePage": 0,
+            "nextPage": 0,
+            "isFirstPage": true,
+            "isLastPage": true,
+            "hasPreviousPage": false,
+            "hasNextPage": false,
+            "navigatePages": 8,
+            "navigatepageNums": [
+                1
+            ],
+            "navigateFirstPage": 1,
+            "navigateLastPage": 1
         }
-      ],
-      "pageNum": 1,
-      "pageSize": 10,
-      "size": 5,
-      "startRow": 1,
-      "endRow": 5,
-      "pages": 1,
-      "prePage": 0,
-      "nextPage": 0,
-      "isFirstPage": true,
-      "isLastPage": true,
-      "hasPreviousPage": false,
-      "hasNextPage": false,
-      "navigatePages": 8,
-      "navigatepageNums": [
-        1
-      ],
-      "navigateFirstPage": 1,
-      "navigateLastPage": 1
     }
-  }
 }
 ```
 
-## confirmAMeal
+### confirmAMeal
 
 | Name           | value                                                              |
 |----------------|--------------------------------------------------------------------|
@@ -508,7 +527,7 @@ API will return a list of food, such as rice/pasta for grains, dog/beef for meet
 | Post-condition | 1. A meal will be confirmed and cannot change anymore              |
 | Description    | Return the list of substitutions that user selected.               |
 
-### request
+#### request
 
 ```json
 {
@@ -530,7 +549,7 @@ API will return a list of food, such as rice/pasta for grains, dog/beef for meet
 }
 ```
 
-### ok
+#### ok
 
 ```json
 {
@@ -539,7 +558,7 @@ API will return a list of food, such as rice/pasta for grains, dog/beef for meet
 }
 ```
 
-## mealHistory
+### mealHistory
 
 | Name           | value                                     |
 |----------------|-------------------------------------------|
@@ -548,14 +567,14 @@ API will return a list of food, such as rice/pasta for grains, dog/beef for meet
 | Post-condition |                                           |
 | Description    | Return the list of history of user's meal |
 
-### request
+#### request
 
 ```json
 {
 }
 ```
 
-### ok
+#### ok
 
 ```json
 {
@@ -584,24 +603,52 @@ API will return a list of food, such as rice/pasta for grains, dog/beef for meet
 }
 ```
 
-# Summary(Summary of all meals in a day)
+### clearHistory
 
-## summarizeToday
+| Name           | value                            |
+| -------------- | -------------------------------- |
+| Route          | /meal/clearHistory               |
+| Pre-condition  | 1. User already login            |
+| Post-condition |                                  |
+| Description    | Clear all the data of one's meal |
+
+#### request
+
+```json
+{
+}
+```
+
+#### ok
+
+```json
+{
+  "msg": "success",
+  "code": 200,
+  "data": true
+}
+```
+
+
+
+## Summary(Summary of all meals in a day)
+
+### summarizeToday
 
 | Name           | value                                                |
-|----------------|------------------------------------------------------|
-| Route          | summary/summarizeToday                               |
+| -------------- | ---------------------------------------------------- |
+| Route          | /summary/summarizeToday                              |
 | Pre-condition  | 1. User already login                                |
 | Post-condition |                                                      |
 | Description    | Return the list of substitutions that user selected. |
 
-### request
+#### request
 
 ```json
 {}
 ```
 
-### ok
+#### ok
 
 ```json
 {

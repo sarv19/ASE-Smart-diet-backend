@@ -13,9 +13,6 @@ public class SummaryDetailVO {
     private Long ingredientId;
     private Long mealId;
     private Integer weight;
-    /**
-     * mg/1000g
-     */
     private Integer calories;
 
     /**

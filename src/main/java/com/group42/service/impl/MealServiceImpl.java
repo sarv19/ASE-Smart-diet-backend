@@ -134,6 +134,14 @@ public class MealServiceImpl extends ServiceImpl<MealMapper, Meal> implements IM
     }
 
     @Override
+    public boolean clearAllMeal(String userUid) {
+        if (lambdaUpdate().eq(Meal::getUserUid, userUid).remove()) {
+            mealDetailService.lambdaUpdate().eq(MealDetail::getUserUid, userUid).remove();
+        }
+        return true;
+    }
+
+    @Override
     public boolean isConfirmMeal(Meal meal) {
         return !ObjectUtils.isEmpty(meal.getMealDate());
     }
@@ -163,8 +171,8 @@ public class MealServiceImpl extends ServiceImpl<MealMapper, Meal> implements IM
     }
 
     private SummaryMealVO calcDetailForMeal(SummaryMealVO mealVO, SummaryDetailVO detailVO) {
-        mealVO.setTotalWeight(mealVO.getTotalWeight() + detailVO.getWeight());
-        mealVO.setTotalCalories(mealVO.getTotalCalories() + detailVO.getCalories());
+//        mealVO.setTotalWeight(mealVO.getTotalWeight() + detailVO.getWeight());
+//        mealVO.setTotalCalories(mealVO.getTotalCalories() + detailVO.getCalories());
         mealVO.setTotalProtein(mealVO.getTotalProtein() + detailVO.getProtein());
         mealVO.setTotalFat(mealVO.getTotalFat() + detailVO.getFat());
         mealVO.setTotalCarbohydrate(mealVO.getTotalCarbohydrate() + detailVO.getCarbohydrate());
