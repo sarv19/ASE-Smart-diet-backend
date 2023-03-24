@@ -329,7 +329,93 @@ API will return `userUid`
 }
 ```
 
-## Meal(recommandation, Main feature)
+### queryFoodPerformance
+
+| Name           | value                          |
+|----------------|--------------------------------|
+| Route          | /settings/queryFoodPerformance |
+| Pre-condition  | 1. User already login          |
+| Post-condition | 1.                             |
+| Description    | query food performance of user |
+
+#### request
+
+```json
+{
+  
+}
+```
+
+#### ok
+
+```json
+{
+  "msg": "success",
+  "code": 200,
+  "data": {
+    "preferred": [],
+    "unwanted": [],
+    "allergens": []
+  }
+}
+```
+
+### addFoodPerformance
+
+| Name           | value                                                                                    |
+|----------------|------------------------------------------------------------------------------------------|
+| Route          | /settings/addFoodPerformance                                                             |
+| Pre-condition  | 1. User already login                                                                    |
+| Post-condition | 1.                                                                                       |
+| Description    | add the food performance of one user,"recommendLevel": -1 = allergy 0 = dislike 1 = like |
+
+#### request
+
+```json
+{
+    "ingredientId": 32,
+    "recommendLevel": 1
+}
+```
+
+#### ok
+
+```json
+{
+    "msg": "success",
+    "code": 200,
+    "data": true
+}
+```
+
+### deleteFoodPerformance
+
+| Name           | value                                                                                      |
+|----------------|--------------------------------------------------------------------------------------------|
+| Route          | /settings/deleteFoodPerformance                                                            |
+| Pre-condition  | 1. User already login                                                                      |
+| Post-condition | 1.                                                                                         |
+| Description    | delete food performance of one user |
+
+#### request
+
+```json
+{
+    "preferenceId": 72
+}
+```
+
+#### ok
+
+```json
+{
+    "msg": "success",
+    "code": 200,
+    "data": false
+}
+```
+
+## Meal(recommendation, Main feature)
 
 ### queryAMeal
 
