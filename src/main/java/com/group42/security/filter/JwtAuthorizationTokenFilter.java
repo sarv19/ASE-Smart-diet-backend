@@ -40,7 +40,7 @@ public class JwtAuthorizationTokenFilter extends OncePerRequestFilter {
 
         User user = null;
         if (needValidate) {
-            user = userService.findUserByUid(JwtUtils.getUserUidFromRequest(request));
+            user = userService.findUserByUid(JwtUtils.getUserUid(request));
         }
         log.info("=====request URI: " + uri + " ; User: " + user);
         if (user != null && SecurityContextHolder.getContext().getAuthentication() == null) {

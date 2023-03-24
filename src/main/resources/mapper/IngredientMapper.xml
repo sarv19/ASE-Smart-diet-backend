@@ -2,40 +2,33 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.group42.dao.IngredientMapper">
 
-    <select id="selectIngredientsByPreference" resultType="com.group42.model.vo.IngredientVO">
-        SELECT i.ingredient_id,
-               ingredient_name,
-               description,
-               calories,
-               fat,
-               carbohydrate,
-               protein,
-               sodium
-        FROM ingredient i
-    </select>
-
     <select id="selectRecommendByPreference" resultType="com.group42.model.entity.Ingredient">
-        select ingredient_id,
-               type_id,
+        select i3.ingredient_id,
+               i3.type_id,
                ingredient_name,
                description,
                calories,
-               fat,
-               carbohydrate,
-               protein,
-               sodium
+               if(i3.fat is null, 0, i3.fat)                   as 'fat',
+               if(i3.carbohydrate is null, 0, i3.carbohydrate) as 'carbohydrate',
+               if(i3.sodium is null, 0, i3.sodium)             as 'sodium',
+               if(i3.protein is null, 0, i3.protein)           as 'protein'
         from ingredient i3
-                 inner join (select ANY_VALUE(i1.ingredient_id) as id
-                             from ingredient i2
-                                      join (select DISTINCT ingredient_id, type_id
-                                            from ingredient
-                                            where ingredient_id not in
-                                                  (select ingredient_id
-                                                   from eating_preference
-                                                   where user_id = #{userId}
-                                                     and is_like is false)
-                                            order by rand()) i1
-                                           on i1.type_id = i2.type_id
-                             group by i2.type_id) tmp on i3.ingredient_id = tmp.id
+                 inner join (select tmp.ingredient_id,
+                                    tmp.type_id,
+                                    rank() over (partition by tmp.type_id order by level desc ) as max_level
+                             from (select i1.ingredient_id,
+                                          type_id,
+                                          (rand() * if(ep.is_like is null, 1, if(ep.is_like, 1.2, 0.8))) as level
+                                   from ingredient i1
+                                            left join (select ingredient_id,
+                                                              is_like,
+                                                              is_allergen
+                                                       from eating_preference
+                                                       where user_id = #{userId}) ep
+                                                      on i1.ingredient_id = ep.ingredient_id
+                                   where is_allergen is null
+                                      or false) tmp) tmp2
+                            on i3.ingredient_id = tmp2.ingredient_id
+        where tmp2.max_level = 1
     </select>
 </mapper>

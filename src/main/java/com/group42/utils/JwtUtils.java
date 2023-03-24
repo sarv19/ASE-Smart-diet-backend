@@ -10,7 +10,7 @@ import java.util.Optional;
  * @since 2023/2/24
  */
 public class JwtUtils {
-    public static String getUserUidFromRequest(HttpServletRequest request) {
+    public static String getUserUid(HttpServletRequest request) {
         String userUid = Optional.ofNullable(request.getHeader("authorization")).orElse(StringUtils.EMPTY);
         return userUid.replace("Bearer ", "").trim();
     }

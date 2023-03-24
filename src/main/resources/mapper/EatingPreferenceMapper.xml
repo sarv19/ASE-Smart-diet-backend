@@ -2,4 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.group42.dao.EatingPreferenceMapper">
 
+    <select id="selectByUserId" resultType="com.group42.model.entity.EatingPreference">
+        select ep.preference_id,
+               ep.ingredient_id,
+               i.ingredient_name,
+               is_like,
+               is_allergen
+        from eating_preference ep
+                 join ingredient i on ep.ingredient_id = i.ingredient_id
+        where user_id = #{userId}
+    </select>
 </mapper>

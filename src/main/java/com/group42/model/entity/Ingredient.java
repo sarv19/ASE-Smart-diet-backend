@@ -1,6 +1,7 @@
 package com.group42.model.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -10,7 +11,7 @@ import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author Guofeng Lin
@@ -28,6 +29,9 @@ public class Ingredient extends BaseEntity {
      */
     @TableId(type = IdType.ASSIGN_ID)
     private Long ingredientId;
+
+    @TableField(exist = false)
+    private Long preferenceId;
 
     private Long typeId;
 

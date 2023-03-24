@@ -62,7 +62,7 @@ drop table if exists ingredient;
 create table ingredient
 (
     ingredient_id   BIGINT primary key comment 'ingredient Id',
-    type_id         BIGINT not null comment 'type_id',
+    type_id         BIGINT       not null comment 'type_id',
     ingredient_name varchar(50)  not null,
     description     varchar(100) not null comment 'english name/precise information about the ingredient',
     calories        int          not null comment 'calories/100g',
@@ -110,10 +110,9 @@ create table eating_preference
 (
     preference_id BIGINT primary key comment 'preference id',
     user_id       BIGINT       not null comment 'user id',
-    user_uid      BIGINT       not null comment 'user uid',
+    user_uid      char(50)     not null comment 'user unique id from Google, Facebook, etc.',
     ingredient_id BIGINT comment 'ingredient id',
     type_id       BIGINT comment 'type id',
-#     seasoner_id   BIGINT comment 'seasoner id',
     is_like       boolean comment 'true for like, false for dislike',
     is_allergen   boolean comment 'true for allergy, false for not',
     description   varchar(100) null comment 'reason why like or not',

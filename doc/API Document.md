@@ -2,16 +2,21 @@
 
 This is the API document for smartDiet system.
 
-@since: 2023-03-17
+@since: 2023-03-24
 
-@version: v0.4.1
+@version: v0.5.0
 
-## changes
+## releases
 
+- [0.5.0] fix bugs about the summary function
+  - add functions about food performance
+  
+  - the diet recommendation algorithm is updated to use data about food performance, it will never (0), less (0.8) or more (1.2) to recommend a food basing on the users' food performance settings.
+  
 - [0.4.1] fix bugs about the summary function
-    
+
 - [0.4.0] add functions about the summary
-    
+
 - [0.3.0] add functions about the personal settings
     - fix a bug that causes fail authorization.
     - fix a bug that stops generating meal.

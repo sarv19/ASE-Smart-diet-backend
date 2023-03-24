@@ -44,7 +44,7 @@ public class MealController extends BaseController {
     @PostMapping("/queryAMeal")
     public R queryAMeal(@RequestBody @Validated({Query.class}) MealTO to, HttpServletRequest request) {
         Long mealId = to.getMealId();
-        String userUid = JwtUtils.getUserUidFromRequest(request);
+        String userUid = JwtUtils.getUserUid(request);
         Meal todayMeal = mealService.getTodayMeal(userUid, to.getMealType());
 
         Map<String, Object> response = new HashMap<>();
@@ -76,7 +76,7 @@ public class MealController extends BaseController {
         to.setPageNum(1); // only query the first page
         startPage(to);
         return R.ok(PageUtils.pageInfoMap(
-                mealDetailService.getSubstitutions(JwtUtils.getUserUidFromRequest(request), to.getMealId(), to.getIngredientId())
+                mealDetailService.getSubstitutions(JwtUtils.getUserUid(request), to.getMealId(), to.getIngredientId())
         ));
     }
 
@@ -100,13 +100,13 @@ public class MealController extends BaseController {
     @PostMapping("/mealHistory")
     @Transactional(rollbackFor = Exception.class)
     public R mealHistory(@RequestBody MealTO to, HttpServletRequest request) {
-        String uid = JwtUtils.getUserUidFromRequest(request);
+        String uid = JwtUtils.getUserUid(request);
         startPage(to);
         return R.ok(PageUtils.page(mealService.queryMealHistory(uid)));
     }
 
     @PostMapping("/clearHistory")
     public R clearHistory(@RequestBody MealTO to, HttpServletRequest request) {
-        return R.ok(mealService.clearAllMeal(JwtUtils.getUserUidFromRequest(request)));
+        return R.ok(mealService.clearAllMeal(JwtUtils.getUserUid(request)));
     }
 }

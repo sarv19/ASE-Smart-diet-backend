@@ -1,6 +1,7 @@
 package com.group42.model.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -9,7 +10,6 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 /**
- *
  * @author Guofeng Lin
  * @since 2023-02-27
  */
@@ -27,6 +27,9 @@ public class EatingPreference extends BaseEntity {
     @TableId(type = IdType.ASSIGN_ID)
     private Long preferenceId;
 
+    @TableField(exist = false)
+    private String ingredientName;
+
     /**
      * user id
      */
@@ -35,17 +38,12 @@ public class EatingPreference extends BaseEntity {
     /**
      * user uid
      */
-    private Long userUid;
+    private String userUid;
 
     /**
      * ingredient id
      */
     private Long ingredientId;
-
-    /**
-     * seasoner id
-     */
-    private Long seasonerId;
 
     /**
      * true for like, false for dislike

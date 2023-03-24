@@ -34,7 +34,7 @@ public class SummaryController extends BaseController {
 
     @PostMapping("/summarizeToday")
     public R summarizeToday(@RequestBody SummaryTO to, HttpServletRequest request) {
-        String userUid = JwtUtils.getUserUidFromRequest(request);
+        String userUid = JwtUtils.getUserUid(request);
         List<SummaryVO> data = mealService.summaryToday(userUid);
         Map<String, Object> result = CollectionUtils.newHashMap(2);
         result.put("summary", data);

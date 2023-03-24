@@ -2,15 +2,18 @@ package com.group42.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.group42.model.bean.R;
+import com.group42.model.entity.EatingPreference;
 import com.group42.model.entity.User;
 import com.group42.model.entity.UserTarget;
 import com.group42.model.to.EatingPerformanceTO;
+import com.group42.model.to.FoodPerformanceTO;
 import com.group42.model.to.UserSettingTO;
 import com.group42.model.valid.Delete;
 import com.group42.model.valid.Insert;
 import com.group42.model.valid.Query;
 import com.group42.model.valid.Update;
 import com.group42.model.vo.UserVO;
+import com.group42.service.IEatingPreferenceService;
 import com.group42.service.IUserService;
 import com.group42.service.IUserTargetService;
 import com.group42.utils.*;
@@ -33,10 +36,12 @@ public class SettingsController extends BaseController {
 
     private final IUserService userService;
     private final IUserTargetService userTargetService;
+    private final IEatingPreferenceService eatingPreferenceService;
 
-    public SettingsController(IUserService userService, IUserTargetService userTargetService) {
+    public SettingsController(IUserService userService, IUserTargetService userTargetService, IEatingPreferenceService eatingPreferenceService) {
         this.userService = userService;
         this.userTargetService = userTargetService;
+        this.eatingPreferenceService = eatingPreferenceService;
     }
 
     @PostMapping("/queryDietPreference")
@@ -44,7 +49,7 @@ public class SettingsController extends BaseController {
         startPage(to);
         return R.ok(new PageInfo<>(
                         userTargetService.lambdaQuery()
-                                .eq(UserTarget::getUserUid, JwtUtils.getUserUidFromRequest(request))
+                                .eq(UserTarget::getUserUid, JwtUtils.getUserUid(request))
                                 .orderByDesc(UserTarget::getIsActive)
                                 .list()
                 )
@@ -54,7 +59,7 @@ public class SettingsController extends BaseController {
     @PostMapping("/addDietPreference")
     public R addDietPreference(@RequestBody @Validated(Insert.class) EatingPerformanceTO to, HttpServletRequest request) {
         UserTarget userTarget = initParam(to, UserTarget.class, UserTarget::getTargetId);
-        String userUid = JwtUtils.getUserUidFromRequest(request);
+        String userUid = JwtUtils.getUserUid(request);
         userTarget.setUserUid(userUid).setUserId(userService.findUserByUid(userUid).getUserId());
         userTarget = userTargetService.saveTarget(userTarget);
         if (ObjectUtils.isNotEmpty(userTarget))
@@ -65,7 +70,7 @@ public class SettingsController extends BaseController {
     @PostMapping("/editDietPreference")
     public R editDietPreference(@RequestBody @Validated(Update.class) EatingPerformanceTO to, HttpServletRequest request) {
         UserTarget userTarget = initParam(to, UserTarget.class, UserTarget::getTargetId);
-        String userUid = JwtUtils.getUserUidFromRequest(request);
+        String userUid = JwtUtils.getUserUid(request);
         userTarget.setUserUid(userUid).setUserId(userService.findUserByUid(userUid).getUserId());
         userTarget = userTargetService.updateTarget(userTarget.setTargetId(to.getTargetId()));
         if (ObjectUtils.isNotEmpty(userTarget))
@@ -88,7 +93,7 @@ public class SettingsController extends BaseController {
     @PostMapping("/querySettings")
     public R querySettings(@RequestBody UserSettingTO to, HttpServletRequest request) {
         UserVO vo = new UserVO();
-        PojoUtils.copyProperties(userService.findUserByUid(JwtUtils.getUserUidFromRequest(request)), vo);
+        PojoUtils.copyProperties(userService.findUserByUid(JwtUtils.getUserUid(request)), vo);
         return R.ok(vo);
     }
 
@@ -104,7 +109,7 @@ public class SettingsController extends BaseController {
         } else if (CollectionUtils.isAllEmpty(to.getAddress(), to.getEmailAddress(), to.getGender(), to.getPhoneNumber(), to.getFullName())) {
             return R.ok();
         }
-        String userUid = JwtUtils.getUserUidFromRequest(request);
+        String userUid = JwtUtils.getUserUid(request);
         User user = initParam(to, User.class).setUserId(userService.findUserByUid(userUid).getUserId());
         user = userService.updatePersonalSetting(userUid, user);
         if (ObjectUtils.isNotEmpty(user))
@@ -113,19 +118,19 @@ public class SettingsController extends BaseController {
     }
 
     @PostMapping("/queryFoodPerformance")
-    public R queryFoodPerformance(){
-        return R.ok();
+    public R queryFoodPerformance(@RequestBody FoodPerformanceTO to, HttpServletRequest request) {
+        return R.ok(eatingPreferenceService.queryFoodPerformance(userService.findUserByUid(JwtUtils.getUserUid(request)).getUserId()));
     }
-    @PostMapping("/editFoodPerformance")
-    public R editFoodPerformance(){
-        return R.ok();
-    }
-    @PostMapping("/deleteFoodPerformance")
-    public R deleteFoodPerformance(){
-        return R.ok();
-    }
+
     @PostMapping("/addFoodPerformance")
-    public R addFoodPerformance(){
-        return R.ok();
+    public R addFoodPerformance(@RequestBody @Validated(Insert.class) FoodPerformanceTO to, HttpServletRequest request) {
+        return R.ok(eatingPreferenceService.addFoodPerformance(to, userService.findUserByUid(JwtUtils.getUserUid(request))));
+    }
+
+    @PostMapping("/deleteFoodPerformance")
+    public R deleteFoodPerformance(@RequestBody @Validated(Delete.class) FoodPerformanceTO to, HttpServletRequest request) {
+        return R.ok(eatingPreferenceService.lambdaUpdate()
+                .eq(EatingPreference::getPreferenceId, to.getPreferenceId())
+                .eq(EatingPreference::getUserUid, JwtUtils.getUserUid(request)).remove());
     }
 }
