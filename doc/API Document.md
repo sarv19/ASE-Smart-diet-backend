@@ -419,7 +419,171 @@ API will return `userUid`
 
 ## Ingredient
 
+### ingredientList
 
+| Name           | value                                      |
+|----------------|--------------------------------------------|
+| Route          | /ingredient/ingredientList                 |
+| Pre-condition  | 1. User already login                      |
+| Post-condition |                                            |
+| Description    | Return list of ingredient. Attention paging |
+
+#### request
+
+```json
+{
+  
+}
+```
+
+#### ok
+
+```json
+{
+    "msg": "success",
+    "code": 200,
+    "data": {
+        "total": 43,
+        "list": [
+            {
+                "createdAt": "2023-03-24 17:01:44",
+                "updatedAt": "2023-03-24 17:01:44",
+                "ingredientId": 2023031414301000,
+                "typeId": 1,
+                "ingredientName": "chicken breast",
+                "description": "chicken breast",
+                "calories": 136,
+                "fat": 30,
+                "protein": 254
+            },
+            {
+                "createdAt": "2023-03-24 17:01:44",
+                "updatedAt": "2023-03-24 17:01:44",
+                "ingredientId": 2023031414301001,
+                "typeId": 1,
+                "ingredientName": "chicken thigh",
+                "description": "chicken thigh",
+                "calories": 250,
+                "fat": 188,
+                "carbohydrate": 3,
+                "protein": 187
+            },
+            {
+                "createdAt": "2023-03-24 17:01:44",
+                "updatedAt": "2023-03-24 17:01:44",
+                "ingredientId": 2023031414301002,
+                "typeId": 1,
+                "ingredientName": "shrimp",
+                "description": "shrimp",
+                "calories": 80,
+                "fat": 10,
+                "carbohydrate": 10,
+                "protein": 150
+            },
+            {
+                "createdAt": "2023-03-24 17:01:44",
+                "updatedAt": "2023-03-24 17:01:44",
+                "ingredientId": 2023031414301003,
+                "typeId": 1,
+                "ingredientName": "bacon strip",
+                "description": "bacon strip",
+                "calories": 640,
+                "fat": 560,
+                "protein": 400
+            },
+            {
+                "createdAt": "2023-03-24 17:01:44",
+                "updatedAt": "2023-03-24 17:01:44",
+                "ingredientId": 2023031414301004,
+                "typeId": 1,
+                "ingredientName": "tilapia fillet",
+                "description": "tilapia fillet",
+                "calories": 90,
+                "fat": 15,
+                "protein": 190
+            },
+            {
+                "createdAt": "2023-03-24 17:01:44",
+                "updatedAt": "2023-03-24 17:01:44",
+                "ingredientId": 2023031414301005,
+                "typeId": 1,
+                "ingredientName": "beef shank",
+                "description": "beef shank",
+                "calories": 228,
+                "fat": 72,
+                "protein": 380
+            },
+            {
+                "createdAt": "2023-03-24 17:01:44",
+                "updatedAt": "2023-03-24 17:01:44",
+                "ingredientId": 2023031414301006,
+                "typeId": 1,
+                "ingredientName": "beef rib",
+                "description": "beef rib",
+                "calories": 383,
+                "fat": 309,
+                "protein": 244
+            },
+            {
+                "createdAt": "2023-03-24 17:01:44",
+                "updatedAt": "2023-03-24 17:01:44",
+                "ingredientId": 2023031414301007,
+                "typeId": 1,
+                "ingredientName": "pork loin",
+                "description": "pork loin",
+                "calories": 120,
+                "fat": 40,
+                "carbohydrate": 10,
+                "protein": 230
+            },
+            {
+                "createdAt": "2023-03-24 17:01:44",
+                "updatedAt": "2023-03-24 17:01:44",
+                "ingredientId": 2023031414301008,
+                "typeId": 1,
+                "ingredientName": "egg",
+                "description": "egg",
+                "calories": 140,
+                "fat": 100,
+                "protein": 120
+            },
+            {
+                "createdAt": "2023-03-24 17:01:44",
+                "updatedAt": "2023-03-24 17:01:44",
+                "ingredientId": 2023031414301009,
+                "typeId": 1,
+                "ingredientName": "ground beef",
+                "description": "ground beef",
+                "calories": 200,
+                "fat": 120,
+                "protein": 230
+            }
+        ],
+        "pageNum": 1,
+        "pageSize": 10,
+        "size": 10,
+        "startRow": 1,
+        "endRow": 10,
+        "pages": 5,
+        "prePage": 0,
+        "nextPage": 2,
+        "isFirstPage": true,
+        "isLastPage": false,
+        "hasPreviousPage": false,
+        "hasNextPage": true,
+        "navigatePages": 8,
+        "navigatepageNums": [
+            1,
+            2,
+            3,
+            4,
+            5
+        ],
+        "navigateFirstPage": 1,
+        "navigateLastPage": 5
+    }
+}
+```
 
 ## Meal(recommendation, Main feature)
 
@@ -733,8 +897,8 @@ API will return a list of food, such as rice/pasta for grains, dog/beef for meet
 ### summarizeToday
 
 | Name           | value                                                |
-| -------------- | ---------------------------------------------------- |
-| Route          | /summary/summarizeToday                              |
+| -------------- |------------------------------------------------------|
+| Route          | /summary/summarizeADay                               |
 | Pre-condition  | 1. User already login                                |
 | Post-condition |                                                      |
 | Description    | Return the list of substitutions that user selected. |
@@ -742,7 +906,9 @@ API will return a list of food, such as rice/pasta for grains, dog/beef for meet
 #### request
 
 ```json
-{}
+{
+  
+}
 ```
 
 #### ok
@@ -751,80 +917,19 @@ API will return a list of food, such as rice/pasta for grains, dog/beef for meet
 {
   "msg": "success",
   "code": 200,
-  "data": [
-    {
-      "mealId": 2023031700370002,
-      "meal": {
-        "mealId": 2023031700370002,
-        "mealType": "dinner",
-        "mealDate": "2023-03-17T00:37:10",
-        "totalWeight": 408,
-        "totalCalories": 800,
-        "totalProtein": 600,
-        "totalFat": 1260,
-        "totalCarbohydrate": 1900,
-        "totalSodium": 0
-      },
-      "ingredients": [
-        {
-          "ingredientId": 2023031414301003,
-          "mealId": 2023031700370002,
-          "weight": 22,
-          "calories": 144,
-          "fat": 560,
-          "carbohydrate": 0,
-          "protein": 400,
-          "sodium": 0
-        },
-        {
-          "ingredientId": 2023031414401003,
-          "mealId": 2023031700370002,
-          "weight": 182,
-          "calories": 256,
-          "fat": 700,
-          "carbohydrate": 1900,
-          "protein": 200,
-          "sodium": 0
-        }
-      ]
-    },
-    {
-      "mealId": 2023031700404502,
-      "meal": {
-        "mealId": 2023031700404502,
-        "mealType": "lunch",
-        "mealDate": "2023-03-17T00:40:54",
-        "totalWeight": 408,
-        "totalCalories": 800,
-        "totalProtein": 600,
-        "totalFat": 1260,
-        "totalCarbohydrate": 1900,
-        "totalSodium": 0
-      },
-      "ingredients": [
-        {
-          "ingredientId": 2023031414301003,
-          "mealId": 2023031700404502,
-          "weight": 22,
-          "calories": 144,
-          "fat": 560,
-          "carbohydrate": 0,
-          "protein": 400,
-          "sodium": 0
-        },
-        {
-          "ingredientId": 2023031414401003,
-          "mealId": 2023031700404502,
-          "weight": 182,
-          "calories": 256,
-          "fat": 700,
-          "carbohydrate": 1900,
-          "protein": 200,
-          "sodium": 0
-        }
-      ]
+  "data": {
+    "summary": [],
+    "userTarget": {
+      "createdAt": "2023-03-14 15:43:36",
+      "updatedAt": "2023-03-14 15:43:36",
+      "targetId": 2023031420433601,
+      "userId": 2023031420433602,
+      "userUid": "test123",
+      "isActive": true,
+      "targetCaloriesMin": 1800,
+      "targetCaloriesMax": 2000
     }
-  ]
+  }
 }
 ```
 
