@@ -49,7 +49,7 @@
         from meal m
         where user_uid = #{userUid}
           and meal_date is not null
-          and datediff(now(), created_at) <![CDATA[<=]]> #{day}
+          and datediff(now(), created_at) <![CDATA[=]]> #{day}
     </select>
     <select id="getCurrentMealId" resultType="long">
         select meal_id

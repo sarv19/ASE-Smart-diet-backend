@@ -2,11 +2,13 @@
 
 This is the API document for smartDiet system.
 
-@since: 2023-03-24
+@since: 2023-03-26
 
-@version: v0.5.0
+@version: v0.5.1
 
 ## releases
+
+- [0.5.1] support summarize by date, and add the function that queries list of ingredients.
 
 - [0.5.0] fix bugs about the summary function
   - add functions about food performance
@@ -362,12 +364,12 @@ API will return `userUid`
 
 ### addFoodPerformance
 
-| Name           | value                                                                                    |
-|----------------|------------------------------------------------------------------------------------------|
-| Route          | /settings/addFoodPerformance                                                             |
-| Pre-condition  | 1. User already login                                                                    |
-| Post-condition | 1.                                                                                       |
-| Description    | add the food performance of one user,"recommendLevel": -1 = allergy 0 = dislike 1 = like |
+| Name           | value                                                        |
+| -------------- | ------------------------------------------------------------ |
+| Route          | /settings/addFoodPerformance                                 |
+| Pre-condition  | 1. User already login                                        |
+| Post-condition | 1.                                                           |
+| Description    | add the food performance of one user, "recommendLevel": -1 = allergy; 0 = dislike; 1 = like |
 
 #### request
 
@@ -414,6 +416,10 @@ API will return `userUid`
     "data": false
 }
 ```
+
+## Ingredient
+
+
 
 ## Meal(recommendation, Main feature)
 

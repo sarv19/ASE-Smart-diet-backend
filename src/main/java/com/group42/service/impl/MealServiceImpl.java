@@ -102,8 +102,8 @@ public class MealServiceImpl extends ServiceImpl<MealMapper, Meal> implements IM
     }
 
     @Override
-    public List<SummaryVO> summaryToday(String userUid) {
-        List<SummaryMealVO> summaryMealVOS = this.getBaseMapper().selectSummaryMeal(userUid, 0);
+    public List<SummaryVO> summaryToday(String userUid, int dayBefore) {
+        List<SummaryMealVO> summaryMealVOS = this.getBaseMapper().selectSummaryMeal(userUid, dayBefore);
         Map<Long, SummaryVO> summaryResultMap = CollectionUtils.newHashMap(summaryMealVOS.size());
         Map<Long, SummaryMealVO> summaryMealVOMap = summaryMealVOS.stream()
                 .collect(Collectors.toMap(SummaryMealVO::getMealId, Function.identity()));

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * @author Guofeng Lin
@@ -32,20 +33,18 @@ public class SummaryController extends BaseController {
         this.userTargetService = userTargetService;
     }
 
-    @PostMapping("/summarizeToday")
-    public R summarizeToday(@RequestBody SummaryTO to, HttpServletRequest request) {
+    @PostMapping("/summarizeADay")
+    public R summarizeADay(@RequestBody SummaryTO to, HttpServletRequest request) {
         String userUid = JwtUtils.getUserUid(request);
-        List<SummaryVO> data = mealService.summaryToday(userUid);
+        int dayBefore = Optional.ofNullable(to.getDayBefore()).orElse(0);
+        if (dayBefore >0) {
+            dayBefore = -dayBefore;
+        }
+        List<SummaryVO> data = mealService.summaryToday(userUid, dayBefore);
         Map<String, Object> result = CollectionUtils.newHashMap(2);
         result.put("summary", data);
         result.put("userTarget", userTargetService.findActiveTargetByUid(userUid));
         return R.ok(result);
     }
-
-//    @PostMapping("/summarizeAMeal")
-//    public R summarizeAMeal(@RequestBody @Validated(Query.class) SummaryTO to, HttpServletRequest request) {
-//        Long mealId = to.getMealId();
-//        return R.ok();
-//    }
 
 }

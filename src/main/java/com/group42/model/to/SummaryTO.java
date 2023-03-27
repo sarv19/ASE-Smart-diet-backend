@@ -17,4 +17,6 @@ import javax.validation.constraints.NotNull;
 public class SummaryTO extends BaseTO{
     @NotNull(groups = Query.class)
     Long mealId;
+
+    Integer dayBefore;
 }
