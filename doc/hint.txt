@@ -1,6 +1,9 @@
 
 go to the project folder and run the following command:
-git pull && mvn clean install -Dmaven.test.skip=true && nohup java -jar /root/.m2/repository/com/group42/smartDiet/0.2.0/smartDiet-0.2.0.jar --spring.profiles.active=prd > sd.log 2>&1 &
+git pull && mvn clean install -Dmaven.test.skip=true && nohup java -jar /root/.m2/repository/com/group42/smartDiet/0.5.2/smartDiet-0.5.2.jar --spring.profiles.active=prd > sd.log 2>&1 &
+
+change to root account
+sudo su
 
 see the log:
 tail -f sd.log
