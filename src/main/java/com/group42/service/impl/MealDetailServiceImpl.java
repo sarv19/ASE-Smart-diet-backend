@@ -55,9 +55,9 @@ public class MealDetailServiceImpl extends ServiceImpl<MealDetailMapper, MealDet
     }
 
     @Override
-    public List<SummaryDetailVO> selectSummaryDetail(List<Long> mealIds, String userUid) {
+    public List<SummaryDetailVO> selectSummaryDetail(List<Long> mealIds, String userUid, int dayBefore) {
         if (CollectionUtils.isEmpty(mealIds)) return Collections.emptyList();
-        return this.getBaseMapper().selectSummaryDetail(mealIds, 0);
+        return this.getBaseMapper().selectSummaryDetail(mealIds, dayBefore);
     }
 
     private List<SuggestMealDetail> calcMealDetail(List<SuggestMealDetail> suggestMealDetails) {

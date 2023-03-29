@@ -37,7 +37,7 @@ public class SummaryController extends BaseController {
     public R summarizeADay(@RequestBody SummaryTO to, HttpServletRequest request) {
         String userUid = JwtUtils.getUserUid(request);
         int dayBefore = Optional.ofNullable(to.getDayBefore()).orElse(0);
-        if (dayBefore >0) {
+        if (dayBefore < 0) {
             dayBefore = -dayBefore;
         }
         List<SummaryVO> data = mealService.summaryToday(userUid, dayBefore);

@@ -21,6 +21,6 @@ public interface IMealDetailService extends IService<MealDetail> {
     List<SuggestMealDetail> getMealDetailByMealId(Long mealId);
     List<SuggestMealDetail> getSubstitutions(String userUid, Long mealId, Long ingredientId);
     boolean confirmMealDetail(Meal meal, List<SuggestMealDetail> ingredients);
-    List<SummaryDetailVO> selectSummaryDetail(@Param("mealIds") List<Long> mealIds, String userUid);
+    List<SummaryDetailVO> selectSummaryDetail(@Param("mealIds") List<Long> mealIds, String userUid, int dayBefore);
 
 }

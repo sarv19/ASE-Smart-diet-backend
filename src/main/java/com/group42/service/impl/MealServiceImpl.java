@@ -109,7 +109,8 @@ public class MealServiceImpl extends ServiceImpl<MealMapper, Meal> implements IM
                 .collect(Collectors.toMap(SummaryMealVO::getMealId, Function.identity()));
         List<SummaryDetailVO> summaryDetailVOS = mealDetailService.selectSummaryDetail(
                 summaryMealVOS.stream().map(SummaryMealVO::getMealId).collect(Collectors.toList()),
-                userUid
+                userUid,
+                dayBefore
         );
         for (SummaryDetailVO summaryDetailVO : summaryDetailVOS) {
             // need to add data into summary which mealId is #{mealId}

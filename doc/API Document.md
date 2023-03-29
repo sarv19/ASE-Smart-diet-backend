@@ -2,11 +2,13 @@
 
 This is the API document for smartDiet system.
 
-@since: 2023-03-26
+@since: 2023-03-29
 
-@version: v0.5.1
+@version: v0.5.2
 
 ## releases
+
+- [0.5.2] fix a bug that stop query the history summary of meal.
 
 - [0.5.1] support summarize by date, and add the function that queries list of ingredients.
 
